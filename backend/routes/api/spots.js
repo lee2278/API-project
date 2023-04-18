@@ -42,4 +42,27 @@ router.get('/', async (req, res) => {
 })
 
 
+router.get('/:spotId', async (req, res) => {
+
+    const idParam = req.params.spotId;
+
+    const spot = await Spot.findByPk(idParam);
+    let spotJson = spot.toJSON()
+
+    const spotImages = await spot.getSpotImages(
+        {attributes: {
+            exclude: ['createdAt', 'updatedAt']
+        }}
+    );
+  
+    const owner = await spot.getUser();
+
+    spotJson.spotImages = spotImages;
+    spotJson.owner = owner;
+
+    return res.json(spotJson)
+
+})
+
+
 module.exports = router;
