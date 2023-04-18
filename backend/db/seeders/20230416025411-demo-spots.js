@@ -26,7 +26,38 @@ module.exports = {
         price: 123,
         createdAt: "2021-11-19 20:39:36",
         updatedAt: "2021-11-19 20:39:36"
-      }
+      },
+      {
+        id: 2,
+        ownerId: 1,
+        address: "321 Summer Lane",
+        city: "Phoenix",
+        state: "Arizona",
+        country: "United States of America",
+        lat: 33.448376,
+        lng: -112.074036,
+        name: "House Number Two",
+        description: "A place to relax",
+        price: 200,
+        createdAt: "2022-11-01 20:39:36",
+        updatedAt: "2022-11-01 20:39:36"
+      },
+      {
+        id: 3,
+        ownerId: 1,
+        address: "456 Rainy Lane",
+        city: "Seattle",
+        state: "Washington",
+        country: "United States of America",
+        lat:  47.608013,
+        lng: -122.335167,
+        name: "House Number Three",
+        description: "A condo by downtown",
+        price: 350,
+        createdAt: "2022-12-01 20:39:36",
+        updatedAt: "2022-12-01 20:39:36"
+      },
+
     ]
     )
   },

@@ -1,55 +1,49 @@
 const express = require('express');
 const router = express.Router();
 const { Spot, Review, spotImage } = require('../../db/models');
-const { Model } = require('sequelize');
-
 
 
 router.get('/', async (req, res) => {
 
+    // const allSpots = await Spot.findAll({
+    //     include: [{ model: Review }]
+    // });
 
-    // const totalReviews = await Review.count();
-    // const totalStars = await Review.sum('stars');
+    // let listOfSpots = [];
 
-
-    // const avgRating = totalStars/totalReviews;
-
-    // const spots = await Spot.findAll()
-
-    // console.log(spots)
-
-    // spots.forEach(spot => spot.dataValues.avgRating = avgRating)
-    // return res.json(spots);
-
-
+    // allSpots.forEach(spot => listOfSpots.push(spot.toJSON()))
 
     
-    // let where = {}
-    // const allSpots = await Spot.findAll({
-    //     where,
-    //     include: [{ model: Review }, { model: spotImage }]
-    // }
-    // );
+
+    // listOfSpots.forEach(spot => {
+    //     let totalReviews;
+    //     let totalStars;
+    //     console.log(Object.values(spot.Reviews).length >= 0)
+    //     if (Object.values(spot.Reviews).length >= 0) {
+    //         spot.Reviews.forEach(spot => )
+    //     }
+
+    //     // if (Object.values(spot.Reviews)) 
+    //     // spot.Reviews.forEach(review => {
+    //     //     // if (totalReviews === 0 || totalReviews === null) {
+    //     //     //     totalReviews = 1;
+    //     //     // } else {
+    //     //     //     totalReviews += 1;
+    //     //     // }
+          
+    //     //     // if (review.stars && totalStars !== null) {
+    //     //     //     totalStars += review.stars
+    //     //     // }
 
 
+    //     // })
+    //     // spot.avgRating = totalStars/totalReviews
+    // })
+
+    // console.log(listOfSpots)
+    // return res.json(listOfSpots)
 
 
-
-    // // const totalReviewsOfSpot = spotReviews.count();
-    // // const totalStarsOfSpot = spotReviews.sum('stars');
-    // // const avgRatingOfSpot = totalStarsOfSpot/totalReviewsOfSpot;
-
-    // // spot.dataValues.avgRating = avgRatingOfSpot;
-
-
-
-
-
-
-
-
-    // console.log(allSpots)
-    // res.json(allSpots)
 })
 
 
