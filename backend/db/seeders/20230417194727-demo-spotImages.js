@@ -12,7 +12,8 @@ module.exports = {
  await queryInterface.bulkInsert(options, [
    {
      spotId: 1,
-     url: 'https://images.unsplash.com/photo-1544984243-ec57ea16fe25?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80'
+     url: 'https://images.unsplash.com/photo-1544984243-ec57ea16fe25?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80',
+     preview: true
    },
   {
     spotId: 2,
@@ -29,11 +30,8 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+  
+    options.tableName = 'SpotImages';
+    await queryInterface.bulkDelete(options.tableName, null, {})
   }
 };
