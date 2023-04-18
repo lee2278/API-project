@@ -12,17 +12,17 @@ module.exports = {
  await queryInterface.bulkInsert(options, [
    {
      spotId: 1,
-     url: 'https://images.unsplash.com/photo-1544984243-ec57ea16fe25?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80',
+     url: 'exampleurl1.com',
      preview: true
    },
   {
     spotId: 2,
-    url: 'https://images.unsplash.com/photo-1591825729269-caeb344f6df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+    url: 'exampleurl2.com',
     preview: true
   },
   {
     spotId: 3,
-    url: 'https://images.unsplash.com/photo-1591825729269-caeb344f6df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&https://images.unsplash.com/photo-1592008432356-8ef189954b5a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80w=1170&q=80',
+    url: 'exampleurl3.com',
     preview: true
   },
 
