@@ -1,51 +1,45 @@
 const express = require('express');
 const router = express.Router();
-const { Spot, Review, spotImage } = require('../../db/models');
+const { Spot } = require('../../db/models');
 
 
 router.get('/', async (req, res) => {
 
-    // const allSpots = await Spot.findAll({
-    //     include: [{ model: Review }]
-    // });
+    const allSpots = await Spot.findAll();
 
-    // let listOfSpots = [];
+    let listOfSpots = [];
 
-    // allSpots.forEach(spot => listOfSpots.push(spot.toJSON()))
-
-    
-
-    // listOfSpots.forEach(spot => {
-    //     let totalReviews;
-    //     let totalStars;
-    //     console.log(Object.values(spot.Reviews).length >= 0)
-    //     if (Object.values(spot.Reviews).length >= 0) {
-    //         spot.Reviews.forEach(spot => )
-    //     }
-
-    //     // if (Object.values(spot.Reviews)) 
-    //     // spot.Reviews.forEach(review => {
-    //     //     // if (totalReviews === 0 || totalReviews === null) {
-    //     //     //     totalReviews = 1;
-    //     //     // } else {
-    //     //     //     totalReviews += 1;
-    //     //     // }
-          
-    //     //     // if (review.stars && totalStars !== null) {
-    //     //     //     totalStars += review.stars
-    //     //     // }
+    for (let i = 0; i < allSpots.length; i++) {
+        let spot = allSpots[i].toJSON();
+        let reviews = await allSpots[i].getReviews();
+        let spotImages = await allSpots[i].getSpotImages();
 
 
-    //     // })
-    //     // spot.avgRating = totalStars/totalReviews
-    // })
+        if (reviews.length) {
+            let totalReviews = reviews.length;
+            let totalStars = 0;
 
-    // console.log(listOfSpots)
-    // return res.json(listOfSpots)
+            reviews.forEach(review => {
+                if (review.stars) {
+                    totalStars += review.stars
+                }
+            })
+            spot.avgRating = totalStars / totalReviews;
+        } else {
+            spot.avgRating = 'Not Available. No reviews yet';
+        }
 
+        
+        if (spotImages.length) {
+            spotImages.forEach(spotImage => {
+                spot.previewImage = spotImage.url
+            })
+        }
+        listOfSpots.push(spot)
+    }
 
+    return res.json(listOfSpots)
 })
-
 
 
 module.exports = router;
