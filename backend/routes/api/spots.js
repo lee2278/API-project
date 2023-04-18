@@ -42,11 +42,14 @@ router.get('/', async (req, res) => {
 })
 
 
-router.get('/:spotId', async (req, res) => {
+router.get('/:spotId', async (req, res, next) => {
 
     const idParam = req.params.spotId;
-    
+
     const spot = await Spot.findByPk(idParam);
+    if (!spot) {
+        next(err)
+    }
     let spotJson = spot.toJSON()
 
     let reviews = await spot.getReviews();
@@ -86,5 +89,14 @@ router.get('/:spotId', async (req, res) => {
 
 })
 
+
+router.use((err, req, res, next) => {
+    res.status(404).send(
+        {
+            message: "Spot couldn't be found"
+        }
+    )
+    
+})
 
 module.exports = router;
