@@ -42,4 +42,61 @@ router.get('/', async (req, res) => {
 })
 
 
+router.get('/:spotId', async (req, res, next) => {
+
+    const idParam = req.params.spotId;
+
+    const spot = await Spot.findByPk(idParam);
+    if (!spot) {
+        next(err)
+    }
+    let spotJson = spot.toJSON()
+
+    let reviews = await spot.getReviews();
+    if (reviews.length) {
+        let totalReviews = reviews.length;
+        let totalStars = 0;
+
+        reviews.forEach(review => {
+            if (review.stars) {
+                totalStars += review.stars
+            }
+        })
+        spotJson.numReviews = totalReviews;
+        spotJson.avgStarRating = totalStars / totalReviews;
+    } else {
+        spotJson.numReviews = 0;
+        spotJson.avgStarRating = 'Not Available. No reviews yet';
+    }
+
+
+    const spotImages = await spot.getSpotImages(
+        {attributes: {
+            exclude: ['createdAt', 'updatedAt', 'spotId']
+        }}
+    );
+  
+    const owner = await spot.getUser({
+        attributes: {
+            exclude: ['username']
+        }
+    });
+
+    spotJson.SpotImages = spotImages;
+    spotJson.Owner = owner;
+
+    return res.json(spotJson)
+
+})
+
+
+router.use((err, req, res, next) => {
+    res.status(404).send(
+        {
+            message: "Spot couldn't be found"
+        }
+    )
+    
+})
+
 module.exports = router;
