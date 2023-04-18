@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   async up (queryInterface, Sequelize) {
   
-    options.tableName = 'reviewImages';
+    options.tableName = 'ReviewImages';
     await queryInterface.bulkInsert(options, [
       {
         reviewId: 1,
@@ -27,13 +27,8 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-    options.tableName = 'reviewImages';
+   
+    options.tableName = 'ReviewImages';
     await queryInterface.bulkDelete(options.tableName, null, {})
   }
 };
