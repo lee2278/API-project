@@ -23,7 +23,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       preview: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
