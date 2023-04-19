@@ -138,7 +138,7 @@ router.get('/:spotId', async (req, res) => {
 
     spotJson.SpotImages = spotImages;
     spotJson.Owner = owner;
-    return res.json(spotJson)
+    return res.status(200).json(spotJson)
 
 })
 
