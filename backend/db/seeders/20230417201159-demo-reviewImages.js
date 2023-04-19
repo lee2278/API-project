@@ -32,3 +32,6 @@ module.exports = {
     await queryInterface.bulkDelete(options.tableName, null, {})
   }
 };
+
+
+
