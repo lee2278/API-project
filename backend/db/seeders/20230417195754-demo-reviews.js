@@ -28,6 +28,18 @@ module.exports = {
       userId: 1,
       review: 'Location was great. Close to tourist attractions.',
       stars: 5
+    },
+    {
+      spotId:2,
+      userId: 3,
+      review: 'Stay was ok.',
+      stars: 3
+    },
+    {
+      spotId:3,
+      userId: 2,
+      review: 'Had a good time. Everything well provided.',
+      stars: 5
     }
    ])
   },

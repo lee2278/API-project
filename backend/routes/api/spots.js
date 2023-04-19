@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
         let spotImages = await allSpots[i].getSpotImages();
 
 
-        if (reviews.length) {
+        if (Object.keys(reviews).length) {
             let totalReviews = reviews.length;
             let totalStars = 0;
 
@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
                     totalStars += review.stars
                 }
             })
-            spot.avgRating = totalStars / totalReviews;
+            spot.avgRating = (totalStars / totalReviews).toFixed(1);
         } else {
             spot.avgRating = 'Not Available. No reviews yet';
         }
@@ -34,18 +34,20 @@ router.get('/', async (req, res) => {
             spotImages.forEach(spotImage => {
                 spot.previewImage = spotImage.url
             })
+        } else {
+            spot.previewImage = 'No image yet'
         }
         listOfSpots.push(spot)
     }
 
-    return res.status(200).json({Spots: listOfSpots})
+    return res.status(200).json({ Spots: listOfSpots })
 })
 
 
 router.get('/current', requireAuth, async (req, res) => {
-    
+
     const allSpots = await Spot.findAll();
-   
+
     let listOfSpots = [];
 
     for (let i = 0; i < allSpots.length; i++) {
@@ -63,7 +65,7 @@ router.get('/current', requireAuth, async (req, res) => {
                     totalStars += review.stars
                 }
             })
-            spot.avgRating = totalStars / totalReviews;
+            spot.avgRating = (totalStars / totalReviews).toFixed(1);
         } else {
             spot.avgRating = 'Not Available. No reviews yet';
         }
@@ -72,12 +74,13 @@ router.get('/current', requireAuth, async (req, res) => {
             spotImages.forEach(spotImage => {
                 spot.previewImage = spotImage.url
             })
+        } else {
+            spot.previewImage = 'No image yet'
         }
 
         if (spot.ownerId === user.id) {
             listOfSpots.push(spot)
-            
-            return res.status(200).json({Spots: listOfSpots})
+            return res.status(200).json({ Spots: listOfSpots })
         }
 
     }
@@ -115,7 +118,7 @@ router.get('/:spotId', async (req, res) => {
             }
         })
         spotJson.numReviews = totalReviews;
-        spotJson.avgStarRating = totalStars / totalReviews;
+        spotJson.avgStarRating = (totalStars / totalReviews).toFixed(1);
     } else {
         spotJson.numReviews = 0;
         spotJson.avgStarRating = 'Not Available. No reviews yet';
@@ -141,6 +144,72 @@ router.get('/:spotId', async (req, res) => {
     return res.status(200).json(spotJson)
 
 })
+
+
+router.post('/', requireAuth, async (req, res) => {
+
+    let currentUserId = req.user.toJSON().id;
+
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+    let errorObj = {};
+    if(!address) errorObj.address ="Street address is required"
+    if(!city) errorObj.city ="City is required"
+    if(!state) errorObj.state ="State is required"
+    if(!country) errorObj.country ="Country is required"
+    if(+lat < -90 || +lat > 90) errorObj.lat ="Latitude is not valid"
+    if(+lng < -180 || +lng > 180) errorObj.lng ="Longitude is not valid"
+    if(name.length >= 50) errorObj.name = "Name must be less than 50 characters"
+    if(!description) errorObj.description ="Description is required"
+    if(!price) errorObj.price ="Price per day is required"
+
+
+    if(Object.keys(errorObj).length) {
+      
+        return res.status(400).json({
+            message: "Bad Request",
+            errors: errorObj
+        })
+    } 
+
+    const newSpot = await Spot.create({
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price,
+        ownerId: currentUserId
+    })
+
+ 
+
+
+    const displayedResult = await Spot.findByPk(newSpot.id, {
+        attributes: {
+            exclude: ['ownerId']
+        }
+    })
+    return res.status(201).json(displayedResult)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
