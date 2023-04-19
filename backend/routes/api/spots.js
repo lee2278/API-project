@@ -76,7 +76,6 @@ router.get('/current', requireAuth, async (req, res) => {
 
         if (spot.ownerId === user.id) {
             listOfSpots.push(spot)
-            
             return res.status(200).json({Spots: listOfSpots})
         }
 
@@ -141,6 +140,49 @@ router.get('/:spotId', async (req, res) => {
     return res.status(200).json(spotJson)
 
 })
+
+
+router.post('/', requireAuth, async (req, res) => {
+
+    let currentUserId = req.user.toJSON().id;
+
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+    const newSpot = await Spot.create({
+        address, 
+        city, 
+        state, 
+        country, 
+        lat, 
+        lng, 
+        name, 
+        description, 
+        price,
+        ownerId: currentUserId
+    })
+   
+    const displayedResult = await Spot.findByPk(newSpot.id, {
+        attributes: {
+            exclude: ['ownerId']
+        }
+    })
+    return res.status(201).json(displayedResult)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
