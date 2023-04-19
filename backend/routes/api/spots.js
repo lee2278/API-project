@@ -150,7 +150,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
     })
 
     let foundSpot;
-    console.log(paramsId)
+    
     userSpots.forEach(userSpot => {
         if (userSpot.toJSON().id === paramsId) {
             foundSpot = userSpot
@@ -195,7 +195,7 @@ router.put('/:spotId', requireAuth, async (req, res) => {
     })
 
     let foundSpot;
-    console.log(paramsId)
+    
     userSpots.forEach(userSpot => {
         if (userSpot.toJSON().id === paramsId) {
             foundSpot = userSpot
@@ -303,6 +303,41 @@ router.get('/:spotId', async (req, res) => {
     return res.status(200).json(spotJson)
 
 })
+
+router.delete('/:spotId', requireAuth, async (req, res) => {
+    
+    let paramsId = parseInt(req.params.spotId)
+    let currentUserId = req.user.toJSON().id;
+    const userSpots = await Spot.findAll({
+        where: {
+            ownerId: currentUserId
+        }
+    })
+
+    let foundSpot;
+    
+    userSpots.forEach(userSpot => {
+        if (userSpot.toJSON().id === paramsId) {
+            foundSpot = userSpot
+        }
+    })
+
+    if (!foundSpot) {
+        return res.status(404).json({
+            message: "Spot couldn't be found"
+        })
+    }
+
+    const spotToDelete = await Spot.findByPk(paramsId)
+
+    await spotToDelete.destroy();
+
+    return res.status(200).json({
+        message: "Successfully deleted"
+    })
+
+})
+
 
 
 
