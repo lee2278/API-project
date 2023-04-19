@@ -29,9 +29,6 @@ module.exports = {
   async down (queryInterface, Sequelize) {
    
     options.tableName = 'ReviewImages';
-    await queryInterface.bulkDelete(options.tableName, null, {})
+    await queryInterface.bulkDelete(options, null, {})
   }
 };
-
-
-
