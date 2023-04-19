@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
                     totalStars += review.stars
                 }
             })
-            spot.avgRating = totalStars / totalReviews;
+            spot.avgRating = (totalStars / totalReviews).toFixed(1);
         } else {
             spot.avgRating = 'Not Available. No reviews yet';
         }
@@ -34,6 +34,8 @@ router.get('/', async (req, res) => {
             spotImages.forEach(spotImage => {
                 spot.previewImage = spotImage.url
             })
+        } else {
+            spot.previewImage = 'No image yet'
         }
         listOfSpots.push(spot)
     }
@@ -63,7 +65,7 @@ router.get('/current', requireAuth, async (req, res) => {
                     totalStars += review.stars
                 }
             })
-            spot.avgRating = totalStars / totalReviews;
+            spot.avgRating = (totalStars / totalReviews).toFixed(1);
         } else {
             spot.avgRating = 'Not Available. No reviews yet';
         }
@@ -72,6 +74,8 @@ router.get('/current', requireAuth, async (req, res) => {
             spotImages.forEach(spotImage => {
                 spot.previewImage = spotImage.url
             })
+        } else {
+            spot.previewImage = 'No image yet'
         }
 
         if (spot.ownerId === user.id) {
@@ -114,7 +118,7 @@ router.get('/:spotId', async (req, res) => {
             }
         })
         spotJson.numReviews = totalReviews;
-        spotJson.avgStarRating = totalStars / totalReviews;
+        spotJson.avgStarRating = (totalStars / totalReviews).toFixed(1);
     } else {
         spotJson.numReviews = 0;
         spotJson.avgStarRating = 'Not Available. No reviews yet';
@@ -162,7 +166,7 @@ router.post('/', requireAuth, async (req, res) => {
 
     if(Object.keys(errorObj).length) {
       
-        res.status(400).json({
+        return res.status(400).json({
             message: "Bad Request",
             errors: errorObj
         })
