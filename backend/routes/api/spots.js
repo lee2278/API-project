@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
         let spotImages = await allSpots[i].getSpotImages();
 
 
-        if (reviews.length) {
+        if (Object.keys(reviews).length) {
             let totalReviews = reviews.length;
             let totalStars = 0;
 
@@ -38,14 +38,14 @@ router.get('/', async (req, res) => {
         listOfSpots.push(spot)
     }
 
-    return res.status(200).json({Spots: listOfSpots})
+    return res.status(200).json({ Spots: listOfSpots })
 })
 
 
 router.get('/current', requireAuth, async (req, res) => {
-    
+
     const allSpots = await Spot.findAll();
-   
+
     let listOfSpots = [];
 
     for (let i = 0; i < allSpots.length; i++) {
@@ -76,7 +76,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
         if (spot.ownerId === user.id) {
             listOfSpots.push(spot)
-            return res.status(200).json({Spots: listOfSpots})
+            return res.status(200).json({ Spots: listOfSpots })
         }
 
     }
@@ -148,19 +148,42 @@ router.post('/', requireAuth, async (req, res) => {
 
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
+    let errorObj = {};
+    if(!address) errorObj.address ="Street address is required"
+    if(!city) errorObj.city ="City is required"
+    if(!state) errorObj.state ="State is required"
+    if(!country) errorObj.country ="Country is required"
+    if(+lat < -90 || +lat > 90) errorObj.lat ="Latitude is not valid"
+    if(+lng < -180 || +lng > 180) errorObj.lng ="Longitude is not valid"
+    if(name.length >= 50) errorObj.name = "Name must be less than 50 characters"
+    if(!description) errorObj.description ="Description is required"
+    if(!price) errorObj.price ="Price per day is required"
+
+
+    if(Object.keys(errorObj).length) {
+      
+        res.status(400).json({
+            message: "Bad Request",
+            errors: errorObj
+        })
+    } 
+
     const newSpot = await Spot.create({
-        address, 
-        city, 
-        state, 
-        country, 
-        lat, 
-        lng, 
-        name, 
-        description, 
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
         price,
         ownerId: currentUserId
     })
-   
+
+ 
+
+
     const displayedResult = await Spot.findByPk(newSpot.id, {
         attributes: {
             exclude: ['ownerId']
