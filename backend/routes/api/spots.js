@@ -38,7 +38,7 @@ router.get('/', async (req, res) => {
         listOfSpots.push(spot)
     }
 
-    return res.json(listOfSpots)
+    return res.status(200).json({Spots: listOfSpots})
 })
 
 
