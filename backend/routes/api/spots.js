@@ -49,10 +49,10 @@ router.get('/current', requireAuth, async (req, res) => {
     const allSpots = await Spot.findAll();
 
     let listOfSpots = [];
+    let user = req.user;
 
     for (let i = 0; i < allSpots.length; i++) {
         let spot = allSpots[i].toJSON();
-        let user = await allSpots[i].getUser();
         let reviews = await allSpots[i].getReviews();
         let spotImages = await allSpots[i].getSpotImages();
 
@@ -80,10 +80,10 @@ router.get('/current', requireAuth, async (req, res) => {
 
         if (spot.ownerId === user.id) {
             listOfSpots.push(spot)
-            return res.status(200).json({ Spots: listOfSpots })
         }
-
+        
     }
+    return res.status(200).json({ Spots: listOfSpots })
 
 })
 
