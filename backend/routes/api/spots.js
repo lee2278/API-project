@@ -32,14 +32,18 @@ router.get('/', async (req, res) => {
 
         if (spotImages.length) {
             spotImages.forEach(spotImage => {
-                spot.previewImage = spotImage.url
+                if (spotImage.preview === true) {
+                    spot.previewImage = spotImage.url
+                } else if (!spot.previewImage) {
+                    spot.previewImage = 'No preview image yet'
+                }
             })
         } else {
-            spot.previewImage = 'No image yet'
+            spot.previewImage = 'No preview image yet'
         }
         listOfSpots.push(spot)
     }
-
+    if (!listOfSpots.length) listOfSpots = 'No spots yet'
     return res.status(200).json({ Spots: listOfSpots })
 })
 
@@ -72,12 +76,13 @@ router.get('/current', requireAuth, async (req, res) => {
 
         if (spotImages.length) {
             spotImages.forEach(spotImage => {
-                if (spotImage.preview && spotImage.preview === true) {
+                if (spotImage.preview === true) {
                     spot.previewImage = spotImage.url
-                } else {
-                    spot.previewImage = 'No preview image yet'
-                }
+                } else if (!spot.previewImage)
+                spot.previewImage = 'No preview image yet'
             })
+        } else {
+            spot.previewImage = 'No preview image yet'
         }
 
         if (spot.ownerId === user.id) {
@@ -85,6 +90,7 @@ router.get('/current', requireAuth, async (req, res) => {
         }
 
     }
+    if (!listOfSpots.length) listOfSpots = 'No spots yet'
     return res.status(200).json({ Spots: listOfSpots })
 
 })
@@ -146,7 +152,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
     let paramsId = parseInt(req.params.spotId)
     const { user } = req
     let particularSpot = await Spot.findByPk(paramsId)
-  
+
 
     if (!particularSpot) {
         return res.status(404).json({
@@ -175,7 +181,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
         }
     })
 
-    
+
     return res.status(200).json(displaySpotImage)
 
 })
@@ -185,17 +191,17 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 router.put('/:spotId', requireAuth, async (req, res) => {
 
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
-    
-    const {user} = req;
+
+    const { user } = req;
 
     let paramsId = parseInt(req.params.spotId)
     let spotToEdit = await Spot.findByPk(paramsId)
-    
+
     if (!spotToEdit) {
         return res.status(404).json({
             message: "Spot couldn't be found"
         })
-    } 
+    }
 
     if (user.id !== spotToEdit.ownerId) {
         return res.status(403).json({
@@ -313,10 +319,10 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
     }
 
     await particularSpot.destroy()
-  
-   return res.status(200).json({
+
+    return res.status(200).json({
         message: "Successfully deleted"
-   })
+    })
 
 })
 
