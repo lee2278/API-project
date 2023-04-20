@@ -330,10 +330,14 @@ router.get('/:spotId/reviews', async (req, res) => {
         review.userId = user.id;
         review.spotId = spot.id;
         review.User = user;
-        review.ReviewImages = reviewImages || 'No review images yet'
+        if (reviewImages.length) {
+            review.ReviewImages = reviewImages 
+        } else {
+            review.ReviewImages = 'No review images yet'
+        }
         listOfReviews.push(review)
     }
-
+    if (!listOfReviews.length) listOfReviews = 'No reviews yet'
     res.json({Reviews: listOfReviews})
 
 })
