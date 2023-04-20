@@ -48,7 +48,7 @@ router.get('/current', requireAuth, async (req, res) => {
         review.Spot = spotJson;
         review.ReviewImages = reviewImages;
         
-        if (!review.ReviewImages.length) review.ReviewImages = 'No review image yet'
+        if (!review.ReviewImages.length) review.ReviewImages = 'No review images yet'
 
         listOfReviews.push(review)
     }
