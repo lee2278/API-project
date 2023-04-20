@@ -43,7 +43,7 @@ router.get('/', async (req, res) => {
         }
         listOfSpots.push(spot)
     }
-
+    if (!listOfSpots.length) listOfSpots = 'No spots yet'
     return res.status(200).json({ Spots: listOfSpots })
 })
 
@@ -90,6 +90,7 @@ router.get('/current', requireAuth, async (req, res) => {
         }
 
     }
+    if (!listOfSpots.length) listOfSpots = 'No spots yet'
     return res.status(200).json({ Spots: listOfSpots })
 
 })
