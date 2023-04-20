@@ -32,7 +32,11 @@ router.get('/', async (req, res) => {
 
         if (spotImages.length) {
             spotImages.forEach(spotImage => {
-                spot.previewImage = spotImage.url
+                if (spotImage.preview === true) {
+                    spot.previewImage = spotImage.url
+                } else {
+                    spot.previewImage = 'No image yet'
+                }
             })
         } else {
             spot.previewImage = 'No image yet'
@@ -72,12 +76,14 @@ router.get('/current', requireAuth, async (req, res) => {
 
         if (spotImages.length) {
             spotImages.forEach(spotImage => {
-                if (spotImage.preview && spotImage.preview === true) {
+                if (spotImage.preview === true) {
                     spot.previewImage = spotImage.url
                 } else {
                     spot.previewImage = 'No preview image yet'
                 }
             })
+        } else {
+            spot.previewImage = 'No preview image yet'
         }
 
         if (spot.ownerId === user.id) {
