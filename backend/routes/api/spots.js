@@ -72,6 +72,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
         if (spotImages.length) {
             spotImages.forEach(spotImage => {
+                if(spotImage.preview === true)
                 spot.previewImage = spotImage.url
             })
         } else {
@@ -142,28 +143,24 @@ router.post('/', requireAuth, async (req, res) => {
 
 router.post('/:spotId/images', requireAuth, async (req, res) => {
     let paramsId = parseInt(req.params.spotId)
-    let currentUserId = req.user.toJSON().id;
-    const userSpots = await Spot.findAll({
-        where: {
-            ownerId: currentUserId
-        }
-    })
+    const { user } = req
+    let particularSpot = await Spot.findByPk(paramsId)
+  
 
-    let foundSpot;
-
-    userSpots.forEach(userSpot => {
-        if (userSpot.toJSON().id === paramsId) {
-            foundSpot = userSpot
-        }
-    })
-
-    if (!foundSpot) {
+    if (!particularSpot) {
         return res.status(404).json({
             message: "Spot couldn't be found"
         })
     }
 
+    if (user.id !== particularSpot.ownerId) {
+        return res.status(403).json({
+            message: "Forbidden"
+        })
+    }
+
     const { url, preview } = req.body;
+
     const newSpotImg = await SpotImage.create({
         url,
         preview,
@@ -176,6 +173,8 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
             exclude: ['spotId', 'createdAt', 'updatedAt']
         }
     })
+
+    
     return res.status(200).json(displaySpotImage)
 
 })
@@ -297,8 +296,8 @@ router.get('/:spotId', async (req, res) => {
 router.delete('/:spotId', requireAuth, async (req, res) => {
 
     const paramsId = parseInt(req.params.spotId)
-    const particularSpot = await Spot.findByPk(paramsId)
     const { user } = req;
+    const particularSpot = await Spot.findByPk(paramsId)
 
     if (!particularSpot) {
         return res.status(404).json({
@@ -314,13 +313,11 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
 
     await particularSpot.destroy()
   
-    res.statusCode(200);
-    return res.json({
+   return res.status(200).json({
         message: "Successfully deleted"
-    })
+   })
 
 })
-
 
 
 module.exports = router;
