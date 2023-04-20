@@ -244,9 +244,9 @@ router.put('/:spotId', requireAuth, async (req, res) => {
 
 router.get('/:spotId', async (req, res) => {
 
-    const idParam = req.params.spotId;
+    const paramsId = parseInt(req.params.spotId);
 
-    const spot = await Spot.findByPk(idParam);
+    const spot = await Spot.findByPk(paramsId);
     if (!spot) {
         res.status(404).send(
             {
@@ -296,47 +296,9 @@ router.get('/:spotId', async (req, res) => {
 
 router.delete('/:spotId', requireAuth, async (req, res) => {
 
-    // let paramsId = parseInt(req.params.spotId)
-    // const {user} = req
-    // let currentUserId = req.user.toJSON().id;
-    // console.log(typeof currentUserId)
-    // // console.log('mine',req.user.toJSON().id)
-    // const userSpots = await Spot.findAll({
-    //     where: {
-    //         ownerId: currentUserId
-    //     }
-    // })
-    // /*
-    // const spotToDelete = await Spot.findByPk()
-
-    // */
-    // let foundSpot;
-
-    // userSpots.forEach(userSpot => {
-    //     if (userSpot.toJSON().id === paramsId) {
-    //         foundSpot = userSpot
-    //     }
-    // })
-
-    // if (!foundSpot) {
-    //     return res.status(404).json({
-    //         message: "Spot couldn't be found"
-    //     })
-    // }
-
-    // const spotToDelete = await Spot.findByPk(paramsId)
-
-    // await spotToDelete.destroy();
-
-    // return res.status(200).json({
-    //     message: "Successfully deleted"
-    // })
-
-    const paramsId = req.params.spotId
+    const paramsId = parseInt(req.params.spotId)
     const particularSpot = await Spot.findByPk(paramsId)
     const { user } = req;
-
-
 
     if (!particularSpot) {
         return res.status(404).json({
@@ -350,19 +312,14 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
         })
     }
 
-
     await particularSpot.destroy()
   
-
     res.statusCode(200);
     return res.json({
         message: "Successfully deleted"
     })
 
 })
-
-
-
 
 
 
