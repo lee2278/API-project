@@ -232,7 +232,7 @@ router.put('/:spotId', requireAuth, async (req, res) => {
     spotToEdit.name = name
     spotToEdit.description = description
     spotToEdit.price = price
-    spotToEdit.ownerId = currentUserId
+    spotToEdit.ownerId = user.id
 
 
     await spotToEdit.save();
