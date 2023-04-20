@@ -251,6 +251,58 @@ router.put('/:spotId', requireAuth, async (req, res) => {
 })
 
 
+router.get('/:spotId/reviews', async (req, res) => {
+    
+    const paramsId = parseInt(req.params.spotId);
+
+    const spot = await Spot.findByPk(paramsId)
+
+    if (!spot) {
+        return res.status(404).json({
+            message: "Spot couldn't be found"
+        })
+    }
+
+    
+    const reviews = await spot.getReviews();
+    
+    let listOfReviews = [];
+   
+    for (let i = 0; i < reviews.length; i++) {
+
+        let review = reviews[i].toJSON();
+
+        let user = await reviews[i].getUser({
+            attributes: ['id', 'firstName', 'lastName']
+        });
+        let reviewImages = await reviews[i].getReviewImages({
+            attributes: ['id', 'url']
+        })
+
+
+        review.userId = user.id;
+        review.spotId = spot.id;
+        review.User = user;
+        review.ReviewImages = reviewImages || 'No review images yet'
+        listOfReviews.push(review)
+    }
+
+    res.json({Reviews: listOfReviews})
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 router.get('/:spotId', async (req, res) => {
 
