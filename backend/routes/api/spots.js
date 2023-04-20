@@ -49,11 +49,15 @@ router.get('/', async (req, res) => {
 
 
 router.get('/current', requireAuth, async (req, res) => {
+    
+
 
     const allSpots = await Spot.findAll();
 
     let listOfSpots = [];
-    let user = req.user;
+    const {user} = req;
+
+
 
     for (let i = 0; i < allSpots.length; i++) {
         let spot = allSpots[i].toJSON();
@@ -87,7 +91,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
         if (spot.ownerId === user.id) {
             listOfSpots.push(spot)
-        }
+        } 
 
     }
     if (!listOfSpots.length) listOfSpots = 'No spots yet'
