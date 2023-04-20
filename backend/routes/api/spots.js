@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Spot, SpotImage } = require('../../db/models');
+const { Spot, SpotImage, Review } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth')
 
 router.get('/', async (req, res) => {
@@ -151,6 +151,53 @@ router.post('/', requireAuth, async (req, res) => {
 })
 
 
+router.post('/:spotId/reviews', async (req, res) => {
+    let paramsId = parseInt(req.params.spotId)
+    const { user } = req
+    const { review, stars } = req.body;
+
+    let particularSpot = await Spot.findByPk(paramsId)
+
+    if (!particularSpot) {
+        return res.status(404).json({
+            message: "Spot couldn't be found"
+        })
+    }
+
+    let errorObj = {};
+    if (!review) errorObj.review = "Review text is required"
+    if ((!Number.isInteger(stars)) || stars < 1 || stars > 5) {
+        errorObj.stars = "Stars must be an integer from 1 to 5"
+    }
+
+    if (Object.keys(errorObj).length) {
+        return res.status(400).json({
+            message: "Bad Request",
+            errors: errorObj
+        })
+    }
+
+    let spotReviews = await particularSpot.getReviews();
+    spotReviews.forEach(spotReview => {
+        if (spotReview.userId === user.id) {
+            return res.status(500).json({
+                message: "User already has a review for this spot"
+            })
+        }  
+    })
+
+    
+
+    const newReview = await Review.create({
+        userId: user.id,
+        spotId: paramsId,
+        review,
+        stars
+    })
+    return res.status(201).json(newReview)
+})
+
+
 
 router.post('/:spotId/images', requireAuth, async (req, res) => {
     let paramsId = parseInt(req.params.spotId)
@@ -290,11 +337,6 @@ router.get('/:spotId/reviews', async (req, res) => {
     res.json({Reviews: listOfReviews})
 
 })
-
-
-
-
-
 
 
 
