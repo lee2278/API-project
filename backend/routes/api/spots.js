@@ -185,26 +185,21 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 router.put('/:spotId', requireAuth, async (req, res) => {
 
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    
+    const {user} = req;
 
     let paramsId = parseInt(req.params.spotId)
-    let currentUserId = req.user.toJSON().id;
-    const userSpots = await Spot.findAll({
-        where: {
-            ownerId: currentUserId
-        }
-    })
-
-    let foundSpot;
-
-    userSpots.forEach(userSpot => {
-        if (userSpot.toJSON().id === paramsId) {
-            foundSpot = userSpot
-        }
-    })
-
-    if (!foundSpot) {
+    let spotToEdit = await Spot.findByPk(paramsId)
+    
+    if (!spotToEdit) {
         return res.status(404).json({
             message: "Spot couldn't be found"
+        })
+    } 
+
+    if (user.id !== spotToEdit.ownerId) {
+        return res.status(403).json({
+            message: "Forbidden"
         })
     }
 
@@ -219,8 +214,6 @@ router.put('/:spotId', requireAuth, async (req, res) => {
     if (!description) errorObj.description = "Description is required"
     if (!price) errorObj.price = "Price per day is required"
 
-
-
     if (Object.keys(errorObj).length) {
 
         return res.status(400).json({
@@ -229,9 +222,6 @@ router.put('/:spotId', requireAuth, async (req, res) => {
         })
     }
 
-
-
-    const spotToEdit = await Spot.findByPk(paramsId)
 
     spotToEdit.address = address
     spotToEdit.city = city
@@ -244,11 +234,11 @@ router.put('/:spotId', requireAuth, async (req, res) => {
     spotToEdit.price = price
     spotToEdit.ownerId = currentUserId
 
+
+    await spotToEdit.save();
     return res.status(200).json(spotToEdit)
 
 })
-
-
 
 
 
