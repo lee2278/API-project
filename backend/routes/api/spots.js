@@ -152,6 +152,8 @@ router.post('/', requireAuth, async (req, res) => {
 
 
 
+
+
 router.post('/:spotId/images', requireAuth, async (req, res) => {
     let paramsId = parseInt(req.params.spotId)
     const { user } = req
@@ -290,11 +292,6 @@ router.get('/:spotId/reviews', async (req, res) => {
     res.json({Reviews: listOfReviews})
 
 })
-
-
-
-
-
 
 
 
