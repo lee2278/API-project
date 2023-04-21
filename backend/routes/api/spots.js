@@ -4,8 +4,39 @@ const { Spot, SpotImage, Review, Booking } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth')
 
 router.get('/', async (req, res) => {
+    let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
 
-    const allSpots = await Spot.findAll();
+    let queryObj = {}
+
+    page = parseInt(page)
+    size = parseInt(size)
+    minLat = parseInt(minLat)
+    maxLat = parseInt(maxLat)
+    minLng = parseInt(minLng)
+    maxLng = parseInt(maxLng)
+    minPrice = parseInt(minPrice)
+    maxPrice = parseInt(maxPrice)
+
+    if (page <= 1) page = 1;
+    if (size <= 1) size = 1;
+    if (size >= 20) size = 20
+    
+    
+    if (page || size) {
+        queryObj.limit = size
+        queryObj.offset = size * (page - 1)
+    }
+
+    
+
+    
+
+
+
+    const allSpots = await Spot.findAll({
+        
+        ...queryObj
+    });
 
     let listOfSpots = [];
 
@@ -44,7 +75,12 @@ router.get('/', async (req, res) => {
         listOfSpots.push(spot)
     }
     if (!listOfSpots.length) listOfSpots = 'No spots yet'
-    return res.status(200).json({ Spots: listOfSpots })
+    let result = {
+        Spots: listOfSpots,
+        page,
+        size
+        }
+    return res.status(200).json(result)
 })
 
 
