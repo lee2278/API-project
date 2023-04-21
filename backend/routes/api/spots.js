@@ -104,6 +104,8 @@ router.get('/', async (req, res) => {
         listOfSpots.push(spot)
     }
     if (!listOfSpots.length) listOfSpots = 'No spots yet'
+
+    
     let result = {
         Spots: listOfSpots,
         page,
