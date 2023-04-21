@@ -357,13 +357,14 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         })
     }
 
-    const { startDate, endDate } = req.body;
+    let { startDate, endDate } = req.body;
 
-    startDate = new Date(startDate);
-    endDate = new Date(endDate)
+    let newStartDate = new Date(startDate).getTime()
+    let newEndDate = new Date (endDate).getTime()
 
+    console.log(newStartDate)
     let errorObj = {};
-    if (endDate.toDateString() < startDate.toDateString()) {
+    if (newEndDate < newStartDate) {
         errorObj.endDate = "endDate cannot be on or before startDate"
     }
 
@@ -377,15 +378,15 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     const allBookings = await particularSpot.getBookings();
 
     allBookings.forEach(booking => {
-       if (startDate.getTime() >= new Date(booking.startDate.getTime() && startDate.getTime() <= new Date(booking.startDate.getTime()))) {
-        
-        errorObj.startDate = "Start date conflicts with an existing booking"
-       } 
-       if (endDate.getTime() >= new Date(booking.startDate.getTime() && endDate.getTime() <= new Date(booking.startDate.getTime()))) {
-        
-        errorObj.startDate = "End date conflicts with an existing booking"
-       } 
-       
+        let convertedStart = new Date (booking.startDate.toDateString()).getTime();
+        let convertedEnd = new Date (booking.startDate.toDateString()).getTime();
+
+        if ((newStartDate >= convertedStart) && (newStartDate <= convertedEnd)) {
+            errorObj.startDate = "Start date conflicts with an existing booking"
+        }
+        if (newEndDate >= convertedStart && newEndDate <= convertedEnd) {
+            errorObj.endDate = "End date conflicts with an existing booking"
+        }
     })
 
     if (Object.keys(errorObj).length) {
