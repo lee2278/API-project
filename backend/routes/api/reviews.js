@@ -145,7 +145,7 @@ router.put('/:reviewId', requireAuth, async (req, res) => {
 })
 
 
-router.delete(':reviewId', requireAuth, async (req, res) => {
+router.delete('/:reviewId', requireAuth, async (req, res) => {
 
     const paramsId = parseInt(req.params.reviewId)
     const { user } = req;
