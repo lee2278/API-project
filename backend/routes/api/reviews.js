@@ -137,8 +137,8 @@ router.put('/:reviewId', requireAuth, async (req, res) => {
     reviewToEdit.id = paramsId;
     reviewToEdit.userId = user.id;
     reviewToEdit.spotId = spot.id;
-    review,
-    stars
+    reviewToEdit.review = review;
+    reviewToEdit.stars = stars;
 
     await reviewToEdit.save();
     return res.status(200).json(reviewToEdit)
