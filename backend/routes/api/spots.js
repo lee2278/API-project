@@ -313,20 +313,27 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
     let listOfBookings = [];
 
   
-    const bookings = await spot.getBookings();
+    const bookings = await spot.getBookings()
+    
     
    
     for (let i = 0; i < bookings.length; i++) {
-
+         
         let booking = bookings[i].toJSON();
 
+        let bookingResponse = {}
+        bookingResponse.spotId = booking.spotId;
+        bookingResponse.startDate = booking.startDate;
+        bookingResponse.endDate = booking.endDate;
+        
+        
         let user = await bookings[i].getUser({
             attributes: ['id', 'firstName', 'lastName']
         });
        
         
         if (user.id !== spot.ownerId) {
-            listOfBookings.push(booking)
+            listOfBookings.push(bookingResponse)
         } else {
             booking.User = user;
             listOfBookings.push(booking)
