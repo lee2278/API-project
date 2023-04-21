@@ -218,7 +218,7 @@ router.post('/', requireAuth, async (req, res) => {
 })
 
 
-router.post('/:spotId/reviews', async (req, res) => {
+router.post('/:spotId/reviews', requireAuth, async (req, res) => {
     let paramsId = parseInt(req.params.spotId)
     const { user } = req
     const { review, stars } = req.body;
@@ -231,6 +231,11 @@ router.post('/:spotId/reviews', async (req, res) => {
         })
     }
 
+    if (user.id !== particularSpot.ownerId) {
+        return res.status(403).json({
+            message: "Forbidden"
+        })
+    }
     let errorObj = {};
     if (!review) errorObj.review = "Review text is required"
     if ((!Number.isInteger(stars)) || stars < 1 || stars > 5) {
