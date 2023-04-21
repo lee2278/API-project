@@ -98,6 +98,53 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
 
 
 
+router.put('/:reviewId', requireAuth, async (req, res) => {
+
+    let paramsId = parseInt(req.params.reviewId)
+    const { user } = req
+
+    const {review, stars} = req.body;
+
+    let reviewToEdit = await Review.findByPk(paramsId)
+
+    if (!reviewToEdit) {
+        return res.status(404).json({
+            message: "Review couldn't be found"
+        })
+    }
+    if (user.id !== reviewToEdit.userId) {
+        return res.status(403).json({
+            message: "Forbidden"
+        })
+    }
+    
+    let errorObj = {};
+    if (!review) errorObj.review = "Review text is required";
+    if ((!Number.isInteger(stars)) || stars < 1 || stars > 5) {
+        errorObj.stars = "Stars must be an integer from 1 to 5"
+    }
+
+    if (Object.keys(errorObj).length) {
+        return res.status(400).json({
+            message: "Bad Request",
+            errors: errorObj
+        })
+    }
+
+
+    let spot = await reviewToEdit.getSpot();
+
+    reviewToEdit.id = paramsId;
+    reviewToEdit.userId = user.id;
+    reviewToEdit.spotId = spot.id;
+    review,
+    stars
+
+    await reviewToEdit.save();
+    return res.status(200).json(reviewToEdit)
+})
+
+
 
 
 
