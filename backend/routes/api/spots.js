@@ -369,7 +369,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     let newStartDate = new Date(startDate).getTime()
     let newEndDate = new Date (endDate).getTime()
 
-    console.log(newStartDate)
+    
     let errorObj = {};
     if (newEndDate < newStartDate) {
         errorObj.endDate = "endDate cannot be on or before startDate"
@@ -397,7 +397,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     })
 
     if (Object.keys(errorObj).length) {
-        return res.status(400).json({
+        return res.status(403).json({
             message: "Sorry, this spot is already booked for the specified dates",
             errors: errorObj
         })
