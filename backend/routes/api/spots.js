@@ -1,11 +1,71 @@
 const express = require('express');
 const router = express.Router();
 const { Spot, SpotImage, Review, Booking } = require('../../db/models');
+const { Op } = require('sequelize');
 const { requireAuth } = require('../../utils/auth')
 
 router.get('/', async (req, res) => {
+    let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
 
-    const allSpots = await Spot.findAll();
+    let queryObj = {}
+
+    page = parseInt(page)
+    size = parseInt(size)
+    minLat = parseFloat(minLat)
+    maxLat = parseFloat(maxLat)
+    minLng = parseFloat(minLng)
+    maxLng = parseFloat(maxLng)
+    minPrice = parseFloat(minPrice)
+    maxPrice = parseFloat(maxPrice)
+
+    if (Number.isNaN(page)) page = 1;
+    if (Number.isNaN(size) || size >= 20) size = 20;
+    
+    
+    if (minPrice < 0) minPrice = 0
+    if (maxPrice < 0) maxPrice = 0
+
+    if (page || size) {
+        queryObj.limit = size
+        queryObj.offset = size * (page - 1)
+    }
+
+    let where = {}
+
+    if (minLat && minLat <= 90) where.lat = {[Op.gte]:minLat};
+    if (maxLat && maxLat >= -90) where.lat = {[Op.lte]:maxLat};
+    if (minLng && minLng <= 180) where.lng = {[Op.gte]:minLng};
+    if (maxLng && maxLng >= -180) where.lng = {[Op.lte]:maxLng};
+    if (minPrice) where.price = {[Op.gte]:minPrice};
+    if (maxPrice) where.price = {[Op.lte]:maxPrice};
+   
+   
+
+    let errorObj = {}
+
+    if (page < 1) errorObj.page = "Page must be greater than or equal to 1"
+    if (size < 1) errorObj.size = "Size must be greater than or equal to 1"
+    if (minLat < -90 || minLat > 90) errorObj.minLat = "Minimum latitude is invalid"
+    if (maxLat > 90 || maxLat <-90) errorObj.maxLat = "Maximum latitude is invalid"
+    if (minLng < -180 || minLng > 180) errorObj.minLng = "Minimum longitude is invalid"
+    if (maxLng > 180 || maxLng < -180) errorObj.maxLng = "Maximum longitude is invalid"
+    if (minPrice < 0) errorObj.minPrice = "Minimum price must be greater than or equal to 0"
+    if (maxPrice < 0) errorObj.maxPrice = "Maximum price must be greater than or equal to 0"
+
+    if (Object.keys(errorObj).length) {
+
+        return res.status(400).json({
+            message: "Bad Request",
+            errors: errorObj
+        })
+    }
+
+
+
+    const allSpots = await Spot.findAll({
+        where,
+        ...queryObj
+    });
 
     let listOfSpots = [];
 
@@ -44,7 +104,14 @@ router.get('/', async (req, res) => {
         listOfSpots.push(spot)
     }
     if (!listOfSpots.length) listOfSpots = 'No spots yet'
-    return res.status(200).json({ Spots: listOfSpots })
+
+    
+    let result = {
+        Spots: listOfSpots,
+        page,
+        size
+        }
+    return res.status(200).json(result)
 })
 
 
