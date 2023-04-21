@@ -56,47 +56,47 @@ router.put('/:bookingsId', requireAuth, async (req, res) => {
     const { user } = req
 
     let bookingToEdit = await Booking.findByPk(paramsId);
-    let spot = bookingToEdit.getSpot()
-
+    
     if (!bookingToEdit) {
         return res.status(404).json({
             message: "Booking couldn't be found"
         })
     }
-
+    
     if (user.id !== bookingToEdit.userId) {
         return res.status(403).json({
             message: "Forbidden"
         })
     }
-
+    
     let { startDate, endDate } = req.body;
-
+    
     let newStartDate = new Date(startDate).getTime()
     let newEndDate = new Date(endDate).getTime()
-
-   
-
+    
+    
+    
     let errorObj = {};
     if (newEndDate < newStartDate) {
         errorObj.endDate = "endDate cannot be on or before startDate"
     }
-
+    
     if (Object.keys(errorObj).length) {
         return res.status(400).json({
             message: "Bad Request",
             errors: errorObj
         })
     }
-
+    
     let currentDate = new Date().getTime();
     if (newEndDate < currentDate) {
         return res.status(403).json({
             message: "Past bookings can't be modified"
         })
     }
-
+    
     const allBookings = await Booking.findAll();
+    let spot = bookingToEdit.getSpot()
     
     allBookings.forEach(booking => {
         let convertedStart = new Date (booking.startDate.toDateString()).getTime();
