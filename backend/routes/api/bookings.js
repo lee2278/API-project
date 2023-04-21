@@ -39,7 +39,7 @@ router.get('/current', requireAuth, async (req, res) => {
       
         spotJson.previewImage = spotPreviewImage || 'No preview image yet'
         
-
+        booking.Spot = spotJson;
         listOfBookings.push(booking)
     }
 
