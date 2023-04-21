@@ -513,13 +513,15 @@ router.get('/:spotId', async (req, res) => {
     }
 
 
-    const spotImages = await spot.getSpotImages(
+    let spotImages = await spot.getSpotImages(
         {
             attributes: {
                 exclude: ['createdAt', 'updatedAt', 'spotId']
             }
         }
     );
+
+    if (!spotImages.length) spotImages = 'No spot images yet'
 
     const owner = await spot.getUser({
         attributes: {
