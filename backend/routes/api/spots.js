@@ -379,12 +379,12 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 
     allBookings.forEach(booking => {
         let convertedStart = new Date (booking.startDate.toDateString()).getTime();
-        let convertedEnd = new Date (booking.startDate.toDateString()).getTime();
+        let convertedEnd = new Date (booking.endDate.toDateString()).getTime();
 
         if ((newStartDate >= convertedStart) && (newStartDate <= convertedEnd)) {
             errorObj.startDate = "Start date conflicts with an existing booking"
         }
-        if (newEndDate >= convertedStart && newEndDate <= convertedEnd) {
+        if ((newEndDate >= convertedStart) && (newEndDate <= convertedEnd)) {
             errorObj.endDate = "End date conflicts with an existing booking"
         }
     })
