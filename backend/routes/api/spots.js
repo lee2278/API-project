@@ -298,6 +298,62 @@ router.put('/:spotId', requireAuth, async (req, res) => {
 })
 
 
+router.get('/:spotId/bookings', requireAuth, async (req, res) => {
+    
+    const paramsId = parseInt(req.params.spotId);
+    
+    const spot = await Spot.findByPk(paramsId)
+
+    if (!spot) {
+        return res.status(404).json({
+            message: "Spot couldn't be found"
+        })
+    }
+
+    let listOfBookings = [];
+
+  
+    const bookings = await spot.getBookings();
+    
+   
+    for (let i = 0; i < bookings.length; i++) {
+
+        let booking = bookings[i].toJSON();
+
+        let user = await bookings[i].getUser({
+            attributes: ['id', 'firstName', 'lastName']
+        });
+       
+        
+        if (user.id !== spot.ownerId) {
+            listOfBookings.push(booking)
+        } else {
+            booking.User = user;
+            listOfBookings.push(booking)
+        }
+    }
+    if (!listOfBookings.length) listOfBookings = 'No bookings yet'
+    res.json({Bookings: listOfBookings})
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 router.get('/:spotId/reviews', async (req, res) => {
     
     const paramsId = parseInt(req.params.spotId);
@@ -427,6 +483,27 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
     })
 
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 module.exports = router;
