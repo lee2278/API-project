@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
     minPrice = parseFloat(minPrice)
     maxPrice = parseFloat(maxPrice)
 
-    if (Number.isNaN(page)) page = 1;
+    if (Number.isNaN(page) || page > 10) page = 1;
     if (Number.isNaN(size) || size >= 20) size = 20;
     
     
