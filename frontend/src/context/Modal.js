@@ -7,6 +7,7 @@ const ModalContext = React.createContext();
 export function ModalProvider({ children }) {
   const modalRef = useRef();
   const [modalContent, setModalContent] = useState(null);
+
   const [onModalClose, setOnModalClose] = useState(null);
 
   const closeModal = () => {
@@ -37,8 +38,10 @@ export function ModalProvider({ children }) {
 
 export function Modal() {
   const { modalRef, modalContent, closeModal } = useContext(ModalContext);
+  
   if (!modalRef || !modalRef.current || !modalContent) return null;
 
+  
   return ReactDOM.createPortal(
     <div id="modal">
       <div id="modal-background" onClick={closeModal} />
@@ -47,3 +50,5 @@ export function Modal() {
     modalRef.current
   );
 }
+
+export const useModal = () => useContext(ModalContext);
