@@ -23,9 +23,6 @@ router.delete('/:imageId', requireAuth, async (req, res) => {
         })
     }
 
-    console.log('userid', user.id)
-    console.log('reviews user id', review.userId)
-
     await imageToDelete.destroy()
 
     return res.status(200).json({
