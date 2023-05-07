@@ -5,8 +5,9 @@ import { getSpotDetailsThunk } from '../../store/spots';
 
 export default function GetSpotDetails() {
     const { spotId } = useParams();
-    const spot = useSelector (state => state.singleSpot ? state.singleSpot : null)
+    const spot = useSelector (state => state.spots.singleSpot ? state.spots.singleSpot : null)
 
+    console.log('spot =====>', spot)
     
     const dispatch = useDispatch()
 
@@ -16,7 +17,7 @@ export default function GetSpotDetails() {
 
     return (
         <>
-            <h1>{spot}</h1>
+            <h1>{spot.name}</h1>
         </>
     )
 }
