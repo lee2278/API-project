@@ -15,12 +15,13 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
+
+      <Route exact path='/'>
+        <GetSpots />
+      </Route>
       {isLoaded && <Switch>
-        <Route exact path='/'>
-          <GetSpots/>
-        </Route>
-        
-        
+
+
       </Switch>}
     </>
   );

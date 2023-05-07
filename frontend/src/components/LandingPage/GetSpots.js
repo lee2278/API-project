@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getSpotsThunk } from '../../store/spots'
+import "./LandingPage.css";
+
 
 export default function GetSpots() {
     const dispatch = useDispatch();
@@ -15,10 +17,10 @@ export default function GetSpots() {
 
     if (!spotsObj) return
     return (
-        <>
+        <div className='everything-wrapper'>
             <ul>
                 {spotsList.map((spot) => (
-                    <>
+                    <div className='spot-container'>
                         <li key={spot.id}>
                             <img src={spot.previewImage} />
                             <div className='details-container'>
@@ -32,11 +34,11 @@ export default function GetSpots() {
                             </div>
                         </li>
 
-                    </>
+                    </div>
                 ))}
 
             </ul>
-        </>
+        </div>
     )
 
 
