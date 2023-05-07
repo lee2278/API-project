@@ -1,0 +1,35 @@
+.everthing-wrapper {
+    margin: auto;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    border: 2px solid red;
+    padding: 0;
+    
+}
+
+
+.spot-container {
+    flex: 1; 
+    border: 2px solid blue;
+    margin: 0;
+}
+
+.spot-container > li {
+    border: 5px solid green;
+    height: 100%;
+}
+
+img {
+    width: 225px;
+   
+}
+
+.details-container {
+    display: flex;
+ 
+
+}
