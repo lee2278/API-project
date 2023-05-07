@@ -21,15 +21,15 @@ ul {
 .spot-container > li {
     border: 5px solid green;
     height: 100%;
+    margin: 0 0.2rem;
 }
 
 img {
     width: 225px;
-   
 }
 
 .details-container {
     display: flex;
- 
+    justify-content: space-between;
 
 }
