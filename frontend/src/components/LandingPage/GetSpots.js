@@ -29,7 +29,11 @@ export default function GetSpots() {
                                     <p>{`$${spot.price} night`}</p>
                                 </div>
                                 <div className='stars'>
-                                    <p>{`temporary stars ${spot.avgRating}`} </p>
+                                    <p>
+                                        {<i className="fa-solid fa-star" style={{color: '#000000'}}></i>}
+                                        {spot.avgRating === 'Not Available. No reviews yet' ? 'New' : `${spot.avgRating}`}
+                                    </p>
+                                    
                                 </div>
                             </div>
                         </li>
