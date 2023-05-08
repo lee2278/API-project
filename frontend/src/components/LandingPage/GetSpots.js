@@ -18,7 +18,7 @@ export default function GetSpots() {
     if (!spotsObj) return
     return (
         <div className='everything-wrapper'>
-            <ul>
+            <ul className='spots-ul'>
                 {spotsList.map((spot) => (
                     <div key={spot.id} className='spot-container'>
                         <li>
