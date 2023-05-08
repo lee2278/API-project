@@ -3,6 +3,7 @@ import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
+import { Link } from 'react-router-dom'
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -23,6 +24,15 @@ function LoginFormModal() {
         }
       });
   };
+
+  const handleDemoUser = () => {
+    closeModal();
+    return dispatch(sessionActions.login(
+      { credential: 'Demo-lition', 
+        password: 'password' 
+      }))
+      
+  }
 
   return (
     <>
@@ -50,6 +60,7 @@ function LoginFormModal() {
           <p>{errors.credential}</p>
         )}
         <button type="submit">Log In</button>
+        <Link id='demo-user-link' to='/' onClick={handleDemoUser}>Demo User</Link>
       </form>
     </>
   );

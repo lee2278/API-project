@@ -2,6 +2,30 @@
     display: none;
 }
 
-.navigation-container {
+.navigation-ul li {
+    list-style: none;
+}
+
+.navigation-ul {
+    display: flex;
     justify-content: space-between;
+}
+
+.profile-btn:hover {
+    cursor: pointer
+}
+
+.fa-user-circle:hover {
+    cursor: pointer;
+}
+
+.profile-btn {
+    margin-right: 7rem;
+}
+
+.profile-dropdown {
+    border: 1px solid red;
+    position: absolute;
+    padding: 0.5rem;
+    
 }
