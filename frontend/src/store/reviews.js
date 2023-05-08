@@ -14,7 +14,8 @@ export const getReviewsThunk = (spotId) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json()
-        const reviews = data.reviews
+        const reviews = data.Reviews
+        console.log('reviews ===>')
         dispatch(loadReviews(reviews))
     }
 }
@@ -27,7 +28,8 @@ const initialState = {spot: {}}
 export const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_REVIEWS: {
-            //logic to be done here
+            const newState = {...state};
+            //think of logic here
         }
         default: return state
     }
