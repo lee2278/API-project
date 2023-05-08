@@ -60,7 +60,7 @@ function LoginFormModal() {
           <p>{errors.credential}</p>
         )}
         <button type="submit">Log In</button>
-        <Link to='/' onClick={handleDemoUser}>Demo User</Link>
+        <Link id='demo-user-link' to='/' onClick={handleDemoUser}>Demo User</Link>
       </form>
     </>
   );
