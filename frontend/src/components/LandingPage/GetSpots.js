@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { getSpotsThunk } from '../../store/spots'
 import "./LandingPage.css";
 
@@ -15,9 +16,7 @@ export default function GetSpots() {
     }, [dispatch])
 
 
-    // const redirectPage= () => {
-
-    // }
+  
 
     if (!spotsList.length) return null
     return (
@@ -26,7 +25,9 @@ export default function GetSpots() {
                 {spotsList.map((spot) => (
                     <div key={spot.id} className='spot-container'>
                         <li>
+                           <Link to={`/spots/${spot.id}`}>
                             <img src={spot.previewImage} />
+                            </Link>
                             <div className='details-container'>
                                 <div className='info'>
                                     <p>{`${spot.city}, ${spot.state}`}</p>
