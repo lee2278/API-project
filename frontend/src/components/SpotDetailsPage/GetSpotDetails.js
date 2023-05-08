@@ -5,10 +5,8 @@ import { getSpotDetailsThunk } from '../../store/spots';
 
 export default function GetSpotDetails() {
     const { spotId } = useParams();
-    const spot = useSelector (state => state.spots.singleSpot ? state.spots.singleSpot : null)
+    const spot = useSelector(state => state.spots.singleSpot ? state.spots.singleSpot : null)
 
-    console.log('spot =====>', spot)
-    
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -17,7 +15,41 @@ export default function GetSpotDetails() {
 
     return (
         <>
-            <h1>{spot.name}</h1>
+            <header>
+                <h1>{spot.name}</h1>
+                <p>{`${spot.city}, ${spot.state}, ${spot.country}`}</p>
+            </header>
+
+
+            <div className='images-container'>
+                <div className='left-img'>
+                    {spot.SpotImages && <img src={spot.SpotImages.find(img => img.preview === true)} />}
+                </div>
+                <div className='right-imgs'>
+                    {spot.SpotImages && spot.SpotImages.map(image => image.preview === false ? (<img key={image.id} src={image.url} />) : "No image")}
+                </div>
+            </div>
+            <div className='Spot-info'>
+                {spot.Owner && (
+                    <div className = 'middle-section'>
+                        <div className='text-info'>
+                        <h2>{`Hosted by ${spot.Owner.firstName} ${spot.Owner.lastName}`}</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor qui neque blanditiis natus commodi tempora quaerat dolorem iusto, temporibus aperiam delectus fugiat alias accusamus accusantium, numquam, vel culpa corrupti atque.</p>
+                        </div>
+                        <div className='short-info-box'>
+                            <p>${spot.price} night</p>
+                            <div className='rating-reviews'></div>
+                            <p><i className="fa-solid fa-star" style={{color: '#000000'}}></i>{` ${spot.avgStarRating}`}</p>
+                            <p>{spot.numReviews} reviews</p>
+                            <button>Reserve</button>
+                        </div>
+                    </div>
+                )}
+
+
+
+            </div>
+
         </>
     )
 }
