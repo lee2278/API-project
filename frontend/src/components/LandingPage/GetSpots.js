@@ -6,7 +6,7 @@ import "./LandingPage.css";
 
 export default function GetSpots() {
     const dispatch = useDispatch();
-    const spotsObj = useSelector(state => state.spots.allSpots ? state.spots.allSpots : [])
+    const spotsObj = useSelector(state => state.spots.allSpots)
 
     const spotsList = Object.values(spotsObj)
 
@@ -15,7 +15,11 @@ export default function GetSpots() {
     }, [dispatch])
 
 
-    if (!spotsObj) return
+    // const redirectPage= () => {
+
+    // }
+
+    if (!spotsList.length) return null
     return (
         <div className='everything-wrapper'>
             <ul className='spots-ul'>
