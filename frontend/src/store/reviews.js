@@ -27,10 +27,7 @@ const initialState = {spot: {}}
 export const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_REVIEWS: {
-            const newState = {...state};
-            action.reviews.forEach(review => {
-                newState.spot[review.id] = review
-            })
+            //logic to be done here
         }
         default: return state
     }

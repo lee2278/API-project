@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { getReviewsThunk } from '../../store/reviews'
 
 export default function GetReviews() {
     const dispatch = useDispatch();
-    const reviews = useSelector(state => state.reviews ? state.reviews : null)
-
-    console.log('reviews =====>', reviews)
     
+    const spot = useSelector(state => state)
+    console.log(spot)
+   
     return (
         <>
         </>
