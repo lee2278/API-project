@@ -1,0 +1,34 @@
+.images-container{
+    display: flex;
+
+}
+.right-imgs{
+    display:grid;
+    grid-template-columns: 2fr 2fr
+}
+
+.middle-section {
+    display: flex;
+    gap: 1rem;
+}
+.short-info-box{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid red;
+}
+
+.top-info {
+    display: flex;
+    gap: 1rem;
+    border: 5px solid blue;
+}
+
+.rating {
+    display:flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.reserve-button {
+    justify-content: center;
+}

@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getSpotDetailsThunk } from '../../store/spots';
-
+import './SpotDetailsPage.css'
 export default function GetSpotDetails() {
     const { spotId } = useParams();
     const spot = useSelector(state => state.spots.singleSpot ? state.spots.singleSpot : null)
@@ -31,17 +31,23 @@ export default function GetSpotDetails() {
             </div>
             <div className='Spot-info'>
                 {spot.Owner && (
-                    <div className = 'middle-section'>
+                    <div className='middle-section'>
                         <div className='text-info'>
-                        <h2>{`Hosted by ${spot.Owner.firstName} ${spot.Owner.lastName}`}</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor qui neque blanditiis natus commodi tempora quaerat dolorem iusto, temporibus aperiam delectus fugiat alias accusamus accusantium, numquam, vel culpa corrupti atque.</p>
+                            <h2>{`Hosted by ${spot.Owner.firstName} ${spot.Owner.lastName}`}</h2>
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor qui neque blanditiis natus commodi tempora quaerat dolorem iusto, temporibus aperiam delectus fugiat alias accusamus accusantium, numquam, vel culpa corrupti atque.</p>
                         </div>
                         <div className='short-info-box'>
-                            <p>${spot.price} night</p>
-                            <div className='rating-reviews'></div>
-                            <p><i className="fa-solid fa-star" style={{color: '#000000'}}></i>{` ${spot.avgStarRating}`}</p>
-                            <p>{spot.numReviews} reviews</p>
-                            <button>Reserve</button>
+                            <div className='top-info'>
+                                <p>{`$${spot.price} night`}</p>
+                                <div className='rating'>
+                                    <i className="fa-solid fa-star" style={{ color: '#000000' }}></i>
+                                    <p>{`${spot.avgStarRating}`}</p>
+                                </div>
+                                <p>{`${spot.numReviews} reviews`}</p>
+                            </div>
+                            <div className='reserve-button'>
+                                <button>Reserve</button>
+                            </div>
                         </div>
                     </div>
                 )}
