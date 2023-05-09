@@ -5,14 +5,16 @@ import { getSpotDetailsThunk } from '../../store/spots';
 import './SpotDetailsPage.css'
 export default function GetSpotDetails() {
     const { spotId } = useParams();
-    const spot = useSelector(state => state.spots.singleSpot ? state.spots.singleSpot : null)
+    const spot = useSelector(state => state.spots.singleSpot)
 
     const dispatch = useDispatch()
+    
 
     useEffect(() => {
         dispatch(getSpotDetailsThunk(spotId))
     }, [dispatch, spotId])
 
+   
     return (
         <>
             <header>
@@ -20,13 +22,12 @@ export default function GetSpotDetails() {
                 <p>{`${spot?.city}, ${spot?.state}, ${spot?.country}`}</p>
             </header>
 
-
             <div className='images-container'>
-                <div className='left-img'>
-                    {spot.SpotImages && <img src={spot.SpotImages.find(img => img.preview === true)} />}
+                <div className = 'left-img'>
+                    {spot.SpotImages && <img src={spot.SpotImages.find(image => image.preview === true).url}/>}
                 </div>
-                <div className='right-imgs'>
-                    {spot.SpotImages && spot.SpotImages.map(image => image.preview === false ? (<img key={image.id} src={image.url} />) : "No image")}
+                <div className = 'right-imgs'>
+                    {spot.SpotImages && spot.SpotImages.map(image => image.preview === false ? (<img key={image.id} src={image.url}/>) : null )}
                 </div>
             </div>
             <div className='Spot-info'>
