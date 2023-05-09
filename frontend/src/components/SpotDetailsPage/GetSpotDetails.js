@@ -27,7 +27,7 @@ export default function GetSpotDetails() {
                     {spot.SpotImages && <img src={spot.SpotImages.find(image => image.preview === true).url}/>}
                 </div>
                 <div className = 'right-imgs'>
-                    {spot.SpotImages && spot.SpotImages.map(image => image.preview === false ? (<img key={image.id} src={image.url}/>) : null )}
+                    {spot.SpotImages && spot.SpotImages.slice(0,5).map(image => image.preview === false ? (<img key={image.id} src={image.url}/>) : null )}
                 </div>
             </div>
             <div className='Spot-info'>
@@ -44,6 +44,7 @@ export default function GetSpotDetails() {
                                     <i className="fa-solid fa-star" style={{ color: '#000000' }}></i>
                                     <p>{`${spot.avgStarRating}`}</p>
                                 </div>
+                                <p className='some-dot'>·</p>
                                 <p>{`${spot.numReviews} reviews`}</p>
                             </div>
                             <div className='reserve-button'>
