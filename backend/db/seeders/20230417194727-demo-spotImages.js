@@ -32,7 +32,7 @@ module.exports = {
       },
       {
         spotId: 1,
-        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-668146487515150072/original/5bf7252a-1b94-4a85-aa3b-581c16d6bd69.jpeg',
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-668146487515150072/original/9fa8d9d8-3136-4634-8769-3896efef8e11.jpeg',
         preview: false
       },
       {
