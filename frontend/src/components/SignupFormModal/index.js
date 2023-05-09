@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
@@ -13,7 +13,17 @@ function SignupFormModal() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [particularErrors, setParticularErrors] = useState({})
   const { closeModal } = useModal();
+
+  useEffect(() => {
+    const onDisplayErrors = {}
+    if (!(email && username && firstName && lastName && password && confirmPassword)) onDisplayErrors.message = "Please fill in all fields"
+    if (username.length >= 1 && username.length < 4) onDisplayErrors.username = "Please provide a username with at least 4 characters." 
+    if (password.length >= 1 && password.length < 6)  onDisplayErrors.password = "Password must be 6 characters or more."
+    setParticularErrors(onDisplayErrors)
+  }, [email, username, firstName, lastName, password, confirmPassword])
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,6 +44,7 @@ function SignupFormModal() {
           if (data && data.errors) {
             setErrors(data.errors);
           }
+
         });
     }
     return setErrors({
@@ -41,9 +52,19 @@ function SignupFormModal() {
     });
   };
 
+  // const handleButtonDisability = () => {
+  //   if (!(email && username && firstName && lastName && password && confirmPassword)) {
+  //     return true;
+  //   } else return false;
+  // }
+
+
   return (
     <>
+      {particularErrors.username && particularErrors.username}
+      {particularErrors.password && particularErrors.password}
       <h1>Sign Up</h1>
+     
       <form onSubmit={handleSubmit}>
         <label>
           Email
@@ -55,7 +76,7 @@ function SignupFormModal() {
           />
         </label>
         {errors.email && <p>{errors.email}</p>}
-        <label>
+        <label> 
           Username
           <input
             type="text"
@@ -107,7 +128,7 @@ function SignupFormModal() {
         {errors.confirmPassword && (
           <p>{errors.confirmPassword}</p>
         )}
-        <button type="submit">Sign Up</button>
+        <button type="submit" disabled={Object.values(particularErrors).length > 0}>Sign Up</button>
       </form>
     </>
   );
