@@ -21,10 +21,10 @@ export default function GetSpots() {
         <div className='everything-wrapper'>
             <ul className='spots-ul'>
                 {spotsList.map((spot) => (
-                    <Link title={spot?.name}to={`/spots/${spot.id}`}>
-                        <div key={spot.id} className='spot-container'>
+                    <Link key={spot.id} title={spot?.name}to={`/spots/${spot.id}`}>
+                        <div className='spot-container'>
                             <li>
-                                <img src={spot.previewImage} />
+                                <img src={spot.previewImage} alt='preview of a spot'/>
                                 <div className='details-container'>
                                     <div className='info'>
                                         <p>{`${spot.city}, ${spot.state}`}</p>
