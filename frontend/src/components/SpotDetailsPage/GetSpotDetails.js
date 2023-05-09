@@ -14,6 +14,10 @@ export default function GetSpotDetails() {
         dispatch(getSpotDetailsThunk(spotId))
     }, [dispatch, spotId])
 
+
+    const handleReserveButton = () => {
+        alert('Feature coming soon')
+    }
    
     return (
         <>
@@ -48,7 +52,7 @@ export default function GetSpotDetails() {
                                 <p>{`${spot.numReviews} reviews`}</p>
                             </div>
                             <div className='reserve-button'>
-                                <button>Reserve</button>
+                                <button onClick={handleReserveButton}>Reserve</button>
                             </div>
                         </div>
                     </div>
