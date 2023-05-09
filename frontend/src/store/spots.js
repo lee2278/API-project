@@ -1,3 +1,4 @@
+import { csrfFetch } from "./csrf"
 
 //ACTION TYPE CONSTANTS
 const LOAD_SPOTS = 'spots/LOAD_SPOTS'
@@ -34,6 +35,24 @@ export const getSpotDetailsThunk = (spotId) => async (dispatch) => {
 
         const spotDetails = await response.json()
         dispatch(loadSpotDetails(spotDetails))
+    } else {
+        const errors = await response.json()
+        return errors;
+    }
+}
+
+
+export const createSpotThunk = (spot) => async (dispatch) => {
+    const response = await csrfFetch('/api/spots', {
+        method: "POST",
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify(spot)
+    })
+
+    if (response.ok) {
+        const newSpot = await response.json();
+        dispatch(loadSpotDetails(newSpot))
+        return newSpot;
     } else {
         const errors = await response.json()
         return errors;
