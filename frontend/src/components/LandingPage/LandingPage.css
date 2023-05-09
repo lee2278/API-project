@@ -28,6 +28,9 @@ img {
     width: 225px;
 }
 
+img:hover {
+    
+}
 .details-container {
     display: flex;
     justify-content: space-between;
