@@ -19,8 +19,8 @@ function SignupFormModal() {
   useEffect(() => {
     const onDisplayErrors = {}
     if (!(email && username && firstName && lastName && password && confirmPassword)) onDisplayErrors.message = "Please fill in all fields"
-    if (username.length >= 1 && username.length < 4) onDisplayErrors.username = "Please provide a username with at least 4 characters." 
-    if (password.length >= 1 && password.length < 6)  onDisplayErrors.password = "Password must be 6 characters or more."
+    if (username.length >= 1 && username.length < 4) onDisplayErrors.username = "Please provide a username with at least 4 characters."
+    if (password.length >= 1 && password.length < 6) onDisplayErrors.password = "Password must be 6 characters or more."
     setParticularErrors(onDisplayErrors)
   }, [email, username, firstName, lastName, password, confirmPassword])
 
@@ -52,20 +52,18 @@ function SignupFormModal() {
     });
   };
 
-  // const handleButtonDisability = () => {
-  //   if (!(email && username && firstName && lastName && password && confirmPassword)) {
-  //     return true;
-  //   } else return false;
-  // }
-
-
   return (
     <>
-      {particularErrors.username && particularErrors.username}
-      {particularErrors.password && particularErrors.password}
       <h1>Sign Up</h1>
-     
+
       <form onSubmit={handleSubmit}>
+        {particularErrors.username && <p className='sign-up-errors'>{particularErrors.username}</p>}
+        {particularErrors.password && <p className='sign-up-errors'>{particularErrors.password}</p>}
+        {errors.email && <p className='sign-up-errors'>{errors.email}</p>}
+        {errors.username && <p className='sign-up-errors'>{errors.username}</p>}
+        {errors.firstName && <p className='sign-up-errors'>{errors.firstName}</p>}
+        {errors.lastName && <p className='sign-up-errors'>{errors.lastName}</p>}
+        {errors.confirmPassword && <p className='sign-up-errors'>{errors.confirmPassword}</p>}
         <label>
           Email
           <input
@@ -75,8 +73,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label> 
+        <label>
           Username
           <input
             type="text"
@@ -85,7 +82,6 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
         <label>
           First Name
           <input
@@ -95,7 +91,6 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
         <label>
           Last Name
           <input
@@ -105,7 +100,6 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
         <label>
           Password
           <input
@@ -125,9 +119,6 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && (
-          <p>{errors.confirmPassword}</p>
-        )}
         <button type="submit" disabled={Object.values(particularErrors).length > 0}>Sign Up</button>
       </form>
     </>
