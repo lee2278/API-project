@@ -1,7 +1,9 @@
+import { csrfFetch } from "./csrf"
 
 //ACTION TYPE CONSTANTS
 const LOAD_SPOTS = 'spots/LOAD_SPOTS'
 const LOAD_SPOT_DETAILS = 'spotDetails/LOAD_SPOT_DETAILS'
+
 
 //ACTION CREATORS
 export const loadSpots = (spots) => ({
@@ -13,6 +15,8 @@ export const loadSpotDetails = (singleSpot) => ({
     type: LOAD_SPOT_DETAILS,
     singleSpot
 })
+
+
 
 //THUNKS
 export const getSpotsThunk = () => async (dispatch) => {
@@ -34,6 +38,34 @@ export const getSpotDetailsThunk = (spotId) => async (dispatch) => {
 
         const spotDetails = await response.json()
         dispatch(loadSpotDetails(spotDetails))
+
+    } else {
+        const errors = await response.json()
+        return errors;
+    }
+}
+
+
+export const createSpotThunk = (spot, spotImages) => async (dispatch) => {
+    
+    const response = await csrfFetch('/api/spots', {
+        method: "POST",
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify(spot)
+    })
+  
+    if (response.ok) {
+        const newSpot = await response.json();
+        for (let i = 0; i < spotImages.length; i++) {
+             await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json"},
+                body: JSON.stringify(spotImages[i])
+            })
+
+
+        }
+        return newSpot;
     } else {
         const errors = await response.json()
         return errors;

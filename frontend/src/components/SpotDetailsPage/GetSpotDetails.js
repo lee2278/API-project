@@ -19,19 +19,27 @@ export default function GetSpotDetails() {
         alert('Feature coming soon')
     }
    
+    let previewImgArr;
+    let nonPreviewImgArr;
+
+    if (spot.SpotImages && spot.SpotImages !=='No spot images yet') {
+        previewImgArr = spot.SpotImages.filter(image => image.preview === true)
+        nonPreviewImgArr = spot.SpotImages.filter(image => image.preview === false)
+    }
+
     return (
         <>
             <header>
-                <h1>{spot.name}</h1>
-                <p>{`${spot?.city}, ${spot?.state}, ${spot?.country}`}</p>
+                <h1>{spot?.name}</h1>
+                {spot.city && <p>{`${spot?.city}, ${spot?.state}, ${spot?.country}`}</p>}
             </header>
 
             <div className='images-container'>
                 <div className = 'left-img'>
-                    {spot.SpotImages && <img src={spot.SpotImages.find(image => image.preview === true).url}/>}
+                    {previewImgArr && <img src={previewImgArr[0]['url']} alt='preview of spot'/>}
                 </div>
                 <div className = 'right-imgs'>
-                    {spot.SpotImages && spot.SpotImages.slice(0,5).map(image => image.preview === false ? (<img key={image.id} src={image.url}/>) : null )}
+                    {nonPreviewImgArr && nonPreviewImgArr.slice(0,4).map(image => image ? (<img key={image.id} src={image.url} alt='more spot photos'/>) : null)}
                 </div>
             </div>
             <div className='Spot-info'>
