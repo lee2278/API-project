@@ -28,11 +28,12 @@ img {
     width: 225px;
 }
 
-img:hover {
-    
-}
 .details-container {
     display: flex;
     justify-content: space-between;
 
+}
+
+#spot-creation-button {
+    border: 1px solid black;
 }

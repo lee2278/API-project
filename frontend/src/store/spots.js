@@ -2,7 +2,8 @@ import { csrfFetch } from "./csrf"
 
 //ACTION TYPE CONSTANTS
 const LOAD_SPOTS = 'spots/LOAD_SPOTS'
-const LOAD_SPOT_DETAILS = 'spotDetails/LOAD_SPOT_DETAILS'
+const LOAD_SPOT_DETAILS = 'spots/LOAD_SPOT_DETAILS'
+const UPDATE_SPOT = 'spots/UPDATE_SPOT'
 
 
 //ACTION CREATORS
@@ -16,18 +17,31 @@ export const loadSpotDetails = (singleSpot) => ({
     singleSpot
 })
 
-
+export const editSpot = (spot) => ({
+    type: UPDATE_SPOT,
+    spot
+})
 
 //THUNKS
 export const getSpotsThunk = () => async (dispatch) => {
     const response = await fetch('/api/spots')
 
-    
+
     if (response.ok) {
 
         const data = await response.json()
         const spots = data.Spots
         dispatch(loadSpots(spots))
+    }
+}
+
+export const getUserSpotsThunk = () => async (dispatch) => {
+    const response = await csrfFetch('/api/spots/current')
+
+    if (response.ok) {
+        const data = await response.json()
+        const userSpots = data.Spots
+        dispatch(loadSpots(userSpots))
     }
 }
 
@@ -47,19 +61,19 @@ export const getSpotDetailsThunk = (spotId) => async (dispatch) => {
 
 
 export const createSpotThunk = (spot, spotImages) => async (dispatch) => {
-    
+
     const response = await csrfFetch('/api/spots', {
         method: "POST",
-        headers: { "Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(spot)
     })
-  
+
     if (response.ok) {
         const newSpot = await response.json();
         for (let i = 0; i < spotImages.length; i++) {
-             await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+            await csrfFetch(`/api/spots/${newSpot.id}/images`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(spotImages[i])
             })
 
@@ -72,23 +86,40 @@ export const createSpotThunk = (spot, spotImages) => async (dispatch) => {
     }
 }
 
+export const updateSpotThunk = (spot => async (dispatch) => {
+    const response = await csrfFetch(`api/spots/${spot.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(spot)
+    })
+
+    if (response.ok) {
+        const updatedSpot = await response.json()
+        dispatch(editSpot(updatedSpot))
+        return updatedSpot
+    } else {
+        const errors = await response.json()
+        return errors
+    }
+})
+
 //REDUCER
-const initialState = {allSpots:{}, singleSpot:{}}
+const initialState = { allSpots: {}, singleSpot: {} }
 
 export const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_SPOTS: {
-            const newState = {allSpots:{}, singleSpot:{}};
+            const newState = { allSpots: {}, singleSpot: {} };
             action.spots.forEach((spot) => {
                 newState.allSpots[spot.id] = spot
             })
             return newState;
         }
         case LOAD_SPOT_DETAILS: {
-           const newState = {...state};
-           newState.singleSpot = action.singleSpot;
-           return newState;
-           
+            const newState = { ...state };
+            newState.singleSpot = action.singleSpot;
+            return newState;
+
         }
         default:
             return state
