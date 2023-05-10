@@ -14,10 +14,10 @@ export default function ManageSpots() {
         dispatch(getUserSpotsThunk())
     }, [dispatch])
 
-    if (!spotsList.length) return null
+    if (!spotsList.length) return (<Link to='/spots/new' id='link-button'>Create a New Spot</Link>)
     return (<div className='everything-wrapper'>
         <h1>Manage Your Spots</h1>
-        <Link to='/spots/new' id='spot-creation-button'>Create a New Spot</Link>
+        <Link to='/spots/new' id='link-button'>Create a New Spot</Link>
         <ul className='spots-ul'>
             {spotsList.map((spot) => (
                 <Link key={spot.id} title={spot?.name} to={`/spots/${spot.id}`}>
@@ -37,8 +37,9 @@ export default function ManageSpots() {
 
                                 </div>
                                 <div class='button-section'>
-                                    <button>Update</button>
-                                    <button>Delete</button>
+                                    <Link id='link-button'to={`/spots/${spot.id}/edit`}>Update</Link>
+                                    <Link id='link-button'>Delete</Link>
+
                                 </div>
                             </div>
                         </li>
