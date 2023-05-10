@@ -9,8 +9,8 @@ const SpotForm = ({ spot, formType }) => {
     const [address, setAddress] = useState('')
     const [city, setCity] = useState('')
     const [state, setState] = useState('')
-    const [latitude, setLatitude] = useState('')
-    const [longitude, setLongitude] = useState('')
+    // const [latitude, setLatitude] = useState('')
+    // const [longitude, setLongitude] = useState('')
     const [description, setDescription] = useState('')
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
@@ -25,6 +25,8 @@ const SpotForm = ({ spot, formType }) => {
     const dispatch = useDispatch()
     const history = useHistory()
 
+    const spotImages = [previewImage, spotImage1, spotImage2, spotImage3, spotImage4]
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,11 +38,13 @@ const SpotForm = ({ spot, formType }) => {
             spot.address = address
             spot.city = city
             spot.state = state
-            spot.lat = latitude
-            spot.lng = longitude
+            spot.lat = 36.056595
+            spot.lng = -112.125092
             spot.description = description
             spot.name = name
             spot.price = price
+            spot.SpotImages = spotImages//???????????
+
 
             const newErrors = {}
 
@@ -112,22 +116,6 @@ const SpotForm = ({ spot, formType }) => {
                     value={state}
                     onChange={(e) => setState(e.target.value)}
                     placeholder='STATE'
-                />
-            </label>
-            <label>Latitude
-                <input
-                    type='text'
-                    value={latitude}
-                    onChange={(e) => setLatitude(e.target.value)}
-                    placeholder='Latitude'
-                />
-            </label>
-            <label>Longitude
-                <input
-                    type='text'
-                    value={longitude}
-                    onChange={(e) => setLongitude(e.target.value)}
-                    placeholder='Longitude'
                 />
             </label>
             <label>

@@ -4,6 +4,7 @@ import { csrfFetch } from "./csrf"
 const LOAD_SPOTS = 'spots/LOAD_SPOTS'
 const LOAD_SPOT_DETAILS = 'spotDetails/LOAD_SPOT_DETAILS'
 
+
 //ACTION CREATORS
 export const loadSpots = (spots) => ({
     type: LOAD_SPOTS,
@@ -14,6 +15,8 @@ export const loadSpotDetails = (singleSpot) => ({
     type: LOAD_SPOT_DETAILS,
     singleSpot
 })
+
+
 
 //THUNKS
 export const getSpotsThunk = () => async (dispatch) => {
@@ -35,6 +38,7 @@ export const getSpotDetailsThunk = (spotId) => async (dispatch) => {
 
         const spotDetails = await response.json()
         dispatch(loadSpotDetails(spotDetails))
+
     } else {
         const errors = await response.json()
         return errors;
@@ -52,7 +56,9 @@ export const createSpotThunk = (spot) => async (dispatch) => {
 
     if (response.ok) {
         const newSpot = await response.json();
+        console.log('newSpot======>', newSpot)
         dispatch(loadSpotDetails(newSpot))
+      
         return newSpot;
     } else {
         const errors = await response.json()
