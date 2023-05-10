@@ -4,6 +4,6 @@ export default function UpdateSpot() {
     const spot = {}
 
     return (
-        <SpotForm spot={spot} formType="Update Spot"/>
+        <SpotForm spot={spot} formType="Update your Spot"/>
     )
 }

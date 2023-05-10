@@ -58,7 +58,7 @@ const SpotForm = ({ spot, formType }) => {
 
         setErrors({})
         spot = { ...spot }
-        if (formType === 'Create Spot') {
+        if (formType === 'Create a new Spot') {
             spot.country = country
             spot.address = address
             spot.city = city
@@ -102,7 +102,7 @@ const SpotForm = ({ spot, formType }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <h2>Create a new Spot</h2>
+            <h2>{formType}</h2>
             <h3>Where's your place located?</h3>
             <p>Guests will only get your exact address once they booked a reservation.</p>
             <label>Country

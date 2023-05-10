@@ -17,7 +17,6 @@ export default function ManageSpots() {
     if (!spotsList.length) return (<Link to='/spots/new' id='link-button'>Create a New Spot</Link>)
     return (<div className='everything-wrapper'>
         <h1>Manage Your Spots</h1>
-        <Link to='/spots/new' id='link-button'>Create a New Spot</Link>
         <ul className='spots-ul'>
             {spotsList.map((spot) => (
                 <Link key={spot.id} title={spot?.name} to={`/spots/${spot.id}`}>
