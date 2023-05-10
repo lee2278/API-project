@@ -143,25 +143,6 @@ const SpotForm = ({ spot, formType }) => {
                     placeholder='STATE'
                 />
             </label>
-            <label>latitude
-
-                <input
-                    type='text'
-                    value={latitude}
-                    onChange={(e) => setLatitude(e.target.value)}
-                    placeholder='lat'
-                />
-
-            </label>
-            <label>longitude
-
-                <input
-                    type='text'
-                    value={longitude}
-                    onChange={(e) => setLongitude(e.target.value)}
-                    placeholder='lat'
-                />
-            </label>
             <label>
                 <h3>Describe your place to guests</h3>
                 <p>Mention the best features of your space, any special amentities like

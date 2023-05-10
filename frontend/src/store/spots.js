@@ -53,11 +53,9 @@ export const createSpotThunk = (spot, spotImages) => async (dispatch) => {
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify(spot)
     })
-    console.log('before reponse')
+  
     if (response.ok) {
         const newSpot = await response.json();
-        console.log('newSpot======>', newSpot)
-    console.log('reponse ok')
         for (let i = 0; i < spotImages.length; i++) {
              await csrfFetch(`/api/spots/${newSpot.id}/images`, {
                 method: "POST",
