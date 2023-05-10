@@ -6,7 +6,7 @@ export default function GetReviews() {
     const dispatch = useDispatch();
     
     const spot = useSelector(state => state)
-    console.log(spot)
+  
    
     return (
         <>

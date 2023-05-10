@@ -15,7 +15,6 @@ export const getReviewsThunk = (spotId) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json()
         const reviews = data.Reviews
-        console.log('reviews ===>')
         dispatch(loadReviews(reviews))
     }
 }

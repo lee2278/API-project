@@ -42,7 +42,8 @@ export const getSpotDetailsThunk = (spotId) => async (dispatch) => {
 }
 
 
-export const createSpotThunk = (spot) => async (dispatch) => {
+export const createSpotThunk = (spot, images) => async (dispatch) => {
+    
     const response = await csrfFetch('/api/spots', {
         method: "POST",
         headers: { "Content-Type": "application/json"},
