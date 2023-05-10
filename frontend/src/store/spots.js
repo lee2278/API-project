@@ -76,8 +76,6 @@ export const createSpotThunk = (spot, spotImages) => async (dispatch) => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(spotImages[i])
             })
-
-
         }
         return newSpot;
     } else {
@@ -86,7 +84,7 @@ export const createSpotThunk = (spot, spotImages) => async (dispatch) => {
     }
 }
 
-export const updateSpotThunk = (spot => async (dispatch) => {
+export const updateSpotThunk = (spot, spotImages) => async (dispatch) => {
     const response = await csrfFetch(`api/spots/${spot.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -95,13 +93,20 @@ export const updateSpotThunk = (spot => async (dispatch) => {
 
     if (response.ok) {
         const updatedSpot = await response.json()
+        for (let i = 0; i < spotImages.length; i++) {
+            await csrfFetch(`/api/spots/${updatedSpot.id}/images`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(spotImages[i])
+            })
+        }
         dispatch(editSpot(updatedSpot))
         return updatedSpot
     } else {
         const errors = await response.json()
         return errors
     }
-})
+}
 
 //REDUCER
 const initialState = { allSpots: {}, singleSpot: {} }

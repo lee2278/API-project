@@ -35,9 +35,9 @@ export default function ManageSpots() {
                                     </p>
 
                                 </div>
-                                <div class='button-section'>
+                                <div className='button-section'>
                                     <Link id='link-button'to={`/spots/${spot.id}/edit`}>Update</Link>
-                                    <Link id='link-button'>Delete</Link>
+                                    {/* <Link id='link-button'>Delete</Link> */}
 
                                 </div>
                             </div>
