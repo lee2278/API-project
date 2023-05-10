@@ -9,8 +9,8 @@ const SpotForm = ({ spot, formType }) => {
     const [address, setAddress] = useState('')
     const [city, setCity] = useState('')
     const [state, setState] = useState('')
-    // const [latitude, setLatitude] = useState('')
-    // const [longitude, setLongitude] = useState('')
+    const [latitude, setLatitude] = useState('')
+    const [longitude, setLongitude] = useState('')
     const [description, setDescription] = useState('')
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
@@ -25,7 +25,32 @@ const SpotForm = ({ spot, formType }) => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const spotImages = [previewImage, spotImage1, spotImage2, spotImage3, spotImage4]
+    let spotImagesArray = []
+    if (previewImage) {
+        spotImagesArray.push({url: previewImage, preview: true})
+      
+    }
+
+
+    if (spotImage1) {
+        spotImagesArray.push({url: previewImage, preview: false})
+    }
+
+
+    if (spotImage2) {
+        spotImagesArray.push({url: previewImage, preview: false})
+    }
+
+
+    if (spotImage3) {
+        spotImagesArray.push({url: previewImage, preview: false})
+    }
+
+
+    if (spotImage4) {
+        spotImagesArray.push({url: previewImage, preview: false})
+    }
+
 
 
     const handleSubmit = async (e) => {
@@ -38,12 +63,12 @@ const SpotForm = ({ spot, formType }) => {
             spot.address = address
             spot.city = city
             spot.state = state
-            spot.lat = 36.056595
-            spot.lng = -112.125092
+            spot.lat = latitude
+            spot.lng = longitude
             spot.description = description
             spot.name = name
             spot.price = price
-            spot.SpotImages = spotImages//???????????
+
 
 
             const newErrors = {}
@@ -57,9 +82,9 @@ const SpotForm = ({ spot, formType }) => {
             if (!price) newErrors.price = 'Price is required'
             if (!previewImage) newErrors.previewImage = 'Preview image is required.'
             if (spotImage1 && (!(spotImage1.endsWith('.png') || spotImage1.endsWith('.jpg') || spotImage1.endsWith('.jpeg')))) newErrors.spotImage1 = 'Image URL must end in .png, .jpg, or .jpeg'
-            if (spotImage2 &&(!(spotImage2.endsWith('.png') || spotImage2.endsWith('.jpg') || spotImage2.endsWith('.jpeg')))) newErrors.spotImage2 = 'Image URL must end in .png, .jpg, or .jpeg'
-            if (spotImage3 &&(!(spotImage3.endsWith('.png') || spotImage3.endsWith('.jpg') || spotImage3.endsWith('.jpeg')))) newErrors.spotImage3 = 'Image URL must end in .png, .jpg, or .jpeg'
-            if (spotImage4 &&(!(spotImage4.endsWith('.png') || spotImage4.endsWith('.jpg') || spotImage4.endsWith('.jpeg')))) newErrors.spotImage4 = 'Image URL must end in .png, .jpg, or .jpeg'
+            if (spotImage2 && (!(spotImage2.endsWith('.png') || spotImage2.endsWith('.jpg') || spotImage2.endsWith('.jpeg')))) newErrors.spotImage2 = 'Image URL must end in .png, .jpg, or .jpeg'
+            if (spotImage3 && (!(spotImage3.endsWith('.png') || spotImage3.endsWith('.jpg') || spotImage3.endsWith('.jpeg')))) newErrors.spotImage3 = 'Image URL must end in .png, .jpg, or .jpeg'
+            if (spotImage4 && (!(spotImage4.endsWith('.png') || spotImage4.endsWith('.jpg') || spotImage4.endsWith('.jpeg')))) newErrors.spotImage4 = 'Image URL must end in .png, .jpg, or .jpeg'
 
 
 
@@ -67,7 +92,7 @@ const SpotForm = ({ spot, formType }) => {
                 setErrors(newErrors)
                 return null
             } else {
-                const newSpot = await dispatch(createSpotThunk(spot))
+                const newSpot = await dispatch(createSpotThunk(spot, spotImagesArray))
                 spot = newSpot
                 history.push(`/spots/${spot.id}`)
             }
@@ -116,6 +141,25 @@ const SpotForm = ({ spot, formType }) => {
                     value={state}
                     onChange={(e) => setState(e.target.value)}
                     placeholder='STATE'
+                />
+            </label>
+            <label>latitude
+
+                <input
+                    type='text'
+                    value={latitude}
+                    onChange={(e) => setLatitude(e.target.value)}
+                    placeholder='lat'
+                />
+
+            </label>
+            <label>longitude
+
+                <input
+                    type='text'
+                    value={longitude}
+                    onChange={(e) => setLongitude(e.target.value)}
+                    placeholder='lat'
                 />
             </label>
             <label>
