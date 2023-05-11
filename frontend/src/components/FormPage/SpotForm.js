@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { createSpotThunk, updateSpotThunk } from '../../store/spots'
 import './FormPage.css'
+
 const SpotForm = ({ spot, formType }) => {
     const [country, setCountry] = useState('')
     const [address, setAddress] = useState('')
@@ -21,6 +22,11 @@ const SpotForm = ({ spot, formType }) => {
     const [spotImage4, setSpotImage4] = useState('')
     const [errors, setErrors] = useState({})
 
+///////////////////////////////////////////////////////
+    // const spotBySelector = useSelector(state => state.spots.singleSpot)
+    //////////////////////////////
+
+    // console.log('spotBySelector =======>', spotBySelector)
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -55,24 +61,25 @@ const SpotForm = ({ spot, formType }) => {
     const previewImgUrlArr = spotImagesArray.filter(image => image.preview === true)
 
     const imageurl = previewImgUrlArr.reverse().find(img => img.url)
-    console.log('imageurl', imageurl)
+   
 
     let submitButtonText;
     if (formType === 'Update your Spot') submitButtonText = 'Update Spot'
     if (formType === 'Create a new Spot') submitButtonText = 'Create Spot'
 
 
-    useEffect(()=> {
-        setCountry(spot.country)
-        setAddress(spot.address)
-        setCity(spot.city)
-        setState(spot.state)
-        setDescription(spot.description)
-        setName(spot.name)
-        setPrice(spot.price)
-        setPreviewImage(imageurl)
+    //     useEffect(()=> {
+    //     setCountry(spot.country)
+    //     setAddress(spot.address)
+    //     setCity(spot.city)
+    //     setState(spot.state)
+    //     setDescription(spot.description)
+    //     setName(spot.name)
+    //     setPrice(spot.price)
+    //     setPreviewImage(imageurl)
      
-    },[spot])
+    // },[spot])
+
 
 
 
@@ -142,6 +149,7 @@ const SpotForm = ({ spot, formType }) => {
 
         }
     }
+
 
 
     return (
