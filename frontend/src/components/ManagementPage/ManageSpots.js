@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserSpotsThunk } from '../../store/spots';
-import DeleteSpotModal from './DeleteSpotModal';
+import OpenModalButton from "../OpenModalButton";
+import DeleteModal from './DeleteSpotModal';
 
 
 export default function ManageSpots() {
@@ -14,15 +15,20 @@ export default function ManageSpots() {
         dispatch(getUserSpotsThunk())
     }, [dispatch])
 
-  
-   
+    const buttonActions = (
+        <OpenModalButton
+            buttonText="Delete"
+            modalComponent={<DeleteModal />}
+        />
+    )
+
 
     if (!spotsList.length) return (<Link to='/spots/new' id='link-button'>Create a New Spot</Link>)
     return (<div className='everything-wrapper'>
         <h1>Manage Your Spots</h1>
         <ul className='spots-ul'>
             {spotsList.map((spot) => (
-                // <Link key={spot.id} title={spot?.name} to={`/spots/${spot.id}`}>
+                <Link key={spot.id} title={spot?.name} to={`/spots/${spot.id}`}>
                     <div className='spot-container'>
                         <li>
                             <img src={spot.previewImage} alt='preview of a spot' />
@@ -39,15 +45,16 @@ export default function ManageSpots() {
 
                                 </div>
                                 <div className='button-section'>
-                                    <Link id='link-button'to={`/spots/${spot.id}/edit`}>Update</Link>
-                                  <button onClick={DeleteSpotModal}>Delete</button>
+                                    <Link id='link-button' to={`/spots/${spot.id}/edit`}>Update</Link>
+
+                                    {buttonActions}
 
                                 </div>
                             </div>
                         </li>
 
                     </div>
-                // </Link>
+                </Link>
             ))}
 
         </ul>

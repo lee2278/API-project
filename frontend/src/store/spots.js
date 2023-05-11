@@ -17,9 +17,9 @@ export const loadSpotDetails = (singleSpot) => ({
     singleSpot
 })
 
-export const editSpot = (spot) => ({
+export const editSpot = (singleSpot) => ({
     type: UPDATE_SPOT,
-    spot
+    singleSpot
 })
 
 export const removeSpot = (spotId) => ({
@@ -147,6 +147,16 @@ export const spotsReducer = (state = initialState, action) => {
             newState.singleSpot = action.singleSpot;
             return newState;
 
+        }
+        case UPDATE_SPOT: {
+            const newState = {...state}
+            newState.singleSpot = action.singleSpot
+        }
+        case REMOVE_SPOT: {
+            const newState = {...state }
+            console.log('newState ========>', newState)
+            delete newState[action.spotId]
+            return newState
         }
         default:
             return state
