@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { createSpotThunk } from '../../store/spots'
+import { createSpotThunk, updateSpotThunk } from '../../store/spots'
 import './FormPage.css'
+
 const SpotForm = ({ spot, formType }) => {
     const [country, setCountry] = useState('')
     const [address, setAddress] = useState('')
@@ -21,35 +22,58 @@ const SpotForm = ({ spot, formType }) => {
     const [spotImage4, setSpotImage4] = useState('')
     const [errors, setErrors] = useState({})
 
-
     const dispatch = useDispatch()
     const history = useHistory()
 
     let spotImagesArray = []
     if (previewImage) {
-        spotImagesArray.push({url: previewImage, preview: true})
-      
+        spotImagesArray.push({ url: previewImage, preview: true })
+
     }
 
 
     if (spotImage1) {
-        spotImagesArray.push({url: previewImage, preview: false})
+        spotImagesArray.push({ url: previewImage, preview: false })
     }
 
 
     if (spotImage2) {
-        spotImagesArray.push({url: previewImage, preview: false})
+        spotImagesArray.push({ url: previewImage, preview: false })
     }
 
 
     if (spotImage3) {
-        spotImagesArray.push({url: previewImage, preview: false})
+        spotImagesArray.push({ url: previewImage, preview: false })
     }
 
 
     if (spotImage4) {
-        spotImagesArray.push({url: previewImage, preview: false})
+        spotImagesArray.push({ url: previewImage, preview: false })
     }
+
+
+    const previewImgUrlArr = spotImagesArray.filter(image => image.preview === true)
+
+    const imageurl = previewImgUrlArr.reverse().find(img => img.url)
+   
+
+    let submitButtonText;
+    if (formType === 'Update your Spot') submitButtonText = 'Update Spot'
+    if (formType === 'Create a new Spot') submitButtonText = 'Create Spot'
+
+
+        useEffect(()=> {
+        setCountry(spot.country)
+        setAddress(spot.address)
+        setCity(spot.city)
+        setState(spot.state)
+        setDescription(spot.description)
+        setName(spot.name)
+        setPrice(spot.price)
+        setPreviewImage(imageurl)
+     
+    },[spot])
+
 
 
 
@@ -58,7 +82,25 @@ const SpotForm = ({ spot, formType }) => {
 
         setErrors({})
         spot = { ...spot }
-        if (formType === 'Create Spot') {
+
+        const newErrors = {}
+
+        if (!country) newErrors.country = 'Country is required'
+        if (!address) newErrors.address = 'Address is required'
+        if (!city) newErrors.city = 'City is required'
+        if (!state) newErrors.state = 'State is required'
+        if (!description || description.length < 30) newErrors.description = 'Description needs a minimum of 30 characters'
+        if (!name) newErrors.name = "Name is required"
+        if (!price) newErrors.price = 'Price is required'
+        if (!previewImage) newErrors.previewImageReq = 'Preview image is required.'
+        if (previewImage && (!(previewImage.endsWith('.png') || previewImage.endsWith('.jpg') || previewImage.endsWith('.jpeg')))) newErrors.previewImage = 'Image URL must end in .png, .jpg, or .jpeg'
+        if (spotImage1 && (!(spotImage1.endsWith('.png') || spotImage1.endsWith('.jpg') || spotImage1.endsWith('.jpeg')))) newErrors.spotImage1 = 'Image URL must end in .png, .jpg, or .jpeg'
+        if (spotImage2 && (!(spotImage2.endsWith('.png') || spotImage2.endsWith('.jpg') || spotImage2.endsWith('.jpeg')))) newErrors.spotImage2 = 'Image URL must end in .png, .jpg, or .jpeg'
+        if (spotImage3 && (!(spotImage3.endsWith('.png') || spotImage3.endsWith('.jpg') || spotImage3.endsWith('.jpeg')))) newErrors.spotImage3 = 'Image URL must end in .png, .jpg, or .jpeg'
+        if (spotImage4 && (!(spotImage4.endsWith('.png') || spotImage4.endsWith('.jpg') || spotImage4.endsWith('.jpeg')))) newErrors.spotImage4 = 'Image URL must end in .png, .jpg, or .jpeg'
+
+
+        if (formType === 'Create a new Spot') {
             spot.country = country
             spot.address = address
             spot.city = city
@@ -69,25 +111,6 @@ const SpotForm = ({ spot, formType }) => {
             spot.name = name
             spot.price = price
 
-
-
-            const newErrors = {}
-
-            if (!country) newErrors.country = 'Country is required'
-            if (!address) newErrors.address = 'Address is required'
-            if (!city) newErrors.city = 'City is required'
-            if (!state) newErrors.state = 'State is required'
-            if (description.length < 30) newErrors.description = 'Description needs a minimum of 30 characters'
-            if (!name) newErrors.name = "Name is required"
-            if (!price) newErrors.price = 'Price is required'
-            if (!previewImage) newErrors.previewImage = 'Preview image is required.'
-            if (spotImage1 && (!(spotImage1.endsWith('.png') || spotImage1.endsWith('.jpg') || spotImage1.endsWith('.jpeg')))) newErrors.spotImage1 = 'Image URL must end in .png, .jpg, or .jpeg'
-            if (spotImage2 && (!(spotImage2.endsWith('.png') || spotImage2.endsWith('.jpg') || spotImage2.endsWith('.jpeg')))) newErrors.spotImage2 = 'Image URL must end in .png, .jpg, or .jpeg'
-            if (spotImage3 && (!(spotImage3.endsWith('.png') || spotImage3.endsWith('.jpg') || spotImage3.endsWith('.jpeg')))) newErrors.spotImage3 = 'Image URL must end in .png, .jpg, or .jpeg'
-            if (spotImage4 && (!(spotImage4.endsWith('.png') || spotImage4.endsWith('.jpg') || spotImage4.endsWith('.jpeg')))) newErrors.spotImage4 = 'Image URL must end in .png, .jpg, or .jpeg'
-
-
-
             if (Object.values(newErrors).length > 0) {
                 setErrors(newErrors)
                 return null
@@ -96,13 +119,36 @@ const SpotForm = ({ spot, formType }) => {
                 spot = newSpot
                 history.push(`/spots/${spot.id}`)
             }
+        } else if (formType === 'Update your Spot') {
+            spot.country = country
+            spot.address = address
+            spot.city = city
+            spot.state = state
+            spot.lat = latitude
+            spot.lng = longitude
+            spot.description = description
+            spot.name = name
+            spot.price = price
+
+            if (newErrors.previewImageReq) delete newErrors.previewImageReq
+          
+            if (Object.values(newErrors).length > 0) {
+                setErrors(newErrors)
+                return null
+            } else {
+                const updated = await dispatch(updateSpotThunk(spot, spotImagesArray))
+                spot = updated
+                history.push(`/spots/${spot.id}`)
+            }
+
         }
     }
 
 
+
     return (
         <form onSubmit={handleSubmit}>
-            <h2>Create a new Spot</h2>
+            <h2>{formType}</h2>
             <h3>Where's your place located?</h3>
             <p>Guests will only get your exact address once they booked a reservation.</p>
             <label>Country
@@ -191,7 +237,10 @@ const SpotForm = ({ spot, formType }) => {
                     onChange={(e) => setPreviewImage(e.target.value)}
                     placeholder='Preview Image URL'
                 />
+                {errors.previewImageReq && <span className='error'>{errors.previewImageReq}</span>}
+
                 {errors.previewImage && <span className='error'>{errors.previewImage}</span>}
+                
                 <input
                     type='text'
                     value={spotImage1}
@@ -222,7 +271,7 @@ const SpotForm = ({ spot, formType }) => {
                 {errors.spotImage4 && <span className='error'>{errors.spotImage4}</span>}
             </label>
 
-            <button>Create Spot</button>
+            <button>{submitButtonText}</button>
 
 
         </form>

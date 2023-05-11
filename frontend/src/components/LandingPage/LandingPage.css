@@ -28,11 +28,13 @@ img {
     width: 225px;
 }
 
-img:hover {
-    
-}
 .details-container {
     display: flex;
     justify-content: space-between;
 
+}
+
+#link-button {
+    border: 1px solid black;
+    padding: 0.5rem;
 }

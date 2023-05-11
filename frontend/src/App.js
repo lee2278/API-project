@@ -7,6 +7,8 @@ import GetSpots from "./components/LandingPage/GetSpots"
 import GetSpotDetails from './components/SpotDetailsPage/GetSpotDetails'
 import GetReviews from './components/SpotDetailsPage/GetReviews'
 import CreateSpot from './components/FormPage/CreateSpot'
+import ManageSpot from "./components/ManagementPage/ManageSpots";
+import UpdateSpot from './components/FormPage/UpdateSpot'
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +27,12 @@ function App() {
       {isLoaded && <Switch>
         <Route path='/spots/new'>
           <CreateSpot/>
+        </Route>
+        <Route path='/spots/current'>
+          <ManageSpot/>
+        </Route>
+        <Route path='/spots/:spotId/edit'>
+          <UpdateSpot/>
         </Route>
         <Route path='/spots/:spotId'>
           <GetSpotDetails/>
