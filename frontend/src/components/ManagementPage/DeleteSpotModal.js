@@ -17,7 +17,7 @@ function DeleteModal({spot}) {
         e.preventDefault();
         dispatch(deleteSpotThunk(spot.id))
         closeModal()
-        dispatch(getUserSpotsThunk())
+ 
     }
 
 
