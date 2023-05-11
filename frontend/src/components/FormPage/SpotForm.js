@@ -26,30 +26,16 @@ const SpotForm = ({ spot, formType }) => {
     const history = useHistory()
 
     let spotImagesArray = []
-    if (previewImage) {
-        spotImagesArray.push({ url: previewImage, preview: true })
-
-    }
-
-
-    if (spotImage1) {
-        spotImagesArray.push({ url: previewImage, preview: false })
-    }
-
-
-    if (spotImage2) {
-        spotImagesArray.push({ url: previewImage, preview: false })
-    }
-
-
-    if (spotImage3) {
-        spotImagesArray.push({ url: previewImage, preview: false })
-    }
-
-
-    if (spotImage4) {
-        spotImagesArray.push({ url: previewImage, preview: false })
-    }
+    if (previewImage) spotImagesArray.push({ url: previewImage, preview: true })
+    
+    if (spotImage1) spotImagesArray.push({ url: previewImage, preview: false })
+    
+    if (spotImage2)  spotImagesArray.push({ url: previewImage, preview: false })
+    
+    if (spotImage3) spotImagesArray.push({ url: previewImage, preview: false })
+    
+    if (spotImage4) spotImagesArray.push({ url: previewImage, preview: false })
+    
 
 
     const previewImgUrlArr = spotImagesArray.filter(image => image.preview === true)
@@ -58,7 +44,7 @@ const SpotForm = ({ spot, formType }) => {
    
 
     let submitButtonText;
-    if (formType === 'Update your Spot') submitButtonText = 'Update Spot'
+    if (formType === 'Update your Spot') submitButtonText = 'Update your Spot'
     if (formType === 'Create a new Spot') submitButtonText = 'Create Spot'
 
 
@@ -92,7 +78,7 @@ const SpotForm = ({ spot, formType }) => {
         if (!description || description.length < 30) newErrors.description = 'Description needs a minimum of 30 characters'
         if (!name) newErrors.name = "Name is required"
         if (!price) newErrors.price = 'Price is required'
-        if (!previewImage) newErrors.previewImageReq = 'Preview image is required.'
+        if (!previewImage) newErrors.previewImage = 'Preview image is required.'
         if (previewImage && (!(previewImage.endsWith('.png') || previewImage.endsWith('.jpg') || previewImage.endsWith('.jpeg')))) newErrors.previewImage = 'Image URL must end in .png, .jpg, or .jpeg'
         if (spotImage1 && (!(spotImage1.endsWith('.png') || spotImage1.endsWith('.jpg') || spotImage1.endsWith('.jpeg')))) newErrors.spotImage1 = 'Image URL must end in .png, .jpg, or .jpeg'
         if (spotImage2 && (!(spotImage2.endsWith('.png') || spotImage2.endsWith('.jpg') || spotImage2.endsWith('.jpeg')))) newErrors.spotImage2 = 'Image URL must end in .png, .jpg, or .jpeg'
@@ -237,7 +223,6 @@ const SpotForm = ({ spot, formType }) => {
                     onChange={(e) => setPreviewImage(e.target.value)}
                     placeholder='Preview Image URL'
                 />
-                {errors.previewImageReq && <span className='error'>{errors.previewImageReq}</span>}
 
                 {errors.previewImage && <span className='error'>{errors.previewImage}</span>}
                 

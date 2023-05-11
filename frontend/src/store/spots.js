@@ -153,9 +153,9 @@ export const spotsReducer = (state = initialState, action) => {
             newState.singleSpot = action.singleSpot
         }
         case REMOVE_SPOT: {
-            const newState = {...state }
+            const newState = {...state, allSpots:{...state.allSpots}} 
             console.log('newState ========>', newState)
-            delete newState[action.spotId]
+            delete newState.allSpots[action.spotId]
             return newState
         }
         default:
