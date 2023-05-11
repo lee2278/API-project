@@ -85,14 +85,17 @@ export const createSpotThunk = (spot, spotImages) => async (dispatch) => {
 }
 
 export const updateSpotThunk = (spot, spotImages) => async (dispatch) => {
-    const response = await csrfFetch(`api/spots/${spot.id}`, {
+    const response = await csrfFetch(`/api/spots/${spot.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(spot)
     })
-
+    console.log('response ======>', response)
     if (response.ok) {
         const updatedSpot = await response.json()
+
+        console.log('updatedSpot ======>', updatedSpot)
+
         for (let i = 0; i < spotImages.length; i++) {
             await csrfFetch(`/api/spots/${updatedSpot.id}/images`, {
                 method: "POST",

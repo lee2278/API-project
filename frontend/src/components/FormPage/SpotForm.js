@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -52,6 +52,29 @@ const SpotForm = ({ spot, formType }) => {
     }
 
 
+    const previewImgUrlArr = spotImagesArray.filter(image => image.preview === true)
+
+    const imageurl = previewImgUrlArr.reverse().find(img => img.url)
+    console.log('imageurl', imageurl)
+
+    let submitButtonText;
+    if (formType === 'Update your Spot') submitButtonText = 'Update Spot'
+    if (formType === 'Create a new Spot') submitButtonText = 'Create Spot'
+
+
+    useEffect(()=> {
+        setCountry(spot.country)
+        setAddress(spot.address)
+        setCity(spot.city)
+        setState(spot.state)
+        setDescription(spot.description)
+        setName(spot.name)
+        setPrice(spot.price)
+        setPreviewImage(imageurl)
+     
+    },[spot])
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -68,7 +91,8 @@ const SpotForm = ({ spot, formType }) => {
         if (description.length < 30) newErrors.description = 'Description needs a minimum of 30 characters'
         if (!name) newErrors.name = "Name is required"
         if (!price) newErrors.price = 'Price is required'
-        if (!previewImage) newErrors.previewImage = 'Preview image is required.'
+        if (!previewImage) newErrors.previewImageReq = 'Preview image is required.'
+        if (previewImage && (!(previewImage.endsWith('.png') || previewImage.endsWith('.jpg') || previewImage.endsWith('.jpeg')))) newErrors.previewImage = 'Image URL must end in .png, .jpg, or .jpeg'
         if (spotImage1 && (!(spotImage1.endsWith('.png') || spotImage1.endsWith('.jpg') || spotImage1.endsWith('.jpeg')))) newErrors.spotImage1 = 'Image URL must end in .png, .jpg, or .jpeg'
         if (spotImage2 && (!(spotImage2.endsWith('.png') || spotImage2.endsWith('.jpg') || spotImage2.endsWith('.jpeg')))) newErrors.spotImage2 = 'Image URL must end in .png, .jpg, or .jpeg'
         if (spotImage3 && (!(spotImage3.endsWith('.png') || spotImage3.endsWith('.jpg') || spotImage3.endsWith('.jpeg')))) newErrors.spotImage3 = 'Image URL must end in .png, .jpg, or .jpeg'
@@ -105,12 +129,14 @@ const SpotForm = ({ spot, formType }) => {
             spot.name = name
             spot.price = price
 
+            if (newErrors.previewImageReq) delete newErrors.previewImageReq
+          
             if (Object.values(newErrors).length > 0) {
                 setErrors(newErrors)
                 return null
             } else {
-                const newSpot = await dispatch(updateSpotThunk(spot, spotImagesArray))
-                spot = newSpot
+                const updated = await dispatch(updateSpotThunk(spot, spotImagesArray))
+                spot = updated
                 history.push(`/spots/${spot.id}`)
             }
 
@@ -209,7 +235,10 @@ const SpotForm = ({ spot, formType }) => {
                     onChange={(e) => setPreviewImage(e.target.value)}
                     placeholder='Preview Image URL'
                 />
+                {errors.previewImageReq && <span className='error'>{errors.previewImageReq}</span>}
+
                 {errors.previewImage && <span className='error'>{errors.previewImage}</span>}
+                
                 <input
                     type='text'
                     value={spotImage1}
@@ -240,7 +269,7 @@ const SpotForm = ({ spot, formType }) => {
                 {errors.spotImage4 && <span className='error'>{errors.spotImage4}</span>}
             </label>
 
-            <button>Create Spot</button>
+            <button>{submitButtonText}</button>
 
 
         </form>
