@@ -9,26 +9,28 @@ export const loadReviews = (spot) =>({
 
 
 //THUNKS
-export const getReviewsThunk = (spotId) => async (dispatch) => {
+export const getReviewsBySpotThunk = (spotId) => async (dispatch) => {
     const response = await fetch(`/api/spots/${spotId}`)
 
     if (response.ok) {
         const data = await response.json()
         const reviews = data.Reviews
-        dispatch(loadReviews(reviews))
+        console.log('reviews ========>', reviews)
     }
 }
 
 
 //REDUCER
 
-const initialState = {spot: {}}
+const initialState = { spot: {}, user: {} }
 
 export const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_REVIEWS: {
-            const newState = {...state};
-            //think of logic here
+         const newState = { spot: {}, user: {} }
+        //  newState.spot[review.id] = action.spot.review
+        console.log('newState ======>', newState)
+         return newState
         }
         default: return state
     }
