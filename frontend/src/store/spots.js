@@ -118,7 +118,7 @@ export const updateSpotThunk = (spot, spotImages) => async (dispatch) => {
 
 
 export const deleteSpotThunk = (spotId) => async (dispatch) => {
-    const response = await fetch(`/api/spots/${spotId}`, {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'DELETE'
     })
 

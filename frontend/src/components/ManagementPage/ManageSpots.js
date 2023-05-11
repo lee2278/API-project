@@ -15,46 +15,48 @@ export default function ManageSpots() {
         dispatch(getUserSpotsThunk())
     }, [dispatch])
 
-    const buttonActions = (
-        <OpenModalButton
-            buttonText="Delete"
-            modalComponent={<DeleteModal />}
-        />
-    )
 
 
     if (!spotsList.length) return (<Link to='/spots/new' id='link-button'>Create a New Spot</Link>)
     return (<div className='everything-wrapper'>
         <h1>Manage Your Spots</h1>
         <ul className='spots-ul'>
+
+
             {spotsList.map((spot) => (
-                <Link key={spot.id} title={spot?.name} to={`/spots/${spot.id}`}>
-                    <div className='spot-container'>
-                        <li>
-                            <img src={spot.previewImage} alt='preview of a spot' />
-                            <div className='details-container'>
-                                <div className='info'>
-                                    <p>{`${spot.city}, ${spot.state}`}</p>
-                                    <p>{`$${spot.price} night`}</p>
-                                </div>
-                                <div className='stars'>
-                                    <p>
-                                        {<i className="fa-solid fa-star" style={{ color: '#000000' }}></i>}
-                                        {spot.avgRating === 'Not Available. No reviews yet' ? 'New' : `${spot.avgRating}`}
-                                    </p>
+                <div>
+                    <div className='button-section'>
+                        <Link id='link-button' to={`/spots/${spot.id}/edit`}>Update</Link>
 
-                                </div>
-                                <div className='button-section'>
-                                    <Link id='link-button' to={`/spots/${spot.id}/edit`}>Update</Link>
-
-                                    {buttonActions}
-
-                                </div>
-                            </div>
-                        </li>
-
+                        <OpenModalButton
+                            buttonText="Delete"
+                            modalComponent={<DeleteModal spot={spot} />}
+                        />
                     </div>
-                </Link>
+
+                    <Link key={spot.id} title={spot?.name} to={`/spots/${spot.id}`}>
+                        <div className='spot-container'>
+                            <li>
+                                <img src={spot.previewImage} alt='preview of a spot' />
+                                <div className='details-container'>
+                                    <div className='info'>
+                                        <p>{`${spot.city}, ${spot.state}`}</p>
+                                        <p>{`$${spot.price} night`}</p>
+                                    </div>
+                                    <div className='stars'>
+                                        <p>
+                                            {<i className="fa-solid fa-star" style={{ color: '#000000' }}></i>}
+                                            {spot.avgRating === 'Not Available. No reviews yet' ? 'New' : `${spot.avgRating}`}
+                                        </p>
+
+                                    </div>
+
+                                </div>
+                            </li>
+
+                        </div>
+                    </Link>
+                </div>
             ))}
 
         </ul>
