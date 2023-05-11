@@ -95,7 +95,7 @@ export const updateSpotThunk = (spot, spotImages) => async (dispatch) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(spot)
     })
-    console.log('response ======>', response)
+
     if (response.ok) {
         const updatedSpot = await response.json()
 
@@ -137,7 +137,7 @@ export const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_SPOTS: {
             const newState = { allSpots: {}, singleSpot: {} };
-            action.spots.forEach((spot) => {
+            if (action.spots) action.spots.forEach((spot) => {
                 newState.allSpots[spot.id] = spot
             })
             return newState;
