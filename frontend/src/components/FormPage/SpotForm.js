@@ -22,12 +22,6 @@ const SpotForm = ({ spot, formType }) => {
     const [spotImage4, setSpotImage4] = useState('')
     const [errors, setErrors] = useState({})
 
-///////////////////////////////////////////////////////
-    // const spotBySelector = useSelector(state => state.spots.singleSpot)
-    //////////////////////////////
-
-    // console.log('spotBySelector =======>', spotBySelector)
-
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -68,17 +62,17 @@ const SpotForm = ({ spot, formType }) => {
     if (formType === 'Create a new Spot') submitButtonText = 'Create Spot'
 
 
-    //     useEffect(()=> {
-    //     setCountry(spot.country)
-    //     setAddress(spot.address)
-    //     setCity(spot.city)
-    //     setState(spot.state)
-    //     setDescription(spot.description)
-    //     setName(spot.name)
-    //     setPrice(spot.price)
-    //     setPreviewImage(imageurl)
+        useEffect(()=> {
+        setCountry(spot.country)
+        setAddress(spot.address)
+        setCity(spot.city)
+        setState(spot.state)
+        setDescription(spot.description)
+        setName(spot.name)
+        setPrice(spot.price)
+        setPreviewImage(imageurl)
      
-    // },[spot])
+    },[spot])
 
 
 
@@ -95,7 +89,7 @@ const SpotForm = ({ spot, formType }) => {
         if (!address) newErrors.address = 'Address is required'
         if (!city) newErrors.city = 'City is required'
         if (!state) newErrors.state = 'State is required'
-        if (description.length < 30) newErrors.description = 'Description needs a minimum of 30 characters'
+        if (!description || description.length < 30) newErrors.description = 'Description needs a minimum of 30 characters'
         if (!name) newErrors.name = "Name is required"
         if (!price) newErrors.price = 'Price is required'
         if (!previewImage) newErrors.previewImageReq = 'Preview image is required.'
