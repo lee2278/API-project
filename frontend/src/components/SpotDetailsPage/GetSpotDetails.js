@@ -10,13 +10,20 @@ export default function GetSpotDetails() {
 
     const spot = useSelector(state => state.spots.singleSpot)
     const reviewsObj = useSelector(state => state.reviews.spot)
-
     const reviews = Object.values(reviewsObj);
+    const sessionUser = useSelector(state => state.session.user);
+
+    console.log('sessionUser.id ==========>', sessionUser.id)
+    console.log('spot.ownerId ==========>', spot.ownerId)
+   
 
     useEffect(() => {
         dispatch(getSpotDetailsThunk(spotId))
         dispatch(getReviewsBySpotThunk(spotId))
     }, [dispatch, spotId])
+
+
+
 
 
     const handleReserveButton = () => {
@@ -44,10 +51,20 @@ export default function GetSpotDetails() {
     })
 
 
-    let avgRatingDisplayed;
-    if (!spot.avgStarRating || spot.avgStarRating === 'Not Available. No reviews yet') avgRatingDisplayed = 'New'
-    else avgRatingDisplayed = `${spot.avgStarRating} · ${spot.numReviews} reviews`
-   
+    let bottomDisplay;
+    let boxDisplay;
+
+    if (sessionUser && sessionUser.id !== spot.ownerId && spot.numReviews === 0) {
+        bottomDisplay = 'Be the first to post a review!'
+    } else if (!spot.avgStarRating || spot.avgStarRating === 'Not Available. No reviews yet') {
+        bottomDisplay = 'New'
+    } else bottomDisplay = `${spot.avgStarRating} · ${spot.numReviews} reviews`
+    
+    if (!spot.avgStarRating || spot.avgStarRating === 'Not Available. No reviews yet') {
+        boxDisplay = 'New'
+    } else boxDisplay = spot.avgStarRating
+    
+
     return (
         <>
             <header>
@@ -75,7 +92,7 @@ export default function GetSpotDetails() {
                                 <p>{`$${spot.price} night`}</p>
                                 <div className='rating'>
                                     <p><i className="fa-solid fa-star" style={{ color: '#000000' }}></i>
-                                    {`${spot.avgStarRating}`}</p>
+                                        {`${boxDisplay}`}</p>
                                 </div>
                                 <p className='some-dot'>·</p>
                                 <p>{`${spot.numReviews} reviews`}</p>
@@ -92,10 +109,10 @@ export default function GetSpotDetails() {
             <div className='reviews-section'>
                 <h2>
                     <i className="fa-solid fa-star" style={{ color: '#000000' }}></i>
-                    {avgRatingDisplayed}
+                    {bottomDisplay}
                 </h2>
 
-                {reviews.map(review => (
+                {reviews.reverse().map(review => (
                     <div key={review.id}>
                         <h3>{review.User.firstName}</h3>
                         <p>{getMonthYear(review.createdAt)}</p>
