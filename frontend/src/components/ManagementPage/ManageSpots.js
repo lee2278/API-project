@@ -14,13 +14,11 @@ export default function ManageSpots() {
 
     useEffect(() => {
         dispatch(getUserSpotsThunk())
-
     }, [dispatch])
 
 
-    console.log('user', user)
-
     if (!spotsList.length) return (<Link to='/spots/new' id='link-button'>Create a New Spot</Link>)
+
     return (<div className='everything-wrapper'>
         <h1>Manage Your Spots</h1>
         <ul className='spots-ul'>
