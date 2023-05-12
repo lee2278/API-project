@@ -51,13 +51,18 @@ export default function GetSpotDetails() {
     })
 
 
-    let avgRatingDisplayed;
+    let bottomDisplay;
+    let boxDisplay;
 
     if (sessionUser && sessionUser.id !== spot.ownerId && spot.numReviews === 0) {
-        avgRatingDisplayed = 'Be the first to post a review!'
+        bottomDisplay = 'Be the first to post a review!'
     } else if (!spot.avgStarRating || spot.avgStarRating === 'Not Available. No reviews yet') {
-        avgRatingDisplayed = 'New'
-    } else avgRatingDisplayed = `${spot.avgStarRating} · ${spot.numReviews} reviews`
+        bottomDisplay = 'New'
+    } else bottomDisplay = `${spot.avgStarRating} · ${spot.numReviews} reviews`
+    
+    if (!spot.avgStarRating || spot.avgStarRating === 'Not Available. No reviews yet') {
+        boxDisplay = 'New'
+    } else boxDisplay = spot.avgStarRating
     
 
     return (
@@ -87,7 +92,7 @@ export default function GetSpotDetails() {
                                 <p>{`$${spot.price} night`}</p>
                                 <div className='rating'>
                                     <p><i className="fa-solid fa-star" style={{ color: '#000000' }}></i>
-                                        {`${avgRatingDisplayed}`}</p>
+                                        {`${boxDisplay}`}</p>
                                 </div>
                                 <p className='some-dot'>·</p>
                                 <p>{`${spot.numReviews} reviews`}</p>
@@ -104,7 +109,7 @@ export default function GetSpotDetails() {
             <div className='reviews-section'>
                 <h2>
                     <i className="fa-solid fa-star" style={{ color: '#000000' }}></i>
-                    {avgRatingDisplayed}
+                    {bottomDisplay}
                 </h2>
 
                 {reviews.reverse().map(review => (
