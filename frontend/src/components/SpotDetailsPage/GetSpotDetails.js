@@ -13,8 +13,7 @@ export default function GetSpotDetails() {
     const reviews = Object.values(reviewsObj);
     const sessionUser = useSelector(state => state.session.user);
 
-    console.log('sessionUser.id ==========>', sessionUser.id)
-    console.log('spot.ownerId ==========>', spot.ownerId)
+    
    
 
     useEffect(() => {
