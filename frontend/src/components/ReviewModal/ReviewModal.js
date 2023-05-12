@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { useDispatch } from "react-redux";
 import { useModal } from '../../context/Modal'
 import {createReviewThunk} from '../../store/reviews'
-import { getSpotDetailsThunk } from "../../store/spots";
+import { getReviewsBySpotThunk } from '../../store/reviews';
 
-function ReviewModal() {
+function ReviewModal({spotId}) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
@@ -13,11 +13,12 @@ function ReviewModal() {
 
     const newReview = {
         review,
-        stars
+        stars,
+        spotId
     }
 
     useEffect(() => {
-        // dispatch(getReviewsBySpotThunk())  need to get a spotId but from where??
+        dispatch(getReviewsBySpotThunk(spotId))  
     }, [dispatch])
 
     const handleSubmit = (e) => {
@@ -34,8 +35,13 @@ function ReviewModal() {
             <textarea
             placeholder='Just a quick review.'
             onChange={(e) => setReview(e.target.value)}
+            value={review}
             >
             </textarea>
+            <input onChange={(e) => setStars(e.target.value)}
+            value={stars}
+            
+            ></input>
             <button onClick={handleSubmit}>{`Submit Your Review`}</button>
           
         </>

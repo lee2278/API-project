@@ -16,9 +16,7 @@ export default function GetSpotDetails() {
     const reviews = Object.values(reviewsObj);
     const sessionUser = useSelector(state => state.session.user);
 
-    console.log('spotttttt', spot)
-    console.log('reviewssssObj', reviewsObj)
-
+   console.log('reviews ======>', reviews)
 
     useEffect(() => {
         dispatch(getSpotDetailsThunk(spotId))
@@ -141,7 +139,7 @@ export default function GetSpotDetails() {
                 {notSpotOwner && currentUserReviewsOfSpot.length === 0 &&
                     <OpenModalButton
                         buttonText="Post Your Review"
-                        modalComponent={<ReviewModal />}
+                        modalComponent={<ReviewModal spotId ={spotId}/>}
                     />}
 
 

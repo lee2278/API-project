@@ -36,6 +36,7 @@ export const createReviewThunk = (review) => async () => {
             return newReview
         } else {
             const errors = await response.json()
+            console.log('errors =====>', errors)
             return errors;
         }
     
