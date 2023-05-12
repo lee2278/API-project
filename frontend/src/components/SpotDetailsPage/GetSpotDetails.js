@@ -4,6 +4,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getSpotDetailsThunk } from '../../store/spots';
 import './SpotDetailsPage.css'
 import { getReviewsBySpotThunk } from '../../store/reviews';
+import OpenModalButton from '../OpenModalButton';
+import ReviewModal from '../ReviewModal/ReviewModal';
+
 export default function GetSpotDetails() {
     const { spotId } = useParams();
     const dispatch = useDispatch();
@@ -13,8 +16,9 @@ export default function GetSpotDetails() {
     const reviews = Object.values(reviewsObj);
     const sessionUser = useSelector(state => state.session.user);
 
-    
-   
+    console.log('spotttttt', spot)
+    console.log('reviewssssObj', reviewsObj)
+
 
     useEffect(() => {
         dispatch(getSpotDetailsThunk(spotId))
@@ -57,12 +61,23 @@ export default function GetSpotDetails() {
         bottomDisplay = 'Be the first to post a review!'
     } else if (!spot.avgStarRating || spot.avgStarRating === 'Not Available. No reviews yet') {
         bottomDisplay = 'New'
-    } else bottomDisplay = `${spot.avgStarRating} · ${spot.numReviews} reviews`
-    
+    } else bottomDisplay = `${spot.avgStarRating} · ${spot.numReviews} ${reviewText}`
+
     if (!spot.avgStarRating || spot.avgStarRating === 'Not Available. No reviews yet') {
         boxDisplay = 'New'
     } else boxDisplay = spot.avgStarRating
-    
+
+
+
+    let notSpotOwner;
+    if (sessionUser && sessionUser.id !== spot.ownerId) notSpotOwner = true;
+
+    let currentUserReviewsOfSpot
+    if (sessionUser && Array.isArray(reviews)) {
+        currentUserReviewsOfSpot = reviews.filter(review => review.userId === sessionUser.id)
+    }
+
+
 
     return (
         <>
@@ -111,13 +126,26 @@ export default function GetSpotDetails() {
                     {bottomDisplay}
                 </h2>
 
-                {reviews.reverse().map(review => (
+
+                {reviews.reverse().map(review => {
                     <div key={review.id}>
                         <h3>{review.User.firstName}</h3>
                         <p>{getMonthYear(review.createdAt)}</p>
                         <p>{review.review}</p>
                     </div>
-                ))}
+                })}
+                
+                 {/* {review && review.userId === sessionUser.id && <button>Delete Review</button>} */}
+
+
+                {notSpotOwner && currentUserReviewsOfSpot.length === 0 &&
+                    <OpenModalButton
+                        buttonText="Post Your Review"
+                        modalComponent={<ReviewModal />}
+                    />}
+
+
+
 
             </div>
         </>
