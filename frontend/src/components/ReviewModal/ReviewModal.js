@@ -9,7 +9,7 @@ function ReviewModal({spotId}) {
     const { closeModal } = useModal();
 
     const [review, setReview] = useState('')
-    const [stars, setStars] = useState(0)
+    const [stars, setStars] = useState(1)
 
     const newReview = {
         review,
