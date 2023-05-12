@@ -16,7 +16,7 @@ export default function GetSpotDetails() {
     const reviews = Object.values(reviewsObj);
     const sessionUser = useSelector(state => state.session.user);
 
-   console.log('reviews ======>', reviews)
+
 
     useEffect(() => {
         dispatch(getSpotDetailsThunk(spotId))
@@ -125,34 +125,35 @@ export default function GetSpotDetails() {
                 </h2>
 
                 {console.log('REVIEWS', reviews)}
-                {console.log(' 1reviews in jsx', reviews[0])}
-               
-               {/* <p>{reviews[0].User.firstName}</p> */}
-                {/* {reviews.reverse().map(review => { */}
+              
 
-                     {reviews[0] && reviews.reverse().map(review =>
-                        <>
-                        <p></p>
+              
+
+                {reviews.reverse().map(review =>  //review ?
+
+                    //(
                     <div key={review?.id}>
+
                         <h3>{review.User.firstName}</h3>
                         <p>{getMonthYear(review.createdAt)}</p>
-                        <p>{review.review}</p>
-                    
-                     {review && review.userId === sessionUser.id &&  <OpenModalButton
-                        buttonText="Delete Review"
-                        modalComponent={<DeleteReviewModal reviewId ={review.id}/>}
-                    />}
+                        <p>{review?.review}</p>
+
+                        {sessionUser && review && review.userId === sessionUser.id && <OpenModalButton
+                            buttonText="Delete Review"
+                            modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId} />}
+                        />}
                     </div>
-                    </>
+                //) : null
+
                 )}
 
 
                 {notSpotOwner && currentUserReviewsOfSpot.length === 0 &&
                     <OpenModalButton
                         buttonText="Post Your Review"
-                        modalComponent={<ReviewModal spotId ={spotId}/>}
+                        modalComponent={<ReviewModal spotId={spotId} />}
                     />}
-                    
+
 
 
 

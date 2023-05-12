@@ -1,16 +1,15 @@
 import { useDispatch } from "react-redux";
 import { useEffect } from 'react'
 import { useModal } from '../../context/Modal'
-import { deleteReviewThunk, getReviewsBySpotThunk } from '../../store/reviews'
+import { deleteReviewThunk } from '../../store/reviews'
 import { getSpotDetailsThunk } from "../../store/spots";
 
 
 
-function DeleteReviewModal({reviewId}) {
+function DeleteReviewModal({reviewId, spotId}) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
-    
 
     const handleDelete = (e) => {
         dispatch(deleteReviewThunk(reviewId))

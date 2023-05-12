@@ -22,7 +22,7 @@ function ReviewModal({spotId}) {
     }, [dispatch])
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+       
         dispatch(createReviewThunk(newReview))
         closeModal()
  
@@ -37,8 +37,8 @@ function ReviewModal({spotId}) {
             onChange={(e) => setReview(e.target.value)}
             value={review}
             >
-
-            {console.log('reviewtext', review)} 
+{/* 
+            {console.log('reviewtext', review)}  */}
 
             </textarea>
 
@@ -48,7 +48,7 @@ function ReviewModal({spotId}) {
             >
             </input>
 
-            {console.log('stars', stars)}
+            {/* {console.log('stars', stars)} */}
 
             <button onClick={handleSubmit}>{`Submit Your Review`}</button>
           
