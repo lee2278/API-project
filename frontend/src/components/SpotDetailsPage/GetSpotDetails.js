@@ -75,7 +75,7 @@ export default function GetSpotDetails() {
                                 <p>{`$${spot.price} night`}</p>
                                 <div className='rating'>
                                     <p><i className="fa-solid fa-star" style={{ color: '#000000' }}></i>
-                                    {`${spot.avgStarRating}`}</p>
+                                    {`${avgRatingDisplayed}`}</p>
                                 </div>
                                 <p className='some-dot'>·</p>
                                 <p>{`${spot.numReviews} reviews`}</p>
@@ -95,7 +95,7 @@ export default function GetSpotDetails() {
                     {avgRatingDisplayed}
                 </h2>
 
-                {reviews.map(review => (
+                {reviews.reverse().map(review => (
                     <div key={review.id}>
                         <h3>{review.User.firstName}</h3>
                         <p>{getMonthYear(review.createdAt)}</p>
