@@ -44,6 +44,10 @@ export default function GetSpotDetails() {
     })
 
 
+    let avgRatingDisplayed;
+    if (!spot.avgStarRating || spot.avgStarRating === 'Not Available. No reviews yet') avgRatingDisplayed = 'New'
+    else avgRatingDisplayed = `${spot.avgStarRating} · ${spot.numReviews} reviews`
+   
     return (
         <>
             <header>
@@ -88,7 +92,7 @@ export default function GetSpotDetails() {
             <div className='reviews-section'>
                 <h2>
                     <i className="fa-solid fa-star" style={{ color: '#000000' }}></i>
-                    {spot.avgRating === 'Not Available. No reviews yet' || !spot.avgRating ? `New · ${spot.numReviews} ${reviewText}` : `${spot.avgRating} · ${spot.numReviews} reviews`}
+                    {avgRatingDisplayed}
                 </h2>
 
                 {reviews.map(review => (
