@@ -95,7 +95,7 @@ export const updateSpotThunk = (spot, spotImages) => async (dispatch) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(spot)
     })
-   
+
     if (response.ok) {
         const updatedSpot = await response.json()
 
@@ -136,8 +136,10 @@ const initialState = { allSpots: {}, singleSpot: {} }
 export const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_SPOTS: {
+
             const newState = { allSpots: {}, singleSpot: {} }; 
             if (action.spots.length && typeof action.spots!== 'string') action.spots.forEach((spot) => {
+
                 newState.allSpots[spot.id] = spot
             })
             return newState;
@@ -148,15 +150,22 @@ export const spotsReducer = (state = initialState, action) => {
             return newState;
 
         }
+        case REMOVE_SPOT: {
+            const newState = {...state, allSpots:{...state.allSpots}} 
+            delete newState.allSpots[action.spotId]
+            return newState
+        }
         case UPDATE_SPOT: {
             const newState = {...state}
             newState.singleSpot = action.singleSpot
         }
+
         case REMOVE_SPOT: {
             const newState = {...state }
             delete newState[action.spotId]
             return newState
         }
+
         default:
             return state
     }
