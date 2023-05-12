@@ -25,7 +25,7 @@ export default function ManageSpots() {
 
 
             {spotsList.map((spot) => (
-                <div>
+                <div key={spot.id}>
                     <div className='button-section'>
                         <Link id='link-button' to={`/spots/${spot.id}/edit`}>Update</Link>
 
