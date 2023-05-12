@@ -2,33 +2,39 @@
 const LOAD_REVIEWS = 'reviews/LOAD_REVIEWS'
 
 //ACTION CREATORS
-export const loadReviews = (spot) =>({
+export const loadReviews = (reviews) => ({
     type: LOAD_REVIEWS,
-    spot
+    reviews
 })
 
 
 //THUNKS
-export const getReviewsThunk = (spotId) => async (dispatch) => {
-    const response = await fetch(`/api/spots/${spotId}`)
+export const getReviewsBySpotThunk = (spotId) => async (dispatch) => {
+    if (spotId) {
+        const response = await fetch(`/api/spots/${spotId}/reviews`)
 
-    if (response.ok) {
-        const data = await response.json()
-        const reviews = data.Reviews
-        dispatch(loadReviews(reviews))
+        if (response.ok) {
+            const data = await response.json()
+            const reviews = data.Reviews
+            console.log('inside thunk', reviews)
+            dispatch(loadReviews(reviews))
+        }
     }
 }
 
 
 //REDUCER
 
-const initialState = {spot: {}}
+const initialState = { spot: {}, user: {} }
 
 export const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_REVIEWS: {
-            const newState = {...state};
-            //think of logic here
+            const newState = { spot: {}, user: {} }
+            if (action.reviews && typeof action.reviews !== 'string') action.reviews.forEach((review) => {
+                newState.spot[review.id] = review
+            })
+            return newState
         }
         default: return state
     }

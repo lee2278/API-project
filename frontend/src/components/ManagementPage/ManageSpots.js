@@ -9,15 +9,16 @@ import DeleteModal from './DeleteSpotModal';
 export default function ManageSpots() {
     const dispatch = useDispatch();
     const spotsObj = useSelector(state => state.spots.allSpots)
-
+ 
     const spotsList = Object.values(spotsObj)
+
     useEffect(() => {
         dispatch(getUserSpotsThunk())
     }, [dispatch])
 
 
-
     if (!spotsList.length) return (<Link to='/spots/new' id='link-button'>Create a New Spot</Link>)
+
     return (<div className='everything-wrapper'>
         <h1>Manage Your Spots</h1>
         <ul className='spots-ul'>
