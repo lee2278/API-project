@@ -13,7 +13,7 @@ function ReviewModal({spotId}) {
 
     const newReview = {
         review,
-        stars,
+        stars: +stars,
         spotId
     }
 
@@ -38,7 +38,7 @@ function ReviewModal({spotId}) {
             value={review}
             >
 
-            {console.log('reviewtext?', review)} 
+            {console.log('reviewtext', review)} 
 
             </textarea>
 
@@ -48,7 +48,7 @@ function ReviewModal({spotId}) {
             >
             </input>
 
-            {console.log('stars?', stars)}
+            {console.log('stars', stars)}
 
             <button onClick={handleSubmit}>{`Submit Your Review`}</button>
           

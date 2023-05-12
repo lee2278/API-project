@@ -6,7 +6,7 @@ import './SpotDetailsPage.css'
 import { getReviewsBySpotThunk } from '../../store/reviews';
 import OpenModalButton from '../OpenModalButton';
 import ReviewModal from '../ReviewModal/ReviewModal';
-
+import DeleteReviewModal from './DeleteReviewModal';
 export default function GetSpotDetails() {
     const { spotId } = useParams();
     const dispatch = useDispatch();
@@ -21,7 +21,7 @@ export default function GetSpotDetails() {
     useEffect(() => {
         dispatch(getSpotDetailsThunk(spotId))
         dispatch(getReviewsBySpotThunk(spotId))
-    }, [dispatch, spotId])
+    }, [dispatch, reviews.length])
 
 
 
@@ -124,16 +124,27 @@ export default function GetSpotDetails() {
                     {bottomDisplay}
                 </h2>
 
+                {console.log('REVIEWS', reviews)}
+                {console.log(' 1reviews in jsx', reviews[0])}
+               
+               {/* <p>{reviews[0].User.firstName}</p> */}
+                {/* {reviews.reverse().map(review => { */}
 
-                {reviews.reverse().map(review => {
-                    <div key={review.id}>
+                     {reviews[0] && reviews.reverse().map(review =>
+                        <>
+                        <p></p>
+                    <div key={review?.id}>
                         <h3>{review.User.firstName}</h3>
                         <p>{getMonthYear(review.createdAt)}</p>
                         <p>{review.review}</p>
+                    
+                     {review && review.userId === sessionUser.id &&  <OpenModalButton
+                        buttonText="Delete Review"
+                        modalComponent={<DeleteReviewModal reviewId ={review.id}/>}
+                    />}
                     </div>
-                })}
-                
-                 {/* {review && review.userId === sessionUser.id && <button>Delete Review</button>} */}
+                    </>
+                )}
 
 
                 {notSpotOwner && currentUserReviewsOfSpot.length === 0 &&
@@ -141,7 +152,7 @@ export default function GetSpotDetails() {
                         buttonText="Post Your Review"
                         modalComponent={<ReviewModal spotId ={spotId}/>}
                     />}
-
+                    
 
 
 
