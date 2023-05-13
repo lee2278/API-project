@@ -12,29 +12,32 @@
     border: 2px solid red;
     padding: 0;
     margin-top: 5.5rem;
+    gap: 1rem
 }
 
 
-.spot-container {
+#spot-container {
     flex: 1; 
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     margin: 0;
 }
 
-.spot-container > li {
-    border: 5px solid green;
-    height: 100%;
-    margin: 0 0.2rem;
+.card {
+    border: 5px solid black;
+    border-radius: 15px
 }
 
 img {
-    width: 225px;
+    width: 100%;
+    border-radius: inherit;
+    height:250px;
+    object-fit: cover
 }
 
 .details-container {
     display: flex;
     justify-content: space-between;
-
+    /* border: 2px solid green  */
 }
 
 #link-button {

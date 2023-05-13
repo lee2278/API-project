@@ -107,7 +107,7 @@ export default function GetSpotDetails() {
                                         {`${boxDisplay}`}</p>
                                 </div>
                                 <p className='some-dot'>·</p>
-                                <p>{`${spot.numReviews} reviews`}</p>
+                                <p>{`${spot.numReviews} ${reviewText}`}</p>
                             </div>
                             <div className='reserve-button'>
                                 <button onClick={handleReserveButton}>Reserve</button>
