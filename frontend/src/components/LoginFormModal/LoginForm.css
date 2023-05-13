@@ -12,3 +12,7 @@ form {
 #demo-user-link, h1 {
     text-align: center;
 }
+
+.error-shown-as-typing {
+    color: red;
+}
