@@ -24,23 +24,24 @@ export default function GetSpots() {
             <ul className='spots-ul'>
                 {spotsList.map((spot) => (
                     <li key={spot.id} id='spot-container'>
-                        <Link title={spot?.name} to={`/spots/${spot.id}`}>
+                        <Link id='card-link' title={spot?.name} to={`/spots/${spot.id}`}>
                             <div className='card'>
 
-                            <img id='spot-image' src={spot.previewImage} alt='preview of a spot' />
-                            <div className='details-container'>
-                                <div className='info'>
-                                    <p>{`${spot.city}, ${spot.state}`}</p>
-                                    <p>{`$${spot.price} night`}</p>
-                                </div>
-                                <div className='stars'>
-                                    <p>
-                                        {<i className="fa-solid fa-star" style={{ color: '#000000' }}></i>}
-                                        {spot.avgRating === 'Not Available. No reviews yet' ? 'New' : `${spot.avgRating}`}
-                                    </p>
+                                <img id='spot-image' src={spot.previewImage} alt='preview of a spot' />
+                                <div className='details-container'>
+                                    <div className='info'>
+                                        <p className= 'city-state'>{`${spot.city}, ${spot.state}`}</p>
+                                        <p className='price'>{`$${spot.price} night`}</p>
+                                    </div>
+                                    <div className='stars'>
+                                        <p>
+                                            {<i className="fa-solid fa-star" style={{ color: '#000000' }}></i>}
+                                        
+                                           {spot.avgRating === 'Not Available. No reviews yet' ? ` New` : ` ${spot.avgRating}`} 
+                                        </p>
 
+                                    </div>
                                 </div>
-                            </div>
 
 
                             </div>
