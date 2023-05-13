@@ -38,9 +38,7 @@ const SpotForm = ({ spot, formType }) => {
 
 
 
-    const previewImgUrlArr = spotImagesArray.filter(image => image.preview === true)
-
-    const imageurl = previewImgUrlArr.reverse().find(img => img.url)
+    
 
 
     let submitButtonText;
@@ -56,9 +54,9 @@ const SpotForm = ({ spot, formType }) => {
         setDescription(spot.description)
         setName(spot.name)
         setPrice(spot.price)
-        setPreviewImage(imageurl)
+        
 
-    }, [spot, imageurl])
+    }, [spot])
 
 
 
