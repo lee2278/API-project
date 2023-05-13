@@ -29,11 +29,13 @@ function ReviewModal({spotId}) {
     }
 
 
+    
+
     return (
         <>
             <h1>How was your stay?</h1>
             <textarea
-            placeholder='Just a quick review.'
+            placeholder='Leave your review here...'
             onChange={(e) => setReview(e.target.value)}
             value={review}
             >
