@@ -10,7 +10,7 @@ function Navigation({ isLoaded }){
   return (
     <ul className='navigation-ul'>
       <li className='home'>
-        <NavLink exact to="/">Happybnb</NavLink>
+        <NavLink id='home-link' exact to="/">Happybnb</NavLink>
       </li>
       {sessionUser && (<li><NavLink exact to='/spots/new'>Create a New Spot</NavLink></li>)}
       {isLoaded && (

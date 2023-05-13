@@ -10,8 +10,8 @@ const SpotForm = ({ spot, formType }) => {
     const [address, setAddress] = useState('')
     const [city, setCity] = useState('')
     const [state, setState] = useState('')
-    const [latitude, setLatitude] = useState('')
-    const [longitude, setLongitude] = useState('')
+    // const [latitude, setLatitude] = useState('')
+    // const [longitude, setLongitude] = useState('')
     const [description, setDescription] = useState('')
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
@@ -38,9 +38,7 @@ const SpotForm = ({ spot, formType }) => {
 
 
 
-    const previewImgUrlArr = spotImagesArray.filter(image => image.preview === true)
-
-    const imageurl = previewImgUrlArr.reverse().find(img => img.url)
+    
 
 
     let submitButtonText;
@@ -56,7 +54,7 @@ const SpotForm = ({ spot, formType }) => {
         setDescription(spot.description)
         setName(spot.name)
         setPrice(spot.price)
-        setPreviewImage(imageurl)
+        
 
     }, [spot])
 
@@ -92,8 +90,8 @@ const SpotForm = ({ spot, formType }) => {
             spot.address = address
             spot.city = city
             spot.state = state
-            spot.lat = latitude
-            spot.lng = longitude
+            spot.lat = 47.620422
+            spot.lng = -122.349358
             spot.description = description
             spot.name = name
             spot.price = price
@@ -112,8 +110,8 @@ const SpotForm = ({ spot, formType }) => {
                 spot.address = address
                 spot.city = city
                 spot.state = state
-                spot.lat = latitude
-                spot.lng = longitude
+                spot.lat = 47.620422
+                spot.lng = -122.349358
                 spot.description = description
                 spot.name = name
                 spot.price = price

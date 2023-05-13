@@ -21,7 +21,7 @@ export default function GetSpotDetails() {
     useEffect(() => {
         dispatch(getSpotDetailsThunk(spotId))
         dispatch(getReviewsBySpotThunk(spotId))
-    }, [dispatch, reviews.length])
+    }, [dispatch, reviews.length, spotId])
 
 
 
@@ -65,7 +65,9 @@ export default function GetSpotDetails() {
         boxDisplay = 'New'
     } else boxDisplay = spot.avgStarRating
 
+    
 
+    
 
     let notSpotOwner;
     if (sessionUser && sessionUser.id !== spot.ownerId) notSpotOwner = true;
@@ -97,22 +99,27 @@ export default function GetSpotDetails() {
                     <div className='middle-section'>
                         <div className='text-info'>
                             <h2>{`Hosted by ${spot.Owner.firstName} ${spot.Owner.lastName}`}</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor qui neque blanditiis natus commodi tempora quaerat dolorem iusto, temporibus aperiam delectus fugiat alias accusamus accusantium, numquam, vel culpa corrupti atque.</p>
+                            <p>{spot.description}</p>
                         </div>
+                        <div className='info-box-section'>
                         <div className='short-info-box'>
                             <div className='top-info'>
-                                <p>{`$${spot.price} night`}</p>
+                                <p id='price-section'>{`$${spot.price} night`}</p>
                                 <div className='rating'>
                                     <p><i className="fa-solid fa-star" style={{ color: '#000000' }}></i>
-                                        {`${boxDisplay}`}</p>
+                                        {` ${boxDisplay}`}</p>
+                                
+                                {spot.numReviews !== 0 && <p>{` · ${spot.numReviews} ${reviewText}`}</p>}
+                                
                                 </div>
-                                <p className='some-dot'>·</p>
-                                <p>{`${spot.numReviews} reviews`}</p>
+                        
+
                             </div>
-                            <div className='reserve-button'>
-                                <button onClick={handleReserveButton}>Reserve</button>
+                            <div className='reserve-button-container'>
+                                <button id ='reserve-btn'onClick={handleReserveButton}>Reserve</button>
                             </div>
                         </div>
+                            </div>
                     </div>
                 )}
 
