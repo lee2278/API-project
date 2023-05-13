@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from "react-redux";
 import { useModal } from '../../context/Modal'
-import {createReviewThunk, reviewsReducer} from '../../store/reviews'
+import { createReviewThunk, reviewsReducer } from '../../store/reviews'
 import { getReviewsBySpotThunk } from '../../store/reviews';
-
-function ReviewModal({spotId}) {
+import StarsRating from './StarsRating';
+import './StarsRating.css'
+function ReviewModal({ spotId }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
     const [review, setReview] = useState('')
-    const [stars, setStars] = useState(1)
-    const [errors, setErrors] = useState('')
+    const [stars, setStars] = useState(0)
+    const [errors, setErrors] = useState({})
 
     const newReview = {
         review,
@@ -19,14 +20,16 @@ function ReviewModal({spotId}) {
     }
 
     useEffect(() => {
-        dispatch(getReviewsBySpotThunk(spotId))  
+        dispatch(getReviewsBySpotThunk(spotId))
     }, [dispatch])
 
     useEffect(() => {
-        const errorsDisplayed = {}
-        if (review.length >= 1 && review.length < 10) errorsDisplayed.review = "Please write a review of more than 10 characters"
-        setErrors(errorsDisplayed)
-    }, [review])
+        const errorShown = {}
+        if (review.length < 10) errorShown.review = 'Review must be at least 10 characters long'
+        if (!stars) errorShown.stars = 'Please give a star rating'
+        setErrors(errorShown)
+
+    }, [review, stars])
 
     const handleSubmit = () => {
         dispatch(createReviewThunk(newReview))
@@ -34,32 +37,40 @@ function ReviewModal({spotId}) {
     }
 
 
-    
+    const onChange = (number) => {
+        setStars(parseInt(number))
+    }
+
 
     return (
         <>
             <h1>How was your stay?</h1>
-            {errors && errors.review}
+            {errors && review.length >=1 && errors.review}
+           
             <textarea
-            placeholder='Leave your review here...'
-            onChange={(e) => setReview(e.target.value)}
-            value={review}
+                placeholder='Leave your review here...'
+                onChange={(e) => setReview(e.target.value)}
+                value={review}
             >
-{/* 
+                {/* 
             {console.log('reviewtext', review)}  */}
 
             </textarea>
 
-
-            <input onChange={(e) => setStars(e.target.value)}
-            value={stars}
+            <StarsRating
+                disabled={false}
+                rating={stars}
+                onChange={onChange}
+            />
+            {/* <input onChange={(e) => setStars(e.target.value)}
+                value={stars}
             >
-            </input>
+            </input> */}
 
-            {/* {console.log('stars', stars)} */}
+            {console.log('stars', stars)}
 
-            <button onClick={handleSubmit} disabled={Object.values(errors).length > 0}>{`Submit Your Review`}</button>
-          
+            <button onClick={handleSubmit} disabled={Object.values(errors).length > 0} >{`Submit Your Review`}</button>
+
         </>
     )
 
