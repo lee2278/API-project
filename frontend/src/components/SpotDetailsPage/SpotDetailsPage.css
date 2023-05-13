@@ -18,6 +18,8 @@
     grid-template-columns: 2fr 1fr;
     gap: 1rem;
     padding-top: 2rem;
+    border-bottom: 1px solid rgb(232, 221, 221);
+
 }
 
 
@@ -38,10 +40,6 @@
 .top-info {
     display: flex;
     gap: 1rem;
-    /* border: 5px solid blue; */
-    
-  
-    
 }
 
 .rating {
@@ -73,6 +71,6 @@
     color: white;
 }
 img {
-    width: 100%,
-    
+    width: 100%;
+    object-fit: cover
 }

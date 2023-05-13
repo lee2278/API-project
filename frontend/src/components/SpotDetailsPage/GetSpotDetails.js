@@ -128,7 +128,7 @@ export default function GetSpotDetails() {
             <div className='reviews-section'>
                 <h2>
                     <i className="fa-solid fa-star" style={{ color: '#000000' }}></i>
-                    {bottomDisplay}
+                    {`${bottomDisplay}`}
                 </h2>
 
                 {console.log('REVIEWS', reviews)}
