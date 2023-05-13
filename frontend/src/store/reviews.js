@@ -99,9 +99,7 @@ export const reviewsReducer = (state = initialState, action) => {
             return newState
         }
 
-        // case CREATE_REVIEW: {
-        //     const newState = {...state, spot: {...state.spot}}
-        // }
+        
 
         case REMOVE_REVIEW: {
             const newState = {...state, spot: {...state.spot}}
