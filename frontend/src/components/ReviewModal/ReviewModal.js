@@ -21,7 +21,7 @@ function ReviewModal({ spotId }) {
 
     useEffect(() => {
         dispatch(getReviewsBySpotThunk(spotId))
-    }, [dispatch])
+    }, [dispatch, spotId])
 
     useEffect(() => {
         const errorShown = {}

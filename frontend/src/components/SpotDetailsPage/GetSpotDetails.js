@@ -21,7 +21,7 @@ export default function GetSpotDetails() {
     useEffect(() => {
         dispatch(getSpotDetailsThunk(spotId))
         dispatch(getReviewsBySpotThunk(spotId))
-    }, [dispatch, reviews.length])
+    }, [dispatch, reviews.length, spotId])
 
 
 

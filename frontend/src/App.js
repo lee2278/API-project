@@ -5,7 +5,6 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import GetSpots from "./components/LandingPage/GetSpots"
 import GetSpotDetails from './components/SpotDetailsPage/GetSpotDetails'
-import GetReviews from './components/SpotDetailsPage/GetReviews'
 import CreateSpot from './components/FormPage/CreateSpot'
 import ManageSpot from "./components/ManagementPage/ManageSpots";
 import UpdateSpot from './components/FormPage/UpdateSpot'
@@ -36,7 +35,6 @@ function App() {
         </Route>
         <Route path='/spots/:spotId'>
           <GetSpotDetails/>
-          <GetReviews/>
         </Route>
        
       </Switch>}
