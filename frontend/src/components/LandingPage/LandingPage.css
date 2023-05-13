@@ -2,13 +2,11 @@
 
 .everthing-wrapper {
     margin: auto;
-
+    
 }
 
 .spots-ul {
     list-style: none;
-    /* display: flex;
-    flex-wrap: wrap; */
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     border: 2px solid red;

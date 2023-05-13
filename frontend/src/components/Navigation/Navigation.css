@@ -1,18 +1,27 @@
 *{
     font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+
 }
 
+#root {
+    margin: 0 2rem;
+}
 .hidden {
     display: none;
 }
 
 .navigation-ul li {
     list-style: none;
+    
 }
 
 .navigation-ul {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(232, 221, 221);
+    
 }
 
 .profile-btn:hover {
@@ -24,12 +33,24 @@
 }
 
 .profile-btn {
-    margin-right: 7rem;
+    margin-right: 8rem;
 }
 
 .profile-dropdown {
     border: 1px solid red;
     position: absolute;
     padding: 0.5rem;
+    width: 10rem
     
+}
+
+
+
+.home {
+    font-size: 3rem;
+}
+
+#home-link {
+    text-decoration: none;
+    color: rgb(252, 99, 88);
 }
