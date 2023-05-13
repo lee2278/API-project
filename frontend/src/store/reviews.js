@@ -48,7 +48,7 @@ export const createReviewThunk = (review) => async (dispatch) => {
         dispatch(createReview(newReview))
 
         console.log('this is inside the thunk')
-        
+
         return newReview
     } else {
         const errors = await response.json()
@@ -87,16 +87,27 @@ export const reviewsReducer = (state = initialState, action) => {
         }
         case CREATE_REVIEW: {
             const newState = {...state, spot: {...state.spot}}
-            if (action.reviews && typeof action.reviews !== 'string') action.reviews.forEach((review) => {
-                newState.spot[review.id] = review
+            
+                newState.spot[action.review.id] = action.review
 
                 console.log('this is inside the reducer')
-            })
+        
+
+           console.log('newState =====>',newState)
+
+
             return newState
         }
+
+        // case CREATE_REVIEW: {
+        //     const newState = {...state, spot: {...state.spot}}
+        // }
+
         case REMOVE_REVIEW: {
             const newState = {...state, spot: {...state.spot}}
             delete newState.spot[action.reviewId]
+
+            console.log('this is insider delete reducer')
             return newState
         }
         default: return state

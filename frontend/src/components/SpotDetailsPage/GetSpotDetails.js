@@ -16,7 +16,7 @@ export default function GetSpotDetails() {
     const reviews = Object.values(reviewsObj);
     const sessionUser = useSelector(state => state.session.user);
 
-
+    console.log('reviewsObj ======>', reviewsObj)
 
     useEffect(() => {
         dispatch(getSpotDetailsThunk(spotId))
@@ -125,16 +125,16 @@ export default function GetSpotDetails() {
                 </h2>
 
                 {console.log('REVIEWS', reviews)}
-              
+                
 
               
 
-                {reviews.reverse().map(review =>  //review ?
+                {reviews.reverse().map(review =>  review ?
 
-                    //(
+                    (
                     <div key={review?.id}>
 
-                        <h3>{review.User.firstName}</h3>
+                        <h3>{review.User?.firstName}</h3>
                         <p>{getMonthYear(review.createdAt)}</p>
                         <p>{review?.review}</p>
 
@@ -143,7 +143,8 @@ export default function GetSpotDetails() {
                             modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId} />}
                         />}
                     </div>
-                //) : null
+
+                ) : null
 
                 )}
 

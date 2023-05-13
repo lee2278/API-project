@@ -21,7 +21,7 @@ function ReviewModal({spotId}) {
         dispatch(getReviewsBySpotThunk(spotId))  
     }, [dispatch])
 
-    const handleSubmit = (e) => {
+    const handleSubmit = () => {
        
         dispatch(createReviewThunk(newReview))
         closeModal()
