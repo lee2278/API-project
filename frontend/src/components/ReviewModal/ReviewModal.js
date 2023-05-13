@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from "react-redux";
 import { useModal } from '../../context/Modal'
-import { createReviewThunk, reviewsReducer } from '../../store/reviews'
+import { createReviewThunk,  } from '../../store/reviews'
 import { getReviewsBySpotThunk } from '../../store/reviews';
 import StarsRating from './StarsRating';
-import './StarsRating.css'
+import './ReviewModal.css'
 function ReviewModal({ spotId }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
@@ -45,7 +45,7 @@ function ReviewModal({ spotId }) {
     return (
         <>
             <h1>How was your stay?</h1>
-            {errors && review.length >=1 && errors.review}
+            {errors && review.length >=1 && <p className='modal-errors'>{errors.review}</p>}
            
             <textarea
                 placeholder='Leave your review here...'

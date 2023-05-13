@@ -10,3 +10,6 @@
     display: flex;
     margin-right: 4px;
   }
+.modal-errors {
+  color:red
+}
