@@ -42,6 +42,7 @@ const SpotForm = ({ spot, formType }) => {
     })
     
     const checkValidDecimalPlaces = (priceInput => {
+        if (priceInput % 1 === 0) return true
         if (checkIfDecimal(priceInput) === true) {
             const stringedPrice = priceInput.toString()
             let parts = stringedPrice.split('.')
