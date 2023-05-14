@@ -16,12 +16,11 @@ export default function GetSpotDetails() {
     const reviews = Object.values(reviewsObj);
     const sessionUser = useSelector(state => state.session.user);
 
-    console.log('reviewsObj ======>', reviewsObj)
 
     useEffect(() => {
         dispatch(getSpotDetailsThunk(spotId))
         dispatch(getReviewsBySpotThunk(spotId))
-    }, [dispatch, reviews.length, spotId])
+    }, [dispatch, reviews.length,spotId])
 
 
 
@@ -43,7 +42,9 @@ export default function GetSpotDetails() {
         previewImgArr = spot.SpotImages.filter(image => image.preview === true)
         nonPreviewImgArr = spot.SpotImages.filter(image => image.preview === false)
     }
-
+    console.log('spot.SpotImages', spot.SpotImages)
+    console.log('previewImgArr', previewImgArr)
+    console.log('nonPreviews', nonPreviewImgArr)
 
     const getMonthYear = (dateString => {
         const convertedDate = new Date(dateString)
@@ -88,10 +89,10 @@ export default function GetSpotDetails() {
 
             <div className='images-container'>
                 <div className='left-img'>
-                    {previewImgArr && <img src={previewImgArr[previewImgArr.length - 1]['url']} alt='preview of spot' />}
+                    {previewImgArr && <img id='the-preview-img' src={previewImgArr[previewImgArr.length - 1]['url']} alt='preview of spot' />}
                 </div>
                 <div className='right-imgs'>
-                    {nonPreviewImgArr && nonPreviewImgArr.reverse().slice(0, 4).map(image => image ? (<img key={image.id} src={image.url} alt='more spot photos' />) : null)}
+                    {nonPreviewImgArr && nonPreviewImgArr.map(image => image ? (<img className='not-preview-imgs' key={image.id} src={image.url} alt='more spot photos' />) : null)}
                 </div>
             </div>
             <div className='Spot-info'>
@@ -128,10 +129,10 @@ export default function GetSpotDetails() {
             <div className='reviews-section'>
                 <h2>
                     <i className="fa-solid fa-star" style={{ color: '#000000' }}></i>
-                    {bottomDisplay}
+                    {`${bottomDisplay}`}
                 </h2>
 
-                {console.log('REVIEWS', reviews)}
+
                 
 
               

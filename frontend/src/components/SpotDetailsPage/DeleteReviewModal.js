@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useModal } from '../../context/Modal'
 import { deleteReviewThunk } from '../../store/reviews'
-
+import './DeleteReviewModal.css'
 
 
 

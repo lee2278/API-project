@@ -2,7 +2,6 @@
     display: grid;
     grid-template-columns: 2fr 2fr;
     gap: 1rem;
-    /* border: 5px solid black; */
     border-radius: 15px;
     overflow: hidden;
     
@@ -10,14 +9,29 @@
 .right-imgs{
     display:grid;
     grid-template-columns: 2fr 2fr;
+    grid-template-rows: 2fr 2fr;
     gap: 1rem;
+
 }
 
+.not-preview-imgs {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#the-preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 .middle-section {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 1rem;
     padding-top: 2rem;
+    border-bottom: 1px solid rgb(232, 221, 221);
+
 }
 
 
@@ -38,10 +52,6 @@
 .top-info {
     display: flex;
     gap: 1rem;
-    /* border: 5px solid blue; */
-    
-  
-    
 }
 
 .rating {
@@ -71,8 +81,9 @@
     background-color: rgb(252, 99, 88);
     box-shadow: 3px 3px 3px gray;
     color: white;
+    cursor: pointer;
 }
 img {
-    width: 100%,
-    
+    width: 100%;
+    object-fit: cover
 }

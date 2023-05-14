@@ -21,9 +21,14 @@
     justify-content: space-between;
     padding-bottom: 10px;
     border-bottom: 1px solid rgb(232, 221, 221);
+
     
 }
 
+.group-right {
+    display: flex;
+    gap: 2rem;
+}
 .profile-btn:hover {
     cursor: pointer
 }
@@ -34,23 +39,83 @@
 
 .profile-btn {
     margin-right: 8rem;
+  
+}
+
+#modal-content {
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px
 }
 
 .profile-dropdown {
-    border: 1px solid red;
+    border: 2px solid black;
     position: absolute;
     padding: 0.5rem;
-    width: 10rem
+    width: 10rem;
+    background-color: white;
+    text-align: center;
+
+    
     
 }
 
-
+#profile-menu-btn {
+    font-size: 25px;
+    border-radius:15px;
+    padding: 0 10px;
+    cursor: pointer;
+   
+   
+}
 
 .home {
     font-size: 3rem;
+
 }
 
 #home-link {
     text-decoration: none;
     color: rgb(252, 99, 88);
+    display: flex;
+    align-items:center;
+}
+
+
+#manage-spots-link {
+    text-decoration:none;
+    color:black;
+}
+
+
+.menu-selections {
+    border-bottom: 1px solid gray;
+    padding: 0.2rem 0;
+}
+
+.menu-logout-btn-container {
+    display: flex;
+    justify-content: center;
+}
+#menu-logout-btn {
+    margin-top: 2px;
+    padding: 0.2rem 0.5rem;
+    border-radius: 25px;
+    background-color: rgb(252, 99, 88);
+    color: white;
+    cursor:pointer;
+
+}
+
+#create-spot-navlink {
+    text-decoration: none;
+    font-size: 15px;
+
+}
+
+#temp-logo {
+    width: 60px;
+    height: 60px;
+
 }
