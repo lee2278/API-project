@@ -28,6 +28,7 @@
 .group-right {
     display: flex;
     gap: 2rem;
+    align-items: center;
 }
 .profile-btn:hover {
     cursor: pointer
@@ -114,8 +115,6 @@
 
 }
 
-#temp-logo {
-    width: 60px;
-    height: 60px;
-
+.fa-suitcase-rolling{
+    padding: 1rem;
 }
