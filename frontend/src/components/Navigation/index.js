@@ -10,7 +10,12 @@ function Navigation({ isLoaded }){
   return (
     <ul className='navigation-ul'>
       <li className='home'>
-        <NavLink id='home-link' exact to="/">Happybnb</NavLink>
+        <NavLink id='home-link' exact to="/">{
+          <>
+          <img id='temp-logo'src="https://archives.bulbagarden.net/media/upload/b/b4/0025Pikachu-Cosplay.png"/>
+          <p>Happybnb</p>
+          </>}
+          </NavLink>
       </li>
       <div className='group-right'>
       {sessionUser && (<li><NavLink id= 'create-spot-navlink' exact to='/spots/new'>Create a New Spot</NavLink></li>)}

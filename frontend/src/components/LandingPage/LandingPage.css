@@ -72,4 +72,5 @@
 #open-modal-button {
     height: 2.3rem;
     font-size: 15px;
+    cursor: pointer;
 }

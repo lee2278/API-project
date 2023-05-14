@@ -34,15 +34,6 @@ span {
     width: 100%
 }
 
-/* #title-label > input{
-    width: 100%
-}
-
-
-#description-text-area {
-    width: 100%;
-} */
-
 .price-container > input{
     flex:1;
 
@@ -66,7 +57,8 @@ span {
     background-color: rgb(252, 99, 88);
     color: white;
     padding: 5px;
-    box-shadow: 3px 3px 3px gray
+    box-shadow: 3px 3px 3px gray;
+    cursor: pointer;
 }
 
 .no-margin-top {

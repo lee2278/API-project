@@ -29,7 +29,7 @@ export default function ManageSpots() {
                     <Link key={spot.id} id='card-link' title={spot?.name} to={`/spots/${spot.id}`}>
                         <img className='manage-imgs' src={spot.previewImage} alt='preview of a spot' />
                         <div className='details-container'>
-                            <div className='info'>
+                            <div className='city-state'>
                                 <p>{`${spot.city}, ${spot.state}`}</p>
                                 <p>{`$${spot.price} night`}</p>
                             </div>

@@ -65,17 +65,21 @@
     font-size: 25px;
     border-radius:15px;
     padding: 0 10px;
+    cursor: pointer;
    
    
 }
 
 .home {
     font-size: 3rem;
+
 }
 
 #home-link {
     text-decoration: none;
     color: rgb(252, 99, 88);
+    display: flex;
+    align-items:center;
 }
 
 
@@ -107,5 +111,11 @@
 #create-spot-navlink {
     text-decoration: none;
     font-size: 15px;
+
+}
+
+#temp-logo {
+    width: 60px;
+    height: 60px;
 
 }
