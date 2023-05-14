@@ -80,16 +80,32 @@
 
 
 
-@media screen and (min-width: 401px) and (max-width: 800px) {
-    .spots-ul {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media screen and (max-width: 400px) {
+ /* @media screen and (max-width: 450px) {
     .spots-ul {
       display: grid;
       grid-template-columns: 1fr;
       margin: 0
     }
-  }
+    .navigation-ul {
+        display: flex;
+        flex-direction: column;
+    }
+  } */
+/* 
+ @media screen and (min-width: 450px) and (max-width: 675px) {
+    .spots-ul {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .navigation-ul {
+        display: flex;
+        flex-direction: column;
+    }
+  } 
+
+  @media screen and (min-width: 675px) and (max-width: 800px) {
+    .spots-ul {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  } */

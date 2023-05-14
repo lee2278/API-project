@@ -81,7 +81,7 @@ function LoginFormModal() {
           />
         </label>
         {errors.credential && (
-          <p>{errors.credential}</p>
+          <p className='red-errors'>{errors.credential}</p>
         )}
         <button type="submit" disabled={Object.values(particularErrors).length > 0}>Log In</button>
         <Link id='demo-user-link' to='/' onClick={handleDemoUser}>Demo User</Link>

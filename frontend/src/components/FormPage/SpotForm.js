@@ -37,9 +37,19 @@ const SpotForm = ({ spot, formType }) => {
     if (spotImage4) spotImagesArray.push({ url: spotImage4, preview: false })
 
 
-
-
-
+    const checkIfDecimal = (number => {
+       return number % 1 !== 0
+    })
+    
+    const checkValidDecimalPlaces = (priceInput => {
+        if (checkIfDecimal(priceInput) === true) {
+            const stringedPrice = priceInput.toString()
+            let parts = stringedPrice.split('.')
+            if (parts[1].length <= 2) return true
+        }
+        return false;
+    })
+       
 
     let submitButtonText;
     if (formType === 'Update your Spot') submitButtonText = 'Update your Spot'
@@ -75,8 +85,10 @@ const SpotForm = ({ spot, formType }) => {
         if (!state) newErrors.state = 'State is required'
         if (!description || description.length < 30) newErrors.description = 'Description needs a minimum of 30 characters'
         if (!name) newErrors.name = "Name is required"
+        if (name && name.length >= 50) newErrors.name = "Name must be less than 50 characters"
         if (!price) newErrors.price = 'Price is required'
         if (price && isNaN(+price)) newErrors.price = "Please enter a number"
+        if (price && +price && checkValidDecimalPlaces(price) === false) newErrors.price = 'Please provide values of up to two decimal places'
         if (!previewImage) newErrors.previewImage = 'Preview image is required.'
         if (previewImage && (!(previewImage.endsWith('.png') || previewImage.endsWith('.jpg') || previewImage.endsWith('.jpeg')))) newErrors.previewImage = 'Image URL must end in .png, .jpg, or .jpeg'
         if (spotImage1 && (!(spotImage1.endsWith('.png') || spotImage1.endsWith('.jpg') || spotImage1.endsWith('.jpeg')))) newErrors.spotImage1 = 'Image URL must end in .png, .jpg, or .jpeg'
@@ -132,11 +144,6 @@ const SpotForm = ({ spot, formType }) => {
         }
     }
 
-    console.log('spotImagesArray', spotImagesArray)
-    console.log('spotImage1', spotImage1)
-    console.log('spotImage2', spotImage2)
-    console.log('spotImage3', spotImage3)
-    console.log('spotImge4', spotImage4)
 
     return (
         <div className='form-wrapper'>
@@ -236,7 +243,7 @@ const SpotForm = ({ spot, formType }) => {
                         <input
                             type='text'
                             value={previewImage}
-                            onChange={(e) => setPreviewImage(e.target.value)}
+                            onChange={(e) => setPreviewImage(e.target.value.trim())}
                             placeholder='Preview Image URL'
                         />
 
@@ -245,28 +252,28 @@ const SpotForm = ({ spot, formType }) => {
                         <input
                             type='text'
                             value={spotImage1}
-                            onChange={(e) => setSpotImage1(e.target.value)}
+                            onChange={(e) => setSpotImage1(e.target.value.trim())}
                             placeholder='Image URL'
                         />
                         {errors.spotImage1 && <span className='error'>{errors.spotImage1}</span>}
                         <input
                             type='text'
                             value={spotImage2}
-                            onChange={(e) => setSpotImage2(e.target.value)}
+                            onChange={(e) => setSpotImage2(e.target.value.trim())}
                             placeholder='Image URL'
                         />
                         {errors.spotImage2 && <span className='error'>{errors.spotImage2}</span>}
                         <input
                             type='text'
                             value={spotImage3}
-                            onChange={(e) => setSpotImage3(e.target.value)}
+                            onChange={(e) => setSpotImage3(e.target.value.trim())}
                             placeholder='Image URL'
                         />
                         {errors.spotImage3 && <span className='error'>{errors.spotImage3}</span>}
                         <input
                             type='text'
                             value={spotImage4}
-                            onChange={(e) => setSpotImage4(e.target.value)}
+                            onChange={(e) => setSpotImage4(e.target.value.trim())}
                             placeholder='Image URL'
                         />
                         {errors.spotImage4 && <span className='error'>{errors.spotImage4}</span>}
