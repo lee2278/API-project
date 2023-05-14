@@ -76,7 +76,7 @@ const SpotForm = ({ spot, formType }) => {
         if (!description || description.length < 30) newErrors.description = 'Description needs a minimum of 30 characters'
         if (!name) newErrors.name = "Name is required"
         if (!price) newErrors.price = 'Price is required'
-        if (isNaN(+price)) newErrors.price = "Please enter a number"
+        if (price && isNaN(+price)) newErrors.price = "Please enter a number"
         if (!previewImage) newErrors.previewImage = 'Preview image is required.'
         if (previewImage && (!(previewImage.endsWith('.png') || previewImage.endsWith('.jpg') || previewImage.endsWith('.jpeg')))) newErrors.previewImage = 'Image URL must end in .png, .jpg, or .jpeg'
         if (spotImage1 && (!(spotImage1.endsWith('.png') || spotImage1.endsWith('.jpg') || spotImage1.endsWith('.jpeg')))) newErrors.spotImage1 = 'Image URL must end in .png, .jpg, or .jpeg'
@@ -138,7 +138,7 @@ const SpotForm = ({ spot, formType }) => {
 
     return (
         <div className='form-wrapper'>
-            <form onSubmit={handleSubmit}>
+            <form id='spot-form' onSubmit={handleSubmit}>
                 <h2>{formType}</h2>
                 <h3 className='no-margin-bottom'>Where's your place located?</h3>
                 <p className='no-margin-top'>Guests will only get your exact address once they booked a reservation.</p>
