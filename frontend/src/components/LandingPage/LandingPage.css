@@ -56,7 +56,7 @@
     padding: 0.5rem;
     text-decoration: none;
     height: 2.3rem;
-    border-radius: 2px;
+    border-radius: 5px;
     color:black;
 }
 
@@ -73,4 +73,23 @@
     height: 2.3rem;
     font-size: 15px;
     cursor: pointer;
+    border-radius: 5px;
+    background-color: gray;
+    color: white;
 }
+
+
+
+@media screen and (min-width: 401px) and (max-width: 800px) {
+    .spots-ul {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media screen and (max-width: 400px) {
+    .spots-ul {
+      display: grid;
+      grid-template-columns: 1fr;
+      margin: 0
+    }
+  }
