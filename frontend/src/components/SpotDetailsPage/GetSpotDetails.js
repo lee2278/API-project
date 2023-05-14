@@ -42,9 +42,7 @@ export default function GetSpotDetails() {
         previewImgArr = spot.SpotImages.filter(image => image.preview === true)
         nonPreviewImgArr = spot.SpotImages.filter(image => image.preview === false)
     }
-    console.log('spot.SpotImages', spot.SpotImages)
-    console.log('previewImgArr', previewImgArr)
-    console.log('nonPreviews', nonPreviewImgArr)
+
 
     const getMonthYear = (dateString => {
         const convertedDate = new Date(dateString)

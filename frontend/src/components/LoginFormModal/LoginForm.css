@@ -13,6 +13,9 @@ form {
     text-align: center;
 }
 
-.error-shown-as-typing {
+.error-shown-as-typing, .red-errors {
     color: red;
 }
+button:not([disabled]) {
+    cursor: pointer;
+  }
