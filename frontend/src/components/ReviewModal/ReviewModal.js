@@ -51,9 +51,9 @@ function ReviewModal({ spotId }) {
                 placeholder='Leave your review here...'
                 onChange={(e) => setReview(e.target.value)}
                 value={review}
+                rows='6'
             >
-                {/* 
-            {console.log('reviewtext', review)}  */}
+        
 
             </textarea>
 
@@ -62,12 +62,9 @@ function ReviewModal({ spotId }) {
                 rating={stars}
                 onChange={onChange}
             />
-            {/* <input onChange={(e) => setStars(e.target.value)}
-                value={stars}
-            >
-            </input> */}
+         
 
-            {console.log('stars', stars)}
+
 
             <button onClick={handleSubmit} disabled={Object.values(errors).length > 0} >{`Submit Your Review`}</button>
 

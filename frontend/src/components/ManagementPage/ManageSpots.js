@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserSpotsThunk } from '../../store/spots';
 import OpenModalButton from "../OpenModalButton";
 import DeleteModal from './DeleteSpotModal';
-
+import './ManageSpots.css'
 
 export default function ManageSpots() {
     const dispatch = useDispatch();
     const spotsObj = useSelector(state => state.spots.allSpots)
- 
+
     const spotsList = Object.values(spotsObj)
 
     useEffect(() => {
@@ -26,6 +26,31 @@ export default function ManageSpots() {
 
             {spotsList.map((spot) => (
                 <div key={spot.id}>
+                    <div className='outer-card-container'>
+                    <li key={spot.id} id='link-wrapper'>
+                        <Link id='card-link' title={spot?.name} to={`/spots/${spot.id}`}>
+                            <div className='spot-container'>
+                                <li>
+                                    <img src={spot.previewImage} alt='preview of a spot' />
+                                    <div className='details-container'>
+                                        <div className='info'>
+                                            <p>{`${spot.city}, ${spot.state}`}</p>
+                                            <p>{`$${spot.price} night`}</p>
+                                        </div>
+                                        <div className='stars'>
+                                            <p>
+                                                {<i className="fa-solid fa-star" style={{ color: '#000000' }}></i>}
+                                                {spot.avgRating === 'Not Available. No reviews yet' ? 'New' : `${spot.avgRating}`}
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+                                </li>
+
+                            </div>
+                        </Link>
+                    </li>
                     <div className='button-section'>
                         <Link id='link-button' to={`/spots/${spot.id}/edit`}>Update</Link>
 
@@ -34,29 +59,7 @@ export default function ManageSpots() {
                             modalComponent={<DeleteModal spot={spot} />}
                         />
                     </div>
-
-                    <Link key={spot.id} title={spot?.name} to={`/spots/${spot.id}`}>
-                        <div className='spot-container'>
-                            <li>
-                                <img src={spot.previewImage} alt='preview of a spot' />
-                                <div className='details-container'>
-                                    <div className='info'>
-                                        <p>{`${spot.city}, ${spot.state}`}</p>
-                                        <p>{`$${spot.price} night`}</p>
-                                    </div>
-                                    <div className='stars'>
-                                        <p>
-                                            {<i className="fa-solid fa-star" style={{ color: '#000000' }}></i>}
-                                            {spot.avgRating === 'Not Available. No reviews yet' ? 'New' : `${spot.avgRating}`}
-                                        </p>
-
-                                    </div>
-
-                                </div>
-                            </li>
-
-                        </div>
-                    </Link>
+                </div>
                 </div>
             ))}
 

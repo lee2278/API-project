@@ -53,6 +53,10 @@ img {
 #link-button {
     border: 1px solid black;
     padding: 0.5rem;
+    text-decoration: none;
+    height: 2.3rem;
+    border-radius: 2px;
+    color:black;
 }
 
 #card-link {
@@ -62,4 +66,9 @@ img {
 
 .city-state, .price {
     font-weight: 500;
+}
+
+#open-modal-button {
+    height: 2.3rem;
+    font-size: 15px;
 }
