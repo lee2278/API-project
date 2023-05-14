@@ -231,7 +231,7 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
         })
     }
 
-    if (user.id !== particularSpot.ownerId) {
+    if (user.id === particularSpot.ownerId) {
         return res.status(403).json({
             message: "Forbidden"
         })

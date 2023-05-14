@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
+import { useHistory, Link } from 'react-router-dom'
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 
 function ProfileButton({ user }) {
+  const history= useHistory()
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
@@ -30,10 +32,12 @@ function ProfileButton({ user }) {
   }, [showMenu]);
 
   const closeMenu = () => setShowMenu(false);
-
-  const logout = (e) => {
+  
+  const logout = async (e) => {
     e.preventDefault();
-    dispatch(sessionActions.logout());
+    const response = await dispatch(sessionActions.logout());
+    const res = await response.json()
+    if (res.message) history.push('/')
     closeMenu();
   };
 
@@ -41,17 +45,19 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
+      <button id='profile-menu-btn' onClick={openMenu}>
+      <i className="fa-sharp fa-solid fa-bars"></i>
+      {` `}
         <i className="fas fa-user-circle" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={logout}>Log Out</button>
+            <li>Hello {user.firstName}</li>
+            <li className='menu-selections'>{user.email}</li>
+            <li className='menu-selections'><Link id= 'manage-spots-link' to='/spots/current'>Manage Spots</Link></li>
+            <li className='menu-logout-btn-container'>
+              <button id= 'menu-logout-btn' onClick={logout}>Log Out</button>
             </li>
           </>
         ) : (

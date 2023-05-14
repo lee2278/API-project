@@ -1,0 +1,111 @@
+
+
+.everthing-wrapper {
+    margin: auto;
+    
+}
+
+.spots-ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 0;
+    margin-top: 5.5rem;
+    gap: 0.9rem;
+
+}
+
+
+#spot-container {
+
+    margin: 0;
+    width: 100%;
+
+}
+
+.card {
+  
+    border-radius: 15px;
+}
+
+#spot-image {
+    width: 100%;
+    border-radius: inherit;
+    height:300px;
+    object-fit: cover;
+}
+
+.details-container {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    
+}
+
+.stars {
+    display: block;
+    width: 5rem;
+    flex-wrap:nowrap;
+    text-align: right;
+}
+
+
+
+#link-button {
+    border: 1px solid black;
+    padding: 0.5rem;
+    text-decoration: none;
+    height: 2.3rem;
+    border-radius: 5px;
+    color:black;
+}
+
+#card-link {
+   text-decoration:none;
+   color: black;
+}
+
+.city-state, .price {
+    font-weight: 500;
+}
+
+#open-modal-button {
+    height: 2.3rem;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: gray;
+    color: white;
+}
+
+
+
+ /* @media screen and (max-width: 450px) {
+    .spots-ul {
+      display: grid;
+      grid-template-columns: 1fr;
+      margin: 0
+    }
+    .navigation-ul {
+        display: flex;
+        flex-direction: column;
+    }
+  } */
+/* 
+ @media screen and (min-width: 450px) and (max-width: 675px) {
+    .spots-ul {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .navigation-ul {
+        display: flex;
+        flex-direction: column;
+    }
+  } 
+
+  @media screen and (min-width: 675px) and (max-width: 800px) {
+    .spots-ul {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  } */
