@@ -89,10 +89,10 @@ export default function GetSpotDetails() {
 
             <div className='images-container'>
                 <div className='left-img'>
-                    {previewImgArr && <img src={previewImgArr[previewImgArr.length - 1]['url']} alt='preview of spot' />}
+                    {previewImgArr && <img id='the-preview-img' src={previewImgArr[previewImgArr.length - 1]['url']} alt='preview of spot' />}
                 </div>
                 <div className='right-imgs'>
-                    {nonPreviewImgArr && nonPreviewImgArr.map(image => image ? (<img key={image.id} src={image.url} alt='more spot photos' />) : null)}
+                    {nonPreviewImgArr && nonPreviewImgArr.map(image => image ? (<img className='not-preview-imgs' key={image.id} src={image.url} alt='more spot photos' />) : null)}
                 </div>
             </div>
             <div className='Spot-info'>

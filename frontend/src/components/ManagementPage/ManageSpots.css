@@ -4,3 +4,39 @@
     gap: 1rem;
 }
 
+
+
+.open-modal-button {
+    cursor: pointer;
+}
+
+
+
+.outer-card-container {
+
+    display: flex;
+    flex-direction: column;
+}
+
+.spots-ul {
+    display: grid;
+    grid-template-columns: repeat (4, 1fr);
+
+}
+
+
+
+.manage-imgs {
+    border-radius: 15px;
+    height: 300px;
+    object-fit: cover;
+    width: 100%;
+
+}
+
+.button-section {
+
+    flex: 1;
+    align-items: end;
+
+}
