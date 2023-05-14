@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 
-function Navigation({ isLoaded }){
+function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
 
   return (
@@ -12,18 +12,18 @@ function Navigation({ isLoaded }){
       <li className='home'>
         <NavLink id='home-link' exact to="/">{
           <>
-         <i className="fa-solid fa-suitcase-rolling"></i>
-          <p>Happybnb</p>
+            <i className="fa-solid fa-suitcase-rolling"></i>
+            <p>Happybnb</p>
           </>}
-          </NavLink>
+        </NavLink>
       </li>
       <div className='group-right'>
-      {sessionUser && (<li><NavLink id= 'create-spot-navlink' exact to='/spots/new'>Create a New Spot</NavLink></li>)}
-      {isLoaded && (
-        <li className='profile-btn'>
-          <ProfileButton user={sessionUser} />
-        </li>
-      )}
+        {sessionUser && (<li><NavLink id='create-spot-navlink' exact to='/spots/new'>Create a New Spot</NavLink></li>)}
+        {isLoaded && (
+          <li className='profile-btn'>
+            <ProfileButton user={sessionUser} />
+          </li>
+        )}
       </div>
     </ul>
   );
