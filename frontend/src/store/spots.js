@@ -99,7 +99,7 @@ export const updateSpotThunk = (spot, spotImages) => async (dispatch) => {
     if (response.ok) {
         const updatedSpot = await response.json()
 
-        console.log('updatedSpot ======>', updatedSpot)
+
 
         for (let i = 0; i < spotImages.length; i++) {
             await csrfFetch(`/api/spots/${updatedSpot.id}/images`, {

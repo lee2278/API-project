@@ -16,7 +16,6 @@ export default function GetSpotDetails() {
     const reviews = Object.values(reviewsObj);
     const sessionUser = useSelector(state => state.session.user);
 
-    console.log('reviewsObj ======>', reviewsObj)
 
     useEffect(() => {
         dispatch(getSpotDetailsThunk(spotId))
@@ -44,6 +43,7 @@ export default function GetSpotDetails() {
         nonPreviewImgArr = spot.SpotImages.filter(image => image.preview === false)
     }
 
+    console.log('nonPreviews', nonPreviewImgArr)
 
     const getMonthYear = (dateString => {
         const convertedDate = new Date(dateString)
@@ -91,7 +91,7 @@ export default function GetSpotDetails() {
                     {previewImgArr && <img src={previewImgArr[previewImgArr.length - 1]['url']} alt='preview of spot' />}
                 </div>
                 <div className='right-imgs'>
-                    {nonPreviewImgArr && nonPreviewImgArr.reverse().slice(0, 4).map(image => image ? (<img key={image.id} src={image.url} alt='more spot photos' />) : null)}
+                    {nonPreviewImgArr && nonPreviewImgArr.map(image => image ? (<img key={image.id} src={image.url} alt='more spot photos' />) : null)}
                 </div>
             </div>
             <div className='Spot-info'>
@@ -131,7 +131,7 @@ export default function GetSpotDetails() {
                     {`${bottomDisplay}`}
                 </h2>
 
-                {console.log('REVIEWS', reviews)}
+
                 
 
               

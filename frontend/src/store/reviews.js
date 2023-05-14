@@ -47,12 +47,12 @@ export const createReviewThunk = (review) => async (dispatch) => {
         const newReview = await response.json();
         dispatch(createReview(newReview))
 
-        console.log('this is inside the thunk')
+
 
         return newReview
     } else {
         const errors = await response.json()
-        console.log('errors =====>', errors)
+
         return errors;
     }
 
@@ -90,10 +90,10 @@ export const reviewsReducer = (state = initialState, action) => {
             
                 newState.spot[action.review.id] = action.review
 
-                console.log('this is inside the reducer')
+
         
 
-           console.log('newState =====>',newState)
+
 
 
             return newState
@@ -105,7 +105,7 @@ export const reviewsReducer = (state = initialState, action) => {
             const newState = {...state, spot: {...state.spot}}
             delete newState.spot[action.reviewId]
 
-            console.log('this is insider delete reducer')
+
             return newState
         }
         default: return state

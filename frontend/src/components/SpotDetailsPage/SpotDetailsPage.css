@@ -10,6 +10,7 @@
 .right-imgs{
     display:grid;
     grid-template-columns: 2fr 2fr;
+    grid-template-rows: 2fr 2fr;
     gap: 1rem;
 }
 
