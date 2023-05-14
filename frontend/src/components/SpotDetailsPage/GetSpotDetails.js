@@ -20,7 +20,7 @@ export default function GetSpotDetails() {
     useEffect(() => {
         dispatch(getSpotDetailsThunk(spotId))
         dispatch(getReviewsBySpotThunk(spotId))
-    }, [dispatch, reviews.length, spotId])
+    }, [dispatch, reviews.length,spotId])
 
 
 
@@ -42,7 +42,8 @@ export default function GetSpotDetails() {
         previewImgArr = spot.SpotImages.filter(image => image.preview === true)
         nonPreviewImgArr = spot.SpotImages.filter(image => image.preview === false)
     }
-
+    console.log('spot.SpotImages', spot.SpotImages)
+    console.log('previewImgArr', previewImgArr)
     console.log('nonPreviews', nonPreviewImgArr)
 
     const getMonthYear = (dateString => {

@@ -28,13 +28,13 @@ const SpotForm = ({ spot, formType }) => {
     let spotImagesArray = []
     if (previewImage) spotImagesArray.push({ url: previewImage, preview: true })
 
-    if (spotImage1) spotImagesArray.push({ url: previewImage, preview: false })
+    if (spotImage1) spotImagesArray.push({ url: spotImage1, preview: false })
 
-    if (spotImage2) spotImagesArray.push({ url: previewImage, preview: false })
+    if (spotImage2) spotImagesArray.push({ url: spotImage2, preview: false })
 
-    if (spotImage3) spotImagesArray.push({ url: previewImage, preview: false })
+    if (spotImage3) spotImagesArray.push({ url: spotImage3, preview: false })
 
-    if (spotImage4) spotImagesArray.push({ url: previewImage, preview: false })
+    if (spotImage4) spotImagesArray.push({ url: spotImage4, preview: false })
 
 
 
@@ -129,12 +129,14 @@ const SpotForm = ({ spot, formType }) => {
             }
 
 
-
-
         }
     }
 
-
+    console.log('spotImagesArray', spotImagesArray)
+    console.log('spotImage1', spotImage1)
+    console.log('spotImage2', spotImage2)
+    console.log('spotImage3', spotImage3)
+    console.log('spotImge4', spotImage4)
 
     return (
         <div className='form-wrapper'>
