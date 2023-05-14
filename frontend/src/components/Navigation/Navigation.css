@@ -39,6 +39,9 @@
 
 #modal-content {
     border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px
 }
 
 .profile-dropdown {
@@ -63,3 +66,5 @@
     text-decoration: none;
     color: rgb(252, 99, 88);
 }
+
+
