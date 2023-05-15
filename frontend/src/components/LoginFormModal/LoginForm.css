@@ -19,3 +19,7 @@ form {
 button:not([disabled]) {
     cursor: pointer;
   }
+#username-input, #password-input {
+    width: 100%;
+}
+

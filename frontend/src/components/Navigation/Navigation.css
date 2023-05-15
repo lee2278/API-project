@@ -28,6 +28,7 @@
 .group-right {
     display: flex;
     gap: 2rem;
+    align-items: center;
 }
 .profile-btn:hover {
     cursor: pointer
@@ -110,12 +111,10 @@
 
 #create-spot-navlink {
     text-decoration: none;
-    font-size: 15px;
+    font-size: 18px;
 
 }
 
-#temp-logo {
-    width: 60px;
-    height: 60px;
-
+.fa-suitcase-rolling{
+    padding: 1rem;
 }

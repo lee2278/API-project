@@ -10,8 +10,6 @@ const SpotForm = ({ spot, formType }) => {
     const [address, setAddress] = useState('')
     const [city, setCity] = useState('')
     const [state, setState] = useState('')
-    // const [latitude, setLatitude] = useState('')
-    // const [longitude, setLongitude] = useState('')
     const [description, setDescription] = useState('')
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
@@ -85,6 +83,7 @@ const SpotForm = ({ spot, formType }) => {
         if (!city) newErrors.city = 'City is required'
         if (!state) newErrors.state = 'State is required'
         if (!description || description.length < 30) newErrors.description = 'Description needs a minimum of 30 characters'
+        if (description && description.length > 255) newErrors.description = 'Please limit description to 255 characters'
         if (!name) newErrors.name = "Name is required"
         if (name && name.length >= 50) newErrors.name = "Name must be less than 50 characters"
         if (!price) newErrors.price = 'Price is required'

@@ -12,7 +12,7 @@ function Navigation({ isLoaded }){
       <li className='home'>
         <NavLink id='home-link' exact to="/">{
           <>
-          <img id='temp-logo'src="https://archives.bulbagarden.net/media/upload/b/b4/0025Pikachu-Cosplay.png"/>
+         <i className="fa-solid fa-suitcase-rolling"></i>
           <p>Happybnb</p>
           </>}
           </NavLink>
