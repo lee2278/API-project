@@ -81,7 +81,7 @@ export default function GetSpotDetails() {
     return (
         <>
             <header>
-                <h1>{spot?.name}</h1>
+                <h1 id='spot-name'>{spot?.name}</h1>
                 {spot.city && <p>{`${spot?.city}, ${spot?.state}, ${spot?.country}`}</p>}
             </header>
 

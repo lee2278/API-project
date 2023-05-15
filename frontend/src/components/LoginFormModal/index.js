@@ -61,10 +61,11 @@ function LoginFormModal() {
       <h1>Log In</h1>
       {hasTypedUsername === true && <p className='error-shown-as-typing'>{particularErrors.credential}</p>}
       {hasTypedPassword === true && <p className='error-shown-as-typing'>{particularErrors.password}</p>}
-      <form onSubmit={handleSubmit}>
+      {errors.credential && (<p className='red-errors'>{errors.credential}</p>)}
+      <form id='login-modal-form' onSubmit={handleSubmit}>
         <label>
           Username or Email
-          <input
+          <input id='username-input'
             type="text"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
@@ -73,16 +74,13 @@ function LoginFormModal() {
         </label>
         <label>
           Password
-          <input
+          <input id='password-input'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        {errors.credential && (
-          <p className='red-errors'>{errors.credential}</p>
-        )}
         <button type="submit" disabled={Object.values(particularErrors).length > 0}>Log In</button>
         <Link id='demo-user-link' to='/' onClick={handleDemoUser}>Demo User</Link>
       </form>
