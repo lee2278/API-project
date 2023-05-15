@@ -20,7 +20,7 @@ export default function GetSpotDetails() {
     useEffect(() => {
         dispatch(getSpotDetailsThunk(spotId))
         dispatch(getReviewsBySpotThunk(spotId))
-    }, [dispatch, reviews.length,spotId])
+    }, [dispatch, reviews.length, spotId])
 
 
 
@@ -64,9 +64,9 @@ export default function GetSpotDetails() {
         boxDisplay = 'New'
     } else boxDisplay = spot.avgStarRating
 
-    
 
-    
+
+
 
     let notSpotOwner;
     if (sessionUser && sessionUser.id !== spot.ownerId) notSpotOwner = true;
@@ -101,24 +101,24 @@ export default function GetSpotDetails() {
                             <p>{spot.description}</p>
                         </div>
                         <div className='info-box-section'>
-                        <div className='short-info-box'>
-                            <div className='top-info'>
-                                <p id='price-section'>{`$${spot.price} night`}</p>
-                                <div className='rating'>
-                                    <p><i className="fa-solid fa-star" style={{ color: '#000000' }}></i>
-                                        {` ${boxDisplay}`}</p>
-                                
-                                {spot.numReviews !== 0 && <p>{` · ${spot.numReviews} ${reviewText}`}</p>}
-                                
-                                </div>
-                        
+                            <div className='short-info-box'>
+                                <div className='top-info'>
+                                    <p id='price-section'>{`$${spot.price} night`}</p>
+                                    <div className='rating'>
+                                        <p><i className="fa-solid fa-star" style={{ color: '#000000' }}></i>
+                                            {` ${boxDisplay}`}</p>
 
-                            </div>
-                            <div className='reserve-button-container'>
-                                <button id ='reserve-btn'onClick={handleReserveButton}>Reserve</button>
+                                        {spot.numReviews !== 0 && <p>{` · ${spot.numReviews} ${reviewText}`}</p>}
+
+                                    </div>
+
+
+                                </div>
+                                <div className='reserve-button-container'>
+                                    <button id='reserve-btn' onClick={handleReserveButton}>Reserve</button>
+                                </div>
                             </div>
                         </div>
-                            </div>
                     </div>
                 )}
 
@@ -130,36 +130,36 @@ export default function GetSpotDetails() {
                     {`${bottomDisplay}`}
                 </h2>
 
-
-                
-
-              
-
-                {reviews.reverse().map(review =>  review ?
-
-                    (
-                    <div key={review?.id}>
-
-                        <h3>{review.User?.firstName}</h3>
-                        <p>{getMonthYear(review.createdAt)}</p>
-                        <p>{review?.review}</p>
-
-                        {sessionUser && review && review.userId === sessionUser.id && <OpenModalButton
-                            buttonText="Delete Review"
-                            modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId} />}
-                        />}
-                    </div>
-
-                ) : null
-
-                )}
-
-
                 {notSpotOwner && currentUserReviewsOfSpot.length === 0 &&
                     <OpenModalButton
                         buttonText="Post Your Review"
                         modalComponent={<ReviewModal spotId={spotId} />}
                     />}
+
+
+
+
+                {reviews.reverse().map(review => review ?
+
+                    (
+                        <div key={review?.id}>
+
+                            <h3>{review.User?.firstName}</h3>
+                            <p>{getMonthYear(review.createdAt)}</p>
+                            <p>{review?.review}</p>
+
+                            {sessionUser && review && review.userId === sessionUser.id && <OpenModalButton
+                                buttonText="Delete Review"
+                                modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId} />}
+                            />}
+                        </div>
+
+                    ) : null
+
+                )}
+
+
+
 
 
 
