@@ -15,3 +15,9 @@
 .modal-errors {
   color:red
 }
+
+
+#review-submit-btn:not([disabled]) {
+    background-color: rgb(252, 99, 88);
+    color:white
+}

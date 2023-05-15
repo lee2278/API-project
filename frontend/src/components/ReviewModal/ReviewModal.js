@@ -66,7 +66,7 @@ function ReviewModal({ spotId }) {
 
 
 
-            <button onClick={handleSubmit} disabled={Object.values(errors).length > 0} >{`Submit Your Review`}</button>
+            <button id= 'review-submit-btn' onClick={handleSubmit} disabled={Object.values(errors).length > 0} >{`Submit Your Review`}</button>
 
         </>
     )
