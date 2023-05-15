@@ -81,7 +81,7 @@ function LoginFormModal() {
             required
           />
         </label>
-        <button type="submit" disabled={Object.values(particularErrors).length > 0}>Log In</button>
+        <button id='btn-for-login' type="submit" disabled={Object.values(particularErrors).length > 0}>Log In</button>
         <Link id='demo-user-link' to='/' onClick={handleDemoUser}>Demo User</Link>
       </form>
     </>
