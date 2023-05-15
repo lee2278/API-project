@@ -2,3 +2,8 @@
     color: red;
     margin: 0
 }
+
+#btn-for-signup:not([disabled]){
+    background-color: rgb(252, 99, 88);
+    color:white
+}

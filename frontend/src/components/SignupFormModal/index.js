@@ -119,7 +119,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        <button type="submit" disabled={Object.values(particularErrors).length > 0}>Sign Up</button>
+        <button id='btn-for-signup' type="submit" disabled={Object.values(particularErrors).length > 0}>Sign Up</button>
       </form>
     </>
   );
