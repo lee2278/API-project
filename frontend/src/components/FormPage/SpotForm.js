@@ -232,8 +232,8 @@ const SpotForm = ({ spot, formType }) => {
                             onChange={(e) => setPrice(e.target.value)}
                             placeholder='Price per night (USD)'
                         />
-                        {errors.price && <span className='error'>{errors.price}</span>}
                     </div>
+                        {errors.price && <span className='error'>{errors.price}</span>}
                 </label>
 
                 {formType === 'Create a new Spot' &&
