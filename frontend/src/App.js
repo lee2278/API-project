@@ -11,6 +11,7 @@ import UpdateSpot from './components/FormPage/UpdateSpot'
 import GetUserBookings from "./components/BookingsPage/GetUserBookings";
 import GetSpotBookings from "./components/BookingsPage/GetSpotBookings";
 
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -27,22 +28,22 @@ function App() {
       </Route>
       {isLoaded && <Switch>
         <Route path='/spots/new'>
-          <CreateSpot/>
+          <CreateSpot />
         </Route>
         <Route path='/spots/current'>
-          <ManageSpot/>
+          <ManageSpot />
         </Route>
         <Route path='/spots/:spotId/edit'>
-          <UpdateSpot/>
+          <UpdateSpot />
         </Route>
-        <Route path='/spots/:spotId/bookings'>
-          <GetSpotBookings/>
+        <Route path='/spots/:spotId/bookings/:startDate/:endDate'>
+          <GetSpotBookings />
         </Route>
         <Route path='/spots/:spotId'>
-          <GetSpotDetails/>
+          <GetSpotDetails />
         </Route>
         <Route path='/bookings/current'>
-          <GetUserBookings/>
+          <GetUserBookings />
         </Route>
       </Switch>}
     </>

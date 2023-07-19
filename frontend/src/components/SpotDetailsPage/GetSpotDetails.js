@@ -1,5 +1,5 @@
 import { useParams, useHistory } from 'react-router-dom'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getSpotDetailsThunk } from '../../store/spots';
 import './SpotDetailsPage.css'
@@ -24,6 +24,8 @@ export default function GetSpotDetails() {
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
 
+    
+
 
     useEffect(() => {
         dispatch(getSpotDetailsThunk(spotId))
@@ -31,18 +33,10 @@ export default function GetSpotDetails() {
     }, [dispatch, reviews.length, spotId])
 
 
-   
-
-    const newBooking = {
-        startDate,
-        endDate
-    }
-   
-
 
     const handleReserveButton = async(e) => {
-        await dispatch(createBookingThunk(newBooking, spotId))
-        history.push(`/spots/${spotId}/bookings`)
+        
+        history.push(`/spots/${spotId}/bookings/${startDate}/${endDate}`)
     }
 
     let reviewText;
@@ -131,6 +125,7 @@ export default function GetSpotDetails() {
                                 </div>
 
                                 <form>
+
                                     <div className='date-selection-wrapper'>
                                     <label>CHECK-IN
                                     <input className='check-in-out-date-inputs'
@@ -150,6 +145,7 @@ export default function GetSpotDetails() {
                                     </input>
                                     </label>
                                     </div>
+
                                 </form>
                                 <div className='reserve-button-container'>
                                     <button id='reserve-btn' onClick={handleReserveButton}>Reserve</button>

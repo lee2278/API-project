@@ -1,39 +1,38 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom'
 import { getUserBookingsThunk } from '../../store/bookings'
 import { getSpotDetailsThunk } from '../../store/spots'
+import { createBookingThunk } from '../../store/bookings'
+import OpenModalButton from '../OpenModalButton'
+import EditDatesModal from './EditDatesModal'
 import './Bookings.css'
+
 
 export default function GetSpotBookings() {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const { spotId } = useParams()
+    const {spotId, startDate, endDate } = useParams()
+
+    const [bookingStart, setBookingStart] = useState(startDate)
+    const [bookingEnd, setBookingEnd] = useState(endDate)
+
     const spot = useSelector(state => state.spots.singleSpot)
 
-    //this is list of user bookings
-    const userBookingsObj = useSelector(state => state.bookings.user)
-    const userBookingsList = Object.values(userBookingsObj)
-
-    //filtering list of user bookings by this spot
-    const filteredBookingsListBySpot = userBookingsList.filter(booking => booking.spotId === +spotId)
-
-    const lastBooked = filteredBookingsListBySpot[filteredBookingsListBySpot.length - 1]
+    useEffect(() => {
+        dispatch(getUserBookingsThunk())
+        dispatch(getSpotDetailsThunk(spotId))
+    }, [dispatch])
 
 
-    const lastBookedStart = filteredBookingsListBySpot[filteredBookingsListBySpot.length - 1]?.startDate
-    const lastBookedEnd = filteredBookingsListBySpot[filteredBookingsListBySpot.length - 1]?.endDate
-
-
-    // Converting Dates from something like this "2023-08-04T00:00:00.000Z" to "August 4, 2023"
-
-    const startDateObj = new Date(lastBookedStart)
-    const endDateObj = new Date(lastBookedEnd)
+    // date conversions
+    const startDateObj = new Date(startDate)
+    const endDateObj = new Date(endDate)
 
     const getMonthDayYear = (dateString => {
         const convertedDate = new Date(dateString)
-        const optionsOfDateObj = { month: 'long', day: 'numeric', year: 'numeric' }
+        const optionsOfDateObj = {timeZone: 'UTC', month: 'long', day: 'numeric', year: 'numeric' }
         return convertedDate.toLocaleString(undefined, optionsOfDateObj)
     })
 
@@ -46,8 +45,6 @@ export default function GetSpotBookings() {
     const timeDifferenceInMilliseconds = endDateObj.getTime() - startDateObj.getTime()
     const daysOfTrip = Math.ceil(timeDifferenceInMilliseconds / (1000 * 60 * 60 * 24))
 
-
-
     let nightDisplayText;
 
     if (daysOfTrip === 1) {
@@ -55,7 +52,7 @@ export default function GetSpotBookings() {
     } else nightDisplayText = 'nights'
 
     //total prices
-    const totalForStay = daysOfTrip * lastBooked?.Spot?.price
+    const totalForStay = daysOfTrip * spot.price
     const cleaningFee = totalForStay * 0.2
     const serviceFee = totalForStay * 0.15
     const taxes = totalForStay * 0.1
@@ -74,16 +71,21 @@ export default function GetSpotBookings() {
     if (spot.numReviews === 1) reviewText = 'review'
     else reviewText = 'reviews'
 
+    
+    
+    const newBooking = {
+        startDate: bookingStart,
+        endDate: bookingEnd
+    }
 
-    useEffect(() => {
-        dispatch(getUserBookingsThunk())
-        dispatch(getSpotDetailsThunk(spotId))
-    }, [dispatch])
 
+    const previewImage = spot?.SpotImages?.filter(spotImage => spotImage.preview === true)
 
-    const handleRedirect = () => {
+    const handleBookingConfirmation = async(e) => {
+        await dispatch(createBookingThunk(newBooking, spotId))
         history.push('/bookings/current')
     }
+
 
     return (
         <>
@@ -95,21 +97,24 @@ export default function GetSpotBookings() {
                             <p id='dates-header'> Dates</p>
                             <div className='date-and-edit-button-wrapper'>
                                 <p>{`${wordFormStartDate} to ${wordFormEndDate}`}</p>
-                                <button>Edit</button>
+                                <OpenModalButton 
+                                buttonText='Edit'
+                                modalComponent={<EditDatesModal/>}/>
                             </div>
                         </div>
                         <div id='confirm-btn-wrapper'>
-                        <button id='confirm-btn' onClick={handleRedirect}>Confirm Booking</button>
+                        <button id='confirm-btn' onClick={handleBookingConfirmation}>Confirm Booking</button>
                         </div>
                     </div>
 
                     <div className='bookings-right'>
                         <div className='spot-description-area'>
                             <div className='left-spot-description-area'>
-                                <img src={lastBooked?.Spot?.previewImage} />
+                                {previewImage && <img src={previewImage[0]?.url} />}
+
                             </div>
                             <div className='right-spot-description-area'>
-                                <p>{lastBooked?.Spot?.name}</p>
+                                <p>{spot.name}</p>
                                 <div>
                                     <i className="fa-solid fa-star" style={{ color: '#000000' }}></i>
                                     <span id='rating-display-span'>{ratingDisplay}</span>
@@ -120,24 +125,24 @@ export default function GetSpotBookings() {
                         <div className='price-area'>
                             <h2>Price details</h2>
                             <div className='price-explanation-line'>
-                                {daysOfTrip && <p>{`$${lastBooked?.Spot?.price.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>}
-                                <p>{`$${totalForStay.toFixed(2)}`}</p>
+                                {daysOfTrip && <p>{`$${spot.price?.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>}
+                                <p>{`$${totalForStay?.toFixed(2)}`}</p>
                             </div>
                             <div className='price-explanation-line'>
                                 <p>Cleaning Fee</p>
-                                <p>{`$${cleaningFee.toFixed(2)}`}</p>
+                                <p>{`$${cleaningFee?.toFixed(2)}`}</p>
                             </div>
                             <div className='price-explanation-line'>
                                 <p>Happybnb Service Fee</p>
-                                <p>{`$${serviceFee.toFixed(2)}`}</p>
+                                <p>{`$${serviceFee?.toFixed(2)}`}</p>
                             </div>
                             <div className='price-explanation-line'>
                                 <p>Taxes</p>
-                                <p>{`$${taxes.toFixed(2)}`}</p>
+                                <p>{`$${taxes?.toFixed(2)}`}</p>
                             </div>
                             <div className='price-explanation-line final-total'>
                                 <p>Total (USD)</p>
-                                <p>{`$${finalTotal.toFixed(2)}`}</p>
+                                <p>{`$${finalTotal?.toFixed(2)}`}</p>
                             </div>
                         </div>
                     </div>
