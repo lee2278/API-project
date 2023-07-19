@@ -1,5 +1,5 @@
-import { useParams } from 'react-router-dom'
-import { useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom'
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getSpotDetailsThunk } from '../../store/spots';
 import './SpotDetailsPage.css'
@@ -7,14 +7,22 @@ import { getReviewsBySpotThunk } from '../../store/reviews';
 import OpenModalButton from '../OpenModalButton';
 import ReviewModal from '../ReviewModal/ReviewModal';
 import DeleteReviewModal from './DeleteReviewModal';
+import { createBookingThunk } from '../../store/bookings';
+
+
+
 export default function GetSpotDetails() {
     const { spotId } = useParams();
     const dispatch = useDispatch();
+    const history = useHistory()
 
     const spot = useSelector(state => state.spots.singleSpot)
     const reviewsObj = useSelector(state => state.reviews.spot)
     const reviews = Object.values(reviewsObj);
     const sessionUser = useSelector(state => state.session.user);
+
+    const [startDate, setStartDate] = useState('')
+    const [endDate, setEndDate] = useState('')
 
 
     useEffect(() => {
@@ -23,11 +31,18 @@ export default function GetSpotDetails() {
     }, [dispatch, reviews.length, spotId])
 
 
+   
+
+    const newBooking = {
+        startDate,
+        endDate
+    }
+   
 
 
-
-    const handleReserveButton = () => {
-        alert('Feature coming soon')
+    const handleReserveButton = async(e) => {
+        await dispatch(createBookingThunk(newBooking, spotId))
+        history.push(`/spots/${spotId}/bookings`)
     }
 
     let reviewText;
@@ -114,6 +129,28 @@ export default function GetSpotDetails() {
 
 
                                 </div>
+
+                                <form>
+                                    <div className='date-selection-wrapper'>
+                                    <label>CHECK-IN
+                                    <input className='check-in-out-date-inputs'
+                                    type='date'
+                                    onChange={(e) => setStartDate(e.target.value)}
+                                    value={startDate}
+                                    >
+                                    </input>
+                                    </label>
+
+                                    <label>CHECK-OUT
+                                    <input className='check-in-out-date-inputs'
+                                    type='date'
+                                    onChange={(e) => setEndDate(e.target.value)}
+                                    value={endDate}
+                                    >
+                                    </input>
+                                    </label>
+                                    </div>
+                                </form>
                                 <div className='reserve-button-container'>
                                     <button id='reserve-btn' onClick={handleReserveButton}>Reserve</button>
                                 </div>

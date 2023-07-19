@@ -9,7 +9,7 @@ import CreateSpot from './components/FormPage/CreateSpot'
 import ManageSpot from "./components/ManagementPage/ManageSpots";
 import UpdateSpot from './components/FormPage/UpdateSpot'
 import GetUserBookings from "./components/BookingsPage/GetUserBookings";
-
+import GetSpotBookings from "./components/BookingsPage/GetSpotBookings";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,10 +35,13 @@ function App() {
         <Route path='/spots/:spotId/edit'>
           <UpdateSpot/>
         </Route>
+        <Route path='/spots/:spotId/bookings'>
+          <GetSpotBookings/>
+        </Route>
         <Route path='/spots/:spotId'>
           <GetSpotDetails/>
         </Route>
-        <Route path='/bookings'>
+        <Route path='/bookings/current'>
           <GetUserBookings/>
         </Route>
       </Switch>}
