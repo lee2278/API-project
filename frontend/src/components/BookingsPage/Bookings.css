@@ -1,0 +1,80 @@
+.date-and-edit-button-wrapper {
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.bookings-page-subcontainer {
+    /* border:2px solid blue; */
+    display: flex;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.bookings-left {
+    width: 48%;
+    /* border: 1px solid black; */
+
+}
+
+.bookings-right {
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    width: 48%;
+    padding: 1rem;
+}
+
+#confirm-btn-wrapper {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+}
+#confirm-btn {
+    width: 80%;
+    padding: 0.5rem;
+}
+
+#dates-header {
+    font-weight:bold;
+}
+
+.spot-description-area {
+    border-bottom: 1px solid gray;
+    height: 8rem;
+    display: flex;
+    gap: 1rem;
+    padding-bottom: 1rem;
+}
+
+.left-spot-description-area {
+    width: 45%;
+}
+
+.left-spot-description-area > img{
+    height:100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+#rating-display-span {
+    font-weight: bold;
+    padding:0;
+    margin-right: 5px;
+}
+#num-reviews-span {
+    padding:0;
+    color: rgb(81, 80, 80);
+}
+
+/* price area */
+
+.price-explanation-line{
+    /* border: 1px solid green; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.final-total {
+    border-top: 1px solid gray;
+    font-weight: bold;
+}

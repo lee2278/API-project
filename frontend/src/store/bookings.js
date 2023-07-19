@@ -121,19 +121,17 @@ export const bookingsReducer = (state = initialState, action) => {
         }
         case LOAD_SPOT_BOOKINGS: {
             const newState = { user: {}, spot: {}}
-            if (action.bookings.length && typeof action.bookings !== 'string') action.bookings.forEach((booking) => {
-                newState.spot[booking.id] = booking
-            })
+            newState.spot = action.bookings
             return newState
         }
-        case CREATE_BOOKING: {
-            const newState = {...state, user: {...state.user}, spot: {...state.spot}}
-            newState.singleBooking = action.singleBooking
-            return newState
-        }
+        //maybe not needed
+        // case CREATE_BOOKING: {
+        //     const newState = {...state, user: {...state.user}, spot: {...state.spot}}
+        //     newState.singleBooking = action.singleBooking
+        //     return newState
+        // }
         case UPDATE_BOOKING: {
             const newState = {...state, user: {...state.user}, spot: {...state.spot}}
-            //maybe need to fix something here
             newState.singleBooking = action.singleBooking
             return newState
         }
