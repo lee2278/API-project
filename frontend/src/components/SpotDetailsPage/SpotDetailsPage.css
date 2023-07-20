@@ -95,6 +95,19 @@
     color: white;
     cursor: pointer;
 }
+
+#see-spot-reservations-btn {
+    font-size: 15px;
+    padding: 0.3rem 0;
+    background-color: rgb(252, 99, 88);
+    box-shadow: 3px 3px 3px gray;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+
+}
+
+
 img {
     width: 100%;
     object-fit: cover

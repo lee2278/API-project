@@ -4,8 +4,6 @@ import { useParams, useHistory } from 'react-router-dom'
 import { getSpotBookingsThunk } from '../../store/bookings'
 import { getSpotDetailsThunk } from '../../store/spots'
 import { createBookingThunk } from '../../store/bookings'
-import OpenModalButton from '../OpenModalButton'
-import EditDatesModal from './EditDatesModal'
 import './Bookings.css'
 
 

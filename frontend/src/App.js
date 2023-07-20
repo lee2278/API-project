@@ -10,7 +10,7 @@ import ManageSpot from "./components/ManagementPage/ManageSpots";
 import UpdateSpot from './components/FormPage/UpdateSpot'
 import GetUserBookings from "./components/BookingsPage/GetUserBookings";
 import GetSpotBookings from "./components/BookingsPage/GetSpotBookings";
-
+import BookingsManagement from "./components/BookingsManagementPage/BookingsManagement";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +35,9 @@ function App() {
         </Route>
         <Route path='/spots/:spotId/edit'>
           <UpdateSpot />
+        </Route>
+        <Route path='/spots/:spotId/confirmed-bookings'>
+          <BookingsManagement/>
         </Route>
         <Route path='/spots/:spotId/bookings/:startDate/:endDate'>
           <GetSpotBookings />

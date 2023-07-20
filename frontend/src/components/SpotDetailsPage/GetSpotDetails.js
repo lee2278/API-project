@@ -23,7 +23,9 @@ export default function GetSpotDetails() {
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
 
-    const [errors, setErrors] = useState('')    
+    const [errors, setErrors] = useState('')
+
+    const today = new Date().toISOString().split('T')[0]
 
 
     useEffect(() => {
@@ -33,12 +35,14 @@ export default function GetSpotDetails() {
 
 
 
-    const handleReserveButton = async(e) => {
+    const handleReserveButton = async (e) => {
         setErrors({})
         const newErrors = {}
         if (!startDate) newErrors.startDate = "Please choose a check-in date"
         if (!endDate) newErrors.endDate = "Please choose a check-out date"
-        if (new Date(endDate).getTime() < new Date(startDate).getTime()) newErrors.invalidDates= 'Check-out date cannot be before check-in date.'
+        if (new Date(endDate).getTime() < new Date(startDate).getTime()) newErrors.invalidDates = 'Check-out date cannot be before check-in date.'
+        if (new Date(startDate).getTime() < new Date(today).getTime()) newErrors.invalidStart = "Cannot choose a check-in date in the past"
+        if (new Date(endDate).getTime() < new Date(today).getTime()) newErrors.invalidEnd = "Cannot choose a check-out date in the past"
 
         if (Object.values(newErrors).length) {
             setErrors(newErrors)
@@ -46,6 +50,13 @@ export default function GetSpotDetails() {
         }
         history.push(`/spots/${spotId}/bookings/${startDate}/${endDate}`)
     }
+
+
+    const handleSeeReservationsButton = (e) => {
+        e.preventDefault()
+        history.push(`/spots/${spotId}/confirmed-bookings`)
+    }
+
 
     let reviewText;
     if (spot.numReviews === 1) reviewText = 'review'
@@ -95,6 +106,7 @@ export default function GetSpotDetails() {
 
 
 
+
     return (
         <>
             <header>
@@ -114,7 +126,8 @@ export default function GetSpotDetails() {
                 {spot.Owner && (
                     <div className='middle-section'>
                         <div className='text-info'>
-                            <h2>{`Hosted by ${spot.Owner.firstName} ${spot.Owner.lastName}`}</h2>
+                            {sessionUser && sessionUser.id === spot.ownerId ? <h2>{`Hosted by ${spot.Owner.firstName} ${spot.Owner.lastName} (you)`}</h2> :
+                                <h2>{`Hosted by ${spot.Owner.firstName} ${spot.Owner.lastName}`}</h2>}
                             <p>{spot.description}</p>
                         </div>
                         <div className='info-box-section'>
@@ -132,35 +145,46 @@ export default function GetSpotDetails() {
 
                                 </div>
 
-                                <form>
-                                    <div className='reserve-date-errors'>
-                                        {errors.startDate && <p>{errors.startDate}</p>}
-                                        {errors.endDate && <p>{errors.endDate}</p>}
-                                        {errors.invalidDates && <p>{errors.invalidDates}</p>}
-                                    </div>
-                                    <div className='date-selection-wrapper'>
-                                    <label>CHECK-IN
-                                    <input className='check-in-out-date-inputs'
-                                    type='date'
-                                    onChange={(e) => setStartDate(e.target.value)}
-                                    value={startDate}
-                                    >
-                                    </input>
-                                    </label>
+                                {sessionUser && sessionUser.id === spot.ownerId
+                                    ?
+                                    <></>
+                                    : <form>
+                                        <div className='reserve-date-errors'>
+                                            {errors.startDate && <p>{errors.startDate}</p>}
+                                            {errors.endDate && <p>{errors.endDate}</p>}
+                                            {errors.invalidDates && <p>{errors.invalidDates}</p>}
+                                            {errors.invalidStart && <p>{errors.invalidStart}</p>}
+                                            {errors.invalidEnd && <p>{errors.invalidEnd}</p>}
+                                        </div>
+                                        <div className='date-selection-wrapper'>
+                                            <label>CHECK-IN
+                                                <input className='check-in-out-date-inputs'
+                                                    type='date'
+                                                    onChange={(e) => setStartDate(e.target.value)}
+                                                    value={startDate}
+                                                    min={today}
+                                                >
+                                                </input>
+                                            </label>
 
-                                    <label>CHECK-OUT
-                                    <input className='check-in-out-date-inputs'
-                                    type='date'
-                                    onChange={(e) => setEndDate(e.target.value)}
-                                    value={endDate}
-                                    >
-                                    </input>
-                                    </label>
-                                    </div>
+                                            <label>CHECK-OUT
+                                                <input className='check-in-out-date-inputs'
+                                                    type='date'
+                                                    onChange={(e) => setEndDate(e.target.value)}
+                                                    value={endDate}
+                                                    min={today}
+                                                >
+                                                </input>
+                                            </label>
+                                        </div>
 
-                                </form>
+                                    </form>}
                                 <div className='reserve-button-container'>
-                                    <button id='reserve-btn' onClick={handleReserveButton}>Reserve</button>
+                                    {sessionUser && sessionUser.id === spot.ownerId
+                                        ?
+                                        <button id='see-spot-reservations-btn'onClick={handleSeeReservationsButton}>See this spot's Reservations</button>
+                                        :
+                                        <button id='reserve-btn' onClick={handleReserveButton}>Reserve</button>}
                                 </div>
                             </div>
                         </div>
