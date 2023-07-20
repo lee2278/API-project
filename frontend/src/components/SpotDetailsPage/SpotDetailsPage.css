@@ -47,7 +47,7 @@
 
 .info-box-section {
     padding: 1rem;
-    border: 2px solid red;
+    /* border: 2px solid red; */
 }
 
 .top-info {
@@ -102,4 +102,9 @@ img {
 
 #spot-name {
     text-align:left;
+}
+
+.reserve-date-errors > p {
+    color:red;
+    margin: 0.2rem 0;
 }

@@ -7,7 +7,6 @@ import { getReviewsBySpotThunk } from '../../store/reviews';
 import OpenModalButton from '../OpenModalButton';
 import ReviewModal from '../ReviewModal/ReviewModal';
 import DeleteReviewModal from './DeleteReviewModal';
-import { createBookingThunk } from '../../store/bookings';
 
 
 
@@ -24,7 +23,7 @@ export default function GetSpotDetails() {
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
 
-    
+    const [errors, setErrors] = useState('')    
 
 
     useEffect(() => {
@@ -35,7 +34,16 @@ export default function GetSpotDetails() {
 
 
     const handleReserveButton = async(e) => {
-        
+        setErrors({})
+        const newErrors = {}
+        if (!startDate) newErrors.startDate = "Please choose a check-in date"
+        if (!endDate) newErrors.endDate = "Please choose a check-out date"
+        if (new Date(endDate).getTime() < new Date(startDate).getTime()) newErrors.invalidDates= 'Check-out date cannot be before check-in date.'
+
+        if (Object.values(newErrors).length) {
+            setErrors(newErrors)
+            return
+        }
         history.push(`/spots/${spotId}/bookings/${startDate}/${endDate}`)
     }
 
@@ -125,7 +133,11 @@ export default function GetSpotDetails() {
                                 </div>
 
                                 <form>
-
+                                    <div className='reserve-date-errors'>
+                                        {errors.startDate && <p>{errors.startDate}</p>}
+                                        {errors.endDate && <p>{errors.endDate}</p>}
+                                        {errors.invalidDates && <p>{errors.invalidDates}</p>}
+                                    </div>
                                     <div className='date-selection-wrapper'>
                                     <label>CHECK-IN
                                     <input className='check-in-out-date-inputs'
