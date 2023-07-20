@@ -1,20 +1,23 @@
-.date-and-edit-button-wrapper {
-    /* border: 2px solid red; */
+.bookings-page-wrapper{
+    /* border:2px solid red; */
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .bookings-page-subcontainer {
+    /* margin:auto; */
     /* border:2px solid blue; */
     display: flex;
     gap: 2rem;
     padding: 1rem;
+    width: 944px;
 }
 
 .bookings-left {
     width: 48%;
     /* border: 1px solid black; */
-
+    display:flex;
+    flex-direction: column;
 }
 
 .bookings-right {
@@ -24,13 +27,63 @@
     padding: 1rem;
 }
 
-#confirm-btn-wrapper {
-    margin-top: 5rem;
+.date-and-edit-wrapper {
+    display:flex;
+    justify-content: space-between;
+    /* border:2px solid green; */
+    align-items: center;
+}
+
+#edit-date-btn, #hide-edit-date-btn {
+    padding:none;
+    margin:none;
+    background-color:transparent;
+    font-weight: bold;
+    border: none;
+}
+
+/* #edit-date-btn:hover {
+    font-size: 15px;
+    text-decoration: underline;
+} */
+
+.edit-hide-wrapper {
+    display: flex;
+}
+
+.edit-date-selections {
+    border: 1px solid lightgray;
+    margin-top: 2rem;
+    display: flex;
+    border-radius: 15px;
+    padding:1rem;
+
+
+}
+.edit-date-selections-left {
+    width:50%;
+    border-right: 1px solid lightgray;
+    padding: 0.2rem;
+    display:flex;
+    justify-content: center;
+}
+.edit-date-selections-right {
+    width:50%;
+    padding: 0.2rem;
     display: flex;
     justify-content: center;
 }
+
+.confirm-cancel-btn-wrapper {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: space-around;
+
+
+
+}
 #confirm-btn {
-    width: 80%;
+    width: 10rem;
     padding: 0.5rem;
 }
 
@@ -54,6 +107,7 @@
     height:100%;
     object-fit: cover;
     border-radius: 15px;
+
 }
 
 #rating-display-span {
@@ -77,4 +131,9 @@
 .final-total {
     border-top: 1px solid gray;
     font-weight: bold;
+}
+
+/* errors */
+.booking-errors-div > p {
+    color:red;
 }

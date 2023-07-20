@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom'
-import { getUserBookingsThunk } from '../../store/bookings'
+import { getSpotBookingsThunk } from '../../store/bookings'
 import { getSpotDetailsThunk } from '../../store/spots'
 import { createBookingThunk } from '../../store/bookings'
 import OpenModalButton from '../OpenModalButton'
@@ -13,26 +13,30 @@ export default function GetSpotBookings() {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const {spotId, startDate, endDate } = useParams()
+    const { spotId, startDate, endDate } = useParams()
 
     const [bookingStart, setBookingStart] = useState(startDate)
     const [bookingEnd, setBookingEnd] = useState(endDate)
+    const [errors, setErrors] = useState('')
+    const [editClicked, setEditClicked] = useState(false)
 
     const spot = useSelector(state => state.spots.singleSpot)
+    const spotBookingsList = useSelector(state => state.bookings.spot)
 
+ 
     useEffect(() => {
-        dispatch(getUserBookingsThunk())
+        dispatch(getSpotBookingsThunk(spotId))
         dispatch(getSpotDetailsThunk(spotId))
     }, [dispatch])
 
 
     // date conversions
-    const startDateObj = new Date(startDate)
-    const endDateObj = new Date(endDate)
+    const startDateObj = new Date(bookingStart)
+    const endDateObj = new Date(bookingEnd)
 
     const getMonthDayYear = (dateString => {
         const convertedDate = new Date(dateString)
-        const optionsOfDateObj = {timeZone: 'UTC', month: 'long', day: 'numeric', year: 'numeric' }
+        const optionsOfDateObj = { timeZone: 'UTC', month: 'long', day: 'numeric', year: 'numeric' }
         return convertedDate.toLocaleString(undefined, optionsOfDateObj)
     })
 
@@ -41,9 +45,13 @@ export default function GetSpotBookings() {
     const wordFormEndDate = getMonthDayYear(endDateObj)
 
     // Figuring out number of days booked (so I can give a total price)
+    const makePositive = num => num < 0 ? -num : num;
 
     const timeDifferenceInMilliseconds = endDateObj.getTime() - startDateObj.getTime()
-    const daysOfTrip = Math.ceil(timeDifferenceInMilliseconds / (1000 * 60 * 60 * 24))
+    const daysOfTrip = makePositive(Math.ceil(timeDifferenceInMilliseconds / (1000 * 60 * 60 * 24)))
+
+
+
 
     let nightDisplayText;
 
@@ -71,20 +79,66 @@ export default function GetSpotBookings() {
     if (spot.numReviews === 1) reviewText = 'review'
     else reviewText = 'reviews'
 
-    
-    
+    //getting the prview image
+    const previewImage = spot?.SpotImages?.filter(spotImage => spotImage.preview === true)
+
+
     const newBooking = {
         startDate: bookingStart,
         endDate: bookingEnd
     }
 
 
-    const previewImage = spot?.SpotImages?.filter(spotImage => spotImage.preview === true)
+    // spotBookingsList.forEach(booking => {
+    //     console.log('bookingstart', booking.startDate)
+    // })
 
-    const handleBookingConfirmation = async(e) => {
+
+
+    const handleEdit = () => {
+        setEditClicked(true)
+    }
+
+
+    const handleBookingConfirmation = async (e) => {
+
+        setErrors({})
+        const newErrors = {}
+        // endDate cannot be before startDate
+        if (endDateObj.getTime() < startDateObj.getTime()) newErrors.endDate = 'Check-out date cannot be before check-in date'
+
+        // startDate cannot be between existing bookings's start and endDates
+        spotBookingsList.forEach(booking => {
+            let convertedStart = new Date(booking.startDate).getTime();
+            let convertedEnd = new Date(booking.endDate).getTime();
+
+            if (
+                ((startDateObj.getTime() >= convertedStart) && (startDateObj.getTime() <= convertedEnd))
+                ||
+                ((endDateObj.getTime() >= convertedStart) && (endDateObj.getTime() <= convertedEnd))
+            ) {
+                newErrors.dateConflicts = "Sorry, this spot is already booked for one or more of the selected dates. Please choose other dates"
+            }
+
+        })
+
+
+        if (Object.values(newErrors).length) {
+            setErrors(newErrors)
+            setEditClicked(true)
+            return
+        }
+
         await dispatch(createBookingThunk(newBooking, spotId))
         history.push('/bookings/current')
     }
+
+
+
+    const handleRedirect = () => {
+        history.push(`/spots/${spotId}`)
+    }
+
 
 
     return (
@@ -95,15 +149,52 @@ export default function GetSpotBookings() {
                         <div>
                             <h2>Your trip</h2>
                             <p id='dates-header'> Dates</p>
-                            <div className='date-and-edit-button-wrapper'>
+                            <div className='date-and-edit-wrapper'>
                                 <p>{`${wordFormStartDate} to ${wordFormEndDate}`}</p>
-                                <OpenModalButton 
-                                buttonText='Edit'
-                                modalComponent={<EditDatesModal/>}/>
+                                <div className='edit-hide-wrapper'>
+                                    <button id='edit-date-btn' onClick={handleEdit}>Edit</button>
+                                    {editClicked && <button id='hide-edit-date-btn' onClick={() => setEditClicked(false)}>Hide</button>}
+                                </div>
+                                {/* <OpenModalButton
+                                buttonText = 'Edit'
+                                modalComponent={<EditDatesModal />}
+                                /> */}
                             </div>
                         </div>
-                        <div id='confirm-btn-wrapper'>
-                        <button id='confirm-btn' onClick={handleBookingConfirmation}>Confirm Booking</button>
+
+                        <div className='booking-errors-div'>
+                            {errors.endDate && <p>{errors.endDate}</p>}
+                            {errors.dateConflicts && <p>{errors.dateConflicts}</p>}
+                            {editClicked === true && (
+                                <>
+                                    <div className='edit-date-selections'>
+                                        <div className='edit-date-selections-left'>
+                                            <label>CHECK-IN
+                                                <input className='check-in-out-date-inputs'
+                                                    type='date'
+                                                    onChange={(e) => setBookingStart(e.target.value)}
+                                                    value={bookingStart}
+                                                >
+                                                </input>
+                                            </label>
+                                        </div>
+                                        <div className='edit-date-selections-right'>
+                                            <label>CHECK-OUT
+                                                <input className='check-in-out-date-inputs'
+                                                    type='date'
+                                                    onChange={(e) => setBookingEnd(e.target.value)}
+                                                    value={bookingEnd}
+                                                >
+                                                </input>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                        <div className='confirm-cancel-btn-wrapper'>
+                            <button onClick={handleRedirect}>Cancel Booking</button>
+                            <button id='confirm-btn' onClick={handleBookingConfirmation}>Confirm Booking</button>
                         </div>
                     </div>
 
@@ -124,6 +215,7 @@ export default function GetSpotBookings() {
                         </div>
                         <div className='price-area'>
                             <h2>Price details</h2>
+
                             <div className='price-explanation-line'>
                                 {daysOfTrip && <p>{`$${spot.price?.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>}
                                 <p>{`$${totalForStay?.toFixed(2)}`}</p>
@@ -144,6 +236,7 @@ export default function GetSpotBookings() {
                                 <p>Total (USD)</p>
                                 <p>{`$${finalTotal?.toFixed(2)}`}</p>
                             </div>
+
                         </div>
                     </div>
 
