@@ -1,18 +1,17 @@
 import { useEffect } from 'react'
-import { getUserBookingsThunk } from '../../store/bookings'
+import {  getUserBookingsThunk } from '../../store/bookings'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateBookingThunk, deleteBookingThunk } from '../../store/bookings';
+
 import OpenModalButton from '../OpenModalButton';
 import DeleteBookingModal from './DeleteBookingModal';
 import EditBookingModal from './EditBookingModal';
+
 
 export default function GetUserBookings() {
     const dispatch = useDispatch();
 
     const bookingsObj = useSelector(state => state.bookings.user)
     const bookingsList = Object.values(bookingsObj)
-
-    console.log('bookingsList', bookingsList)
 
     const today = new Date().getTime()
 
@@ -59,6 +58,7 @@ export default function GetUserBookings() {
                                 <OpenModalButton
                                     buttonText = 'Edit Booking'
                                     modalComponent = {<EditBookingModal booking={booking}/>}
+             
                                 />
                                 <OpenModalButton
                                     buttonText = 'Cancel Booking'

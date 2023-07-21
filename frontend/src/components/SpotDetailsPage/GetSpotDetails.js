@@ -1,5 +1,5 @@
 import { useParams, useHistory } from 'react-router-dom'
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getSpotDetailsThunk } from '../../store/spots';
 import './SpotDetailsPage.css'
@@ -25,8 +25,7 @@ export default function GetSpotDetails() {
 
     const [errors, setErrors] = useState('')
 
-    const today = new Date().toISOString().split('T')[0]
-
+    const today = new Date()
 
     useEffect(() => {
         dispatch(getSpotDetailsThunk(spotId))
@@ -41,8 +40,8 @@ export default function GetSpotDetails() {
         if (!startDate) newErrors.startDate = "Please choose a check-in date"
         if (!endDate) newErrors.endDate = "Please choose a check-out date"
         if (new Date(endDate).getTime() < new Date(startDate).getTime()) newErrors.invalidDates = 'Check-out date cannot be before check-in date.'
-        if (new Date(startDate).getTime() < new Date(today).getTime()) newErrors.invalidStart = "Cannot choose a check-in date in the past"
-        if (new Date(endDate).getTime() < new Date(today).getTime()) newErrors.invalidEnd = "Cannot choose a check-out date in the past"
+        if (new Date(startDate).getTime() < today.getTime()) newErrors.invalidStart = "Cannot choose a check-in date in the past"
+        if (new Date(endDate).getTime() < today.getTime()) newErrors.invalidEnd = "Cannot choose a check-out date in the past"
 
         if (Object.values(newErrors).length) {
             setErrors(newErrors)

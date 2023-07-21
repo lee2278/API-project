@@ -7,9 +7,10 @@ export default function DeleteBookingModal({booking}) {
     const dispatch = useDispatch()
     const { closeModal } = useModal();
 
-    const handleDeleteBooking = async(e) => {
+
+    const handleDeleteBooking = (e) => {
         e.preventDefault()
-        await dispatch(deleteBookingThunk(booking.id))
+         dispatch(deleteBookingThunk(booking.id))
         closeModal()
         dispatch(getUserBookingsThunk())
     }

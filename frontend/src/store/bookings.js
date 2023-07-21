@@ -57,6 +57,9 @@ export const getSpotBookingsThunk = (spotId) => async (dispatch) => {
         const spotBookings = data.Bookings
         dispatch(loadSpotBookings(spotBookings))
 
+    } else {
+        const errors = await response.json()
+        return errors;
     }
 }
 
@@ -113,14 +116,14 @@ const initialState = { user: {}, spot: {}}
 export const bookingsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_USER_BOOKINGS: {
-            const newState = { user: {}, spot: {}}
+            const newState = { user: {...state.user}, spot: {...state.spot}}
             if (action.bookings.length && typeof action.bookings !== 'string') action.bookings.forEach((booking) => {
                 newState.user[booking.id] = booking
             })
             return newState
         }
         case LOAD_SPOT_BOOKINGS: {
-            const newState = { user: {}, spot: {}}
+            const newState = {user: {...state.user}, spot: {...state.spot}}
             newState.spot = action.bookings
             return newState
         }
@@ -131,14 +134,16 @@ export const bookingsReducer = (state = initialState, action) => {
         //     return newState
         // }
         case UPDATE_BOOKING: {
-            const newState = {...state, user: {...state.user}, spot: {...state.spot}}
+            const newState = {...state}
             newState.singleBooking = action.singleBooking
             return newState
         }
         case REMOVE_BOOKING: {
             const newState = { ...state, user: {...state.user}, spot: {...state.spot}}
-            delete newState.user[action.bookingId]
-            delete newState.spot[action.bookingId]
+
+                delete newState.user[action.bookingId]
+                delete newState.spot[action.bookingId]
+                return newState
         }
         default:
             return state

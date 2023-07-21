@@ -19,9 +19,9 @@ export default function GetSpotBookings() {
     const [editClicked, setEditClicked] = useState(false)
 
     const spot = useSelector(state => state.spots.singleSpot)
-    const spotBookingsList = useSelector(state => state.bookings.spot)
+    const spotBookingsObj = useSelector(state => state.bookings.spot)
+    const spotBookingsList = Object.values(spotBookingsObj)
 
- 
     useEffect(() => {
         dispatch(getSpotBookingsThunk(spotId))
         dispatch(getSpotDetailsThunk(spotId))
@@ -106,21 +106,22 @@ export default function GetSpotBookings() {
         if (endDateObj.getTime() < startDateObj.getTime()) newErrors.endDate = 'Check-out date cannot be before check-in date'
 
         // startDate cannot be between existing bookings's start and endDates
-        spotBookingsList.forEach(booking => {
-            let convertedStart = new Date(booking.startDate).getTime();
-            let convertedEnd = new Date(booking.endDate).getTime();
+        if (typeof spotBookingsList !== 'string' && spotBookingsList.length > 0) {
+            spotBookingsList.forEach(booking => {
+                let convertedStart = new Date(booking.startDate).getTime();
+                let convertedEnd = new Date(booking.endDate).getTime();
 
-            if (
-                ((startDateObj.getTime() >= convertedStart) && (startDateObj.getTime() <= convertedEnd))
-                ||
-                ((endDateObj.getTime() >= convertedStart) && (endDateObj.getTime() <= convertedEnd))
-            ) {
-                newErrors.dateConflicts = "Sorry, this spot is already booked for one or more of the selected dates. Please choose other dates"
-            }
+                if (
+                    ((startDateObj.getTime() >= convertedStart) && (startDateObj.getTime() <= convertedEnd))
+                    ||
+                    ((endDateObj.getTime() >= convertedStart) && (endDateObj.getTime() <= convertedEnd))
+                ) {
+                    newErrors.dateConflicts = "Sorry, this spot is already booked for one or more of the selected dates. Please choose other dates"
+                }
 
-        })
+            })
 
-
+        }
         if (Object.values(newErrors).length) {
             setErrors(newErrors)
             setEditClicked(true)
