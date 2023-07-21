@@ -141,11 +141,6 @@
 
 /* bookingsManagement.js css here */
 
-.current-bookings-div, .past-bookings-div {
-
-    /* border: 1px solid red; */
-}
-
 .current-bookings-subdiv, .past-bookings-subdiv {
     border: 1px solid gray;
     padding: 2rem;
@@ -183,4 +178,9 @@
 
 .booking-spot-name {
     font-weight: 500;
+}
+
+.edit-delete-booking-modal-container {
+    display: flex;
+    gap: 1rem;
 }

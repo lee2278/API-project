@@ -1,7 +1,10 @@
 import { useEffect } from 'react'
 import { getUserBookingsThunk } from '../../store/bookings'
 import { useDispatch, useSelector } from 'react-redux'
-
+import { updateBookingThunk, deleteBookingThunk } from '../../store/bookings';
+import OpenModalButton from '../OpenModalButton';
+import DeleteBookingModal from './DeleteBookingModal';
+import EditBookingModal from './EditBookingModal';
 
 export default function GetUserBookings() {
     const dispatch = useDispatch();
@@ -31,16 +34,19 @@ export default function GetUserBookings() {
         dispatch(getUserBookingsThunk())
     }, [dispatch])
 
+
+
+
     return (
         <>
             <div className='overall-wrapper'>
                 <div>
                     <h2>Here are your bookings</h2>
                     <div className='current-bookings-div'>
-                        <h3>Current Bookings</h3>
+                        <h3>Scheduled Bookings</h3>
                         <div className='current-bookings-subdiv'>
                         {currentBookingsList && currentBookingsList.map(booking => (
-                            <div className='booking-card'>
+                            <div key={booking.id} className='booking-card'>
                                 <div className='booking-card-left'>
                                     <div className='booking-card-image-container'>
                                         <img src={`${booking.Spot.previewImage}`} />
@@ -49,8 +55,16 @@ export default function GetUserBookings() {
                                 <div className='booking-card-right'>
                                 <p className='booking-spot-name'>{booking?.Spot.name}</p>
                                 <p>{`${getMonthDayYear(booking.startDate)} - ${getMonthDayYear(booking.endDate)}`}</p>
-                                <button>Edit Booking</button>
-                                <button>Cancel Booking</button>
+                                <div className='edit-delete-booking-modal-container'>
+                                <OpenModalButton
+                                    buttonText = 'Edit Booking'
+                                    modalComponent = {<EditBookingModal booking={booking}/>}
+                                />
+                                <OpenModalButton
+                                    buttonText = 'Cancel Booking'
+                                    modalComponent = {<DeleteBookingModal booking={booking}/>}
+                                />
+                                </div>
                                 </div>
                             </div>
                         ))}
@@ -60,7 +74,7 @@ export default function GetUserBookings() {
                         <h3>Past Bookings</h3>
                         <div className='past-bookings-subdiv'>
                         {pastBookingsList && pastBookingsList.map(booking => (
-                            <div className='booking-card past'>
+                            <div key={booking.id} className='booking-card past'>
                                 <div className='booking-card-left'>
                                     <div className='booking-card-image-container'>
                                         <img id='past-booking-img' src={`${booking.Spot.previewImage}`} />
