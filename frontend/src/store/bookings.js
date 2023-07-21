@@ -116,14 +116,14 @@ const initialState = { user: {}, spot: {}}
 export const bookingsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_USER_BOOKINGS: {
-            const newState = { user: {...state.user}, spot: {...state.spot}}
+            const newState = { user: {}, spot: {}}
             if (action.bookings.length && typeof action.bookings !== 'string') action.bookings.forEach((booking) => {
                 newState.user[booking.id] = booking
             })
             return newState
         }
         case LOAD_SPOT_BOOKINGS: {
-            const newState = {user: {...state.user}, spot: {...state.spot}}
+            const newState = {user: {...state.user}, spot: {}}
             newState.spot = action.bookings
             return newState
         }
@@ -134,8 +134,9 @@ export const bookingsReducer = (state = initialState, action) => {
         //     return newState
         // }
         case UPDATE_BOOKING: {
-            const newState = {...state}
-            newState.singleBooking = action.singleBooking
+            const newState = {...state, user: {...state.user}, spot: {...state.spot}}
+            newState.spot[action.singleBooking.id] = action.singleBooking
+            // newState.user[action.singleBooking.id] = action.singleBooking
             return newState
         }
         case REMOVE_BOOKING: {

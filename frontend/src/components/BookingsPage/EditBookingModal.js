@@ -24,13 +24,21 @@ export default function EditBookingModal({ booking }) {
     const spotBookingsList = Object.values(spotBookingsObj)
     console.log('spotsBookingsList', spotBookingsList)
 
+    
     const today = new Date()
-
+    
     const updatedBooking = {
         id: booking.id,
         startDate,
         endDate
     }
+    
+    const filteredSpotBookings = spotBookingsList.filter(spotBooking => spotBooking.startDate !== booking.startDate)
+
+    console.log(booking.startDate)
+    console.log('filtered', filteredSpotBookings)
+
+
     useEffect(() => {
         dispatch(getSpotBookingsThunk(booking.Spot.id))
         // dispatch(getUserBookingsThunk())
@@ -46,8 +54,8 @@ export default function EditBookingModal({ booking }) {
 
         if (new Date(endDate).getTime() < new Date(startDate).getTime()) newErrors.endDate = 'Check-out date cannot be before check-in date'
 
-        if (typeof spotBookingsList !== 'string' && spotBookingsList.length > 0) {
-            spotBookingsList.forEach(spotBooking => {
+        if (typeof filteredSpotBookings !== 'string' && filteredSpotBookings.length > 0) {
+            filteredSpotBookings.forEach(spotBooking => {
                 let convertedStart = new Date(spotBooking.startDate).getTime();
                 let convertedEnd = new Date(spotBooking.endDate).getTime();
 
@@ -76,6 +84,7 @@ export default function EditBookingModal({ booking }) {
         await dispatch(updateBookingThunk(updatedBooking))
         closeModal()
         dispatch(getUserBookingsThunk())
+
     }
     return (
         <>
