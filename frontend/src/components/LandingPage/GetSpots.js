@@ -12,8 +12,6 @@ export default function GetSpots() {
 
     useEffect(() => {
         dispatch(getSpotsThunk())
-
-
     }, [dispatch])
 
 

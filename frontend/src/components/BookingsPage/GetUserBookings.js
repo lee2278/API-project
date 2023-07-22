@@ -40,7 +40,7 @@ export default function GetUserBookings() {
         <>
             <div className='overall-wrapper'>
                 <div>
-                    <h2>Here are your bookings</h2>
+                    <h2>Here are your booked trips</h2>
                     <div className='current-bookings-div'>
                         <h3>Scheduled Bookings</h3>
                         <div className='current-bookings-subdiv'>
