@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import {  getUserBookingsThunk } from '../../store/bookings'
 import { useDispatch, useSelector } from 'react-redux'
-
+import { Link } from 'react-router-dom'
 import OpenModalButton from '../OpenModalButton';
 import DeleteBookingModal from './DeleteBookingModal';
 import EditBookingModal from './EditBookingModal';
@@ -52,7 +52,7 @@ export default function GetUserBookings() {
                                     </div>
                                 </div>
                                 <div className='booking-card-right'>
-                                <p className='booking-spot-name'>{booking?.Spot.name}</p>
+                                <Link to={`/bookings/${booking.id}/${booking.Spot.id}/details`} className='booking-spot-name'>{booking?.Spot.name}</Link>
                                 <p>{`${getMonthDayYear(booking.startDate)} - ${getMonthDayYear(booking.endDate)}`}</p>
                                 <div className='edit-delete-booking-modal-container'>
                                 <OpenModalButton
@@ -81,7 +81,7 @@ export default function GetUserBookings() {
                                     </div>
                                 </div>
                                 <div className='booking-card-right'>
-                                    <p className='booking-spot-name'>{booking?.Spot.name}</p>
+                                    <Link to={`/bookings/${booking.id}/${booking.Spot.id}/details`} className='booking-spot-name'>{booking?.Spot.name}</Link>
                                     <p>{`${getMonthDayYear(booking.startDate)} - ${getMonthDayYear(booking.endDate)}`}</p>
                                 </div>
                             </div>

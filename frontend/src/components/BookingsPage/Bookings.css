@@ -162,6 +162,7 @@
 
 .booking-card:hover {
     box-shadow: 2px 2px 2px gray;
+
 }
 .booking-card-image-container {
     height: 6rem;
@@ -179,6 +180,7 @@
 
 .booking-spot-name {
     font-weight: 500;
+    color:black;
 }
 
 .edit-delete-booking-modal-container {
