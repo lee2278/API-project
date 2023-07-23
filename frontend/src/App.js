@@ -11,6 +11,8 @@ import UpdateSpot from './components/FormPage/UpdateSpot'
 import GetUserBookings from "./components/BookingsPage/GetUserBookings";
 import GetSpotBookings from "./components/BookingsPage/GetSpotBookings";
 import BookingsManagement from "./components/BookingsManagementPage/BookingsManagement";
+import BookingDetails from "./components/BookingsPage/BookingDetails";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -47,6 +49,9 @@ function App() {
         </Route>
         <Route path='/bookings/current'>
           <GetUserBookings />
+        </Route>
+        <Route path='/bookings/:bookingId/:spotId/details'>
+          <BookingDetails/>
         </Route>
       </Switch>}
     </>

@@ -77,7 +77,7 @@ export default function GetSpotBookings() {
     if (spot.numReviews === 1) reviewText = 'review'
     else reviewText = 'reviews'
 
-    //getting the prview image
+    //getting the preview image
     const previewImage = spot?.SpotImages?.filter(spotImage => spotImage.preview === true)
 
 

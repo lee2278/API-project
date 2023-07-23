@@ -37,6 +37,7 @@ export default function GetSpotDetails() {
     const handleReserveButton = async (e) => {
         setErrors({})
         const newErrors = {}
+        if (!sessionUser) newErrors.sessionUser = "Please log in or sign-up to reserve"
         if (!startDate) newErrors.startDate = "Please choose a check-in date"
         if (!endDate) newErrors.endDate = "Please choose a check-out date"
         if (new Date(endDate).getTime() < new Date(startDate).getTime()) newErrors.invalidDates = 'Check-out date cannot be before check-in date.'
@@ -149,6 +150,7 @@ export default function GetSpotDetails() {
                                     <></>
                                     : <form>
                                         <div className='reserve-date-errors'>
+                                            {errors.sessionUser && <p>{errors.sessionUser}</p>}
                                             {errors.startDate && <p>{errors.startDate}</p>}
                                             {errors.endDate && <p>{errors.endDate}</p>}
                                             {errors.invalidDates && <p>{errors.invalidDates}</p>}

@@ -22,6 +22,7 @@
 
 .bookings-right {
     border: 1px solid lightgray;
+    box-shadow: 0 0 5px 1px lightgrey;
     border-radius: 15px;
     width: 48%;
     padding: 1rem;
@@ -141,7 +142,7 @@
 
 /* bookingsManagement.js css here */
 
-.current-bookings-subdiv, .past-bookings-subdiv {
+.current-bookings-subdiv, .past-bookings-subdiv,.upcoming-bookings-subdiv  {
     border: 1px solid gray;
     padding: 2rem;
     border-radius: 15px;
@@ -183,4 +184,36 @@
 .edit-delete-booking-modal-container {
     display: flex;
     gap: 1rem;
+}
+
+
+/* booking details */
+.booking-details-wrapper {
+    border: 1px solid lightgray;
+    box-shadow: 0 0 5px 1px lightgrey;
+    display: flex;
+    border-radius: 15px;
+}
+.booking-details-right, .booking-details-left {
+    width: 50%;
+    padding: 1rem;
+}
+.booking-details-right {
+    border-left: 1px solid lightgray;
+}
+
+.booking-image-container > img{
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+#spot-name-ptag {
+    font-weight: bold;
+}
+.address-div, .host-div, .dates-div {
+    display: flex;
+    gap: 1rem;
+}
+#address-label, #host-label, #date-label {
+    font-weight: 500;
 }
