@@ -1,0 +1,221 @@
+.bookings-page-wrapper{
+    /* border:2px solid red; */
+    display: flex;
+    justify-content: center;
+}
+
+.bookings-page-subcontainer {
+    /* margin:auto; */
+    /* border:2px solid blue; */
+    display: flex;
+    gap: 2rem;
+    padding: 1rem;
+    width: 944px;
+}
+
+.bookings-left {
+    width: 48%;
+    /* border: 1px solid black; */
+    display:flex;
+    flex-direction: column;
+}
+
+.bookings-right {
+    border: 1px solid lightgray;
+    box-shadow: 0 0 5px 1px lightgrey;
+    border-radius: 15px;
+    width: 48%;
+    padding: 1rem;
+}
+
+.date-and-edit-wrapper {
+    display:flex;
+    justify-content: space-between;
+    /* border:2px solid green; */
+    align-items: center;
+}
+
+#edit-date-btn, #hide-edit-date-btn {
+    padding:none;
+    margin:none;
+    background-color:transparent;
+    font-weight: bold;
+    border: none;
+}
+
+/* #edit-date-btn:hover {
+    font-size: 15px;
+    text-decoration: underline;
+} */
+
+.edit-hide-wrapper {
+    display: flex;
+}
+
+.edit-date-selections {
+    border: 1px solid lightgray;
+    margin-top: 2rem;
+    display: flex;
+    border-radius: 15px;
+    padding:1rem;
+
+
+}
+.edit-date-selections-left {
+    width:50%;
+    border-right: 1px solid lightgray;
+    padding: 0.2rem;
+    display:flex;
+    justify-content: center;
+}
+.edit-date-selections-right {
+    width:50%;
+    padding: 0.2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.confirm-cancel-btn-wrapper {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: space-around;
+
+
+
+}
+#confirm-btn {
+    width: 10rem;
+    padding: 0.5rem;
+}
+
+#dates-header {
+    font-weight:bold;
+}
+
+.spot-description-area {
+    border-bottom: 1px solid gray;
+    height: 8rem;
+    display: flex;
+    gap: 1rem;
+    padding-bottom: 1rem;
+}
+
+.left-spot-description-area {
+    width: 45%;
+}
+
+.left-spot-description-area > img{
+    height:100%;
+    object-fit: cover;
+    border-radius: 15px;
+
+}
+
+#rating-display-span {
+    font-weight: bold;
+    padding:0;
+    margin-right: 5px;
+}
+#num-reviews-span {
+    padding:0;
+    color: rgb(81, 80, 80);
+}
+
+/* price area */
+
+.price-explanation-line{
+    /* border: 1px solid green; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.final-total {
+    border-top: 1px solid gray;
+    font-weight: bold;
+}
+
+/* errors */
+.booking-errors-div > p {
+    color:red;
+}
+
+
+/* bookingsManagement.js css here */
+
+.current-bookings-subdiv, .past-bookings-subdiv,.upcoming-bookings-subdiv  {
+    border: 1px solid gray;
+    padding: 2rem;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.booking-card {
+    display: flex;
+    padding: 0.5rem;
+    gap: 1rem;
+    align-items: center;
+    border: 1px solid gray;
+    border-radius: 15px;
+}
+
+.booking-card:hover {
+    box-shadow: 2px 2px 2px gray;
+
+}
+.booking-card-image-container {
+    height: 6rem;
+    width: 8.5rem;
+    border-radius: 15px;
+    overflow:hidden;
+}
+
+.booking-card-image-container > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    
+}
+
+.booking-spot-name {
+    font-weight: 500;
+    color:black;
+}
+
+.edit-delete-booking-modal-container {
+    display: flex;
+    gap: 1rem;
+}
+
+
+/* booking details */
+.booking-details-wrapper {
+    border: 1px solid lightgray;
+    box-shadow: 0 0 5px 1px lightgrey;
+    display: flex;
+    border-radius: 15px;
+}
+.booking-details-right, .booking-details-left {
+    width: 50%;
+    padding: 1rem;
+}
+.booking-details-right {
+    border-left: 1px solid lightgray;
+}
+
+.booking-image-container > img{
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+#spot-name-ptag {
+    font-weight: bold;
+}
+.address-div, .host-div, .dates-div {
+    display: flex;
+    gap: 1rem;
+}
+#address-label, #host-label, #date-label {
+    font-weight: 500;
+}

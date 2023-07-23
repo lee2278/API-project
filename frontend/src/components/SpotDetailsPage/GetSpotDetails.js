@@ -1,5 +1,5 @@
-import { useParams } from 'react-router-dom'
-import { useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom'
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getSpotDetailsThunk } from '../../store/spots';
 import './SpotDetailsPage.css'
@@ -7,15 +7,25 @@ import { getReviewsBySpotThunk } from '../../store/reviews';
 import OpenModalButton from '../OpenModalButton';
 import ReviewModal from '../ReviewModal/ReviewModal';
 import DeleteReviewModal from './DeleteReviewModal';
+
+
+
 export default function GetSpotDetails() {
     const { spotId } = useParams();
     const dispatch = useDispatch();
+    const history = useHistory()
 
     const spot = useSelector(state => state.spots.singleSpot)
     const reviewsObj = useSelector(state => state.reviews.spot)
     const reviews = Object.values(reviewsObj);
     const sessionUser = useSelector(state => state.session.user);
 
+    const [startDate, setStartDate] = useState('')
+    const [endDate, setEndDate] = useState('')
+
+    const [errors, setErrors] = useState('')
+
+    const today = new Date()
 
     useEffect(() => {
         dispatch(getSpotDetailsThunk(spotId))
@@ -24,11 +34,29 @@ export default function GetSpotDetails() {
 
 
 
+    const handleReserveButton = async (e) => {
+        setErrors({})
+        const newErrors = {}
+        if (!sessionUser) newErrors.sessionUser = "Please log in or sign-up to reserve"
+        if (!startDate) newErrors.startDate = "Please choose a check-in date"
+        if (!endDate) newErrors.endDate = "Please choose a check-out date"
+        if (new Date(endDate).getTime() < new Date(startDate).getTime()) newErrors.invalidDates = 'Check-out date cannot be before check-in date.'
+        if (new Date(startDate).getTime() < today.getTime()) newErrors.invalidStart = "Cannot choose a check-in date in the past"
+        if (new Date(endDate).getTime() < today.getTime()) newErrors.invalidEnd = "Cannot choose a check-out date in the past"
 
-
-    const handleReserveButton = () => {
-        alert('Feature coming soon')
+        if (Object.values(newErrors).length) {
+            setErrors(newErrors)
+            return
+        }
+        history.push(`/spots/${spotId}/bookings/${startDate}/${endDate}`)
     }
+
+
+    const handleSeeReservationsButton = (e) => {
+        e.preventDefault()
+        history.push(`/spots/${spotId}/confirmed-bookings`)
+    }
+
 
     let reviewText;
     if (spot.numReviews === 1) reviewText = 'review'
@@ -78,6 +106,7 @@ export default function GetSpotDetails() {
 
 
 
+
     return (
         <>
             <header>
@@ -97,7 +126,8 @@ export default function GetSpotDetails() {
                 {spot.Owner && (
                     <div className='middle-section'>
                         <div className='text-info'>
-                            <h2>{`Hosted by ${spot.Owner.firstName} ${spot.Owner.lastName}`}</h2>
+                            {sessionUser && sessionUser.id === spot.ownerId ? <h2>{`Hosted by ${spot.Owner.firstName} ${spot.Owner.lastName} (you)`}</h2> :
+                                <h2>{`Hosted by ${spot.Owner.firstName} ${spot.Owner.lastName}`}</h2>}
                             <p>{spot.description}</p>
                         </div>
                         <div className='info-box-section'>
@@ -114,8 +144,48 @@ export default function GetSpotDetails() {
 
 
                                 </div>
+
+                                {sessionUser && sessionUser.id === spot.ownerId
+                                    ?
+                                    <></>
+                                    : <form>
+                                        <div className='reserve-date-errors'>
+                                            {errors.sessionUser && <p>{errors.sessionUser}</p>}
+                                            {errors.startDate && <p>{errors.startDate}</p>}
+                                            {errors.endDate && <p>{errors.endDate}</p>}
+                                            {errors.invalidDates && <p>{errors.invalidDates}</p>}
+                                            {errors.invalidStart && <p>{errors.invalidStart}</p>}
+                                            {errors.invalidEnd && <p>{errors.invalidEnd}</p>}
+                                        </div>
+                                        <div className='date-selection-wrapper'>
+                                            <label>CHECK-IN
+                                                <input className='check-in-out-date-inputs'
+                                                    type='date'
+                                                    onChange={(e) => setStartDate(e.target.value)}
+                                                    value={startDate}
+                                                    min={today}
+                                                >
+                                                </input>
+                                            </label>
+
+                                            <label>CHECK-OUT
+                                                <input className='check-in-out-date-inputs'
+                                                    type='date'
+                                                    onChange={(e) => setEndDate(e.target.value)}
+                                                    value={endDate}
+                                                    min={today}
+                                                >
+                                                </input>
+                                            </label>
+                                        </div>
+
+                                    </form>}
                                 <div className='reserve-button-container'>
-                                    <button id='reserve-btn' onClick={handleReserveButton}>Reserve</button>
+                                    {sessionUser && sessionUser.id === spot.ownerId
+                                        ?
+                                        <button id='see-spot-reservations-btn'onClick={handleSeeReservationsButton}>See this spot's Reservations</button>
+                                        :
+                                        <button id='reserve-btn' onClick={handleReserveButton}>Reserve</button>}
                                 </div>
                             </div>
                         </div>

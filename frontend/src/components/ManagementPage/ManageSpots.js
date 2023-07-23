@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserSpotsThunk } from '../../store/spots';
@@ -8,6 +8,7 @@ import './ManageSpots.css'
 
 export default function ManageSpots() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const spotsObj = useSelector(state => state.spots.allSpots)
 
     const spotsList = Object.values(spotsObj)
@@ -49,6 +50,7 @@ export default function ManageSpots() {
                             buttonText="Delete"
                             modalComponent={<DeleteModal spot={spot} />}
                         />
+                        <button onClick = {() => history.push(`/spots/${spot.id}/confirmed-bookings`) }>View/Manage Bookings</button>
                     </div>
                 </li>
 

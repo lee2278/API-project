@@ -6,6 +6,7 @@ const LOAD_SPOT_DETAILS = 'spots/LOAD_SPOT_DETAILS'
 const UPDATE_SPOT = 'spots/UPDATE_SPOT'
 const REMOVE_SPOT = 'spots/REMOVE_SPOT'
 
+
 //ACTION CREATORS
 export const loadSpots = (spots) => ({
     type: LOAD_SPOTS,
@@ -27,6 +28,8 @@ export const removeSpot = (spotId) => ({
     spotId
 })
 
+
+
 //THUNKS
 export const getSpotsThunk = () => async (dispatch) => {
     const response = await fetch('/api/spots')
@@ -47,6 +50,9 @@ export const getUserSpotsThunk = () => async (dispatch) => {
         const data = await response.json()
         const userSpots = data.Spots
         dispatch(loadSpots(userSpots))
+    } else {
+        const errors = await response.json()
+        return errors;
     }
 }
 
@@ -63,6 +69,7 @@ export const getSpotDetailsThunk = (spotId) => async (dispatch) => {
         return errors;
     }
 }
+
 
 
 export const createSpotThunk = (spot, spotImages) => async () => {
@@ -151,6 +158,7 @@ export const spotsReducer = (state = initialState, action) => {
             return newState;
 
         }
+
         case UPDATE_SPOT: {
             const newState = { ...state }
             newState.singleSpot = action.singleSpot
