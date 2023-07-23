@@ -47,11 +47,13 @@
 
 .info-box-section {
     padding: 1rem;
+    /* border: 2px solid red; */
 }
 
 .top-info {
     display: flex;
     gap: 1rem;
+
 }
 
 .rating {
@@ -69,6 +71,16 @@
 
 }
 
+.check-in-out-date-inputs {
+    /* border: 1px solid green; */
+    flex-direction: row;
+}
+
+.date-selection-wrapper {
+    /* border: 1px solid blue; */
+    display: flex;
+    justify-content: space-between;
+}
 
 .reserve-button-container{
     text-align: center;
@@ -83,6 +95,19 @@
     color: white;
     cursor: pointer;
 }
+
+#see-spot-reservations-btn {
+    font-size: 15px;
+    padding: 0.3rem 0;
+    background-color: rgb(252, 99, 88);
+    box-shadow: 3px 3px 3px gray;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+
+}
+
+
 img {
     width: 100%;
     object-fit: cover
@@ -90,4 +115,9 @@ img {
 
 #spot-name {
     text-align:left;
+}
+
+.reserve-date-errors > p {
+    color:red;
+    margin: 0.2rem 0;
 }

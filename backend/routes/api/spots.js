@@ -376,6 +376,8 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
     
     const spot = await Spot.findByPk(paramsId)
 
+    const { user } = req;
+
     if (!spot) {
         return res.status(404).json({
             message: "Spot couldn't be found"
@@ -399,7 +401,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
         bookingResponse.endDate = booking.endDate;
         
         
-        let user = await bookings[i].getUser({
+        let bookingUser = await bookings[i].getUser({
             attributes: ['id', 'firstName', 'lastName']
         });
        
@@ -407,7 +409,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
         if (user.id !== spot.ownerId) {
             listOfBookings.push(bookingResponse)
         } else {
-            booking.User = user;
+            booking.User = bookingUser;
             listOfBookings.push(booking)
         }
     }

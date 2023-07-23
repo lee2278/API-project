@@ -8,13 +8,10 @@ import "./LandingPage.css";
 export default function GetSpots() {
     const dispatch = useDispatch();
     const spotsObj = useSelector(state => state.spots.allSpots)
-
     const spotsList = Object.values(spotsObj)
 
     useEffect(() => {
         dispatch(getSpotsThunk())
-
-
     }, [dispatch])
 
 

@@ -8,6 +8,11 @@ import GetSpotDetails from './components/SpotDetailsPage/GetSpotDetails'
 import CreateSpot from './components/FormPage/CreateSpot'
 import ManageSpot from "./components/ManagementPage/ManageSpots";
 import UpdateSpot from './components/FormPage/UpdateSpot'
+import GetUserBookings from "./components/BookingsPage/GetUserBookings";
+import GetSpotBookings from "./components/BookingsPage/GetSpotBookings";
+import BookingsManagement from "./components/BookingsManagementPage/BookingsManagement";
+import BookingDetails from "./components/BookingsPage/BookingDetails";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -25,18 +30,29 @@ function App() {
       </Route>
       {isLoaded && <Switch>
         <Route path='/spots/new'>
-          <CreateSpot/>
+          <CreateSpot />
         </Route>
         <Route path='/spots/current'>
-          <ManageSpot/>
+          <ManageSpot />
         </Route>
         <Route path='/spots/:spotId/edit'>
-          <UpdateSpot/>
+          <UpdateSpot />
+        </Route>
+        <Route path='/spots/:spotId/confirmed-bookings'>
+          <BookingsManagement/>
+        </Route>
+        <Route path='/spots/:spotId/bookings/:startDate/:endDate'>
+          <GetSpotBookings />
         </Route>
         <Route path='/spots/:spotId'>
-          <GetSpotDetails/>
+          <GetSpotDetails />
         </Route>
-       
+        <Route path='/bookings/current'>
+          <GetUserBookings />
+        </Route>
+        <Route path='/bookings/:bookingId/:spotId/details'>
+          <BookingDetails/>
+        </Route>
       </Switch>}
     </>
   );
