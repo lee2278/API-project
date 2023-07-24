@@ -24,15 +24,17 @@
 }
 
 .card {
-  
     border-radius: 15px;
+    overflow:hidden;
 }
 
 #spot-image {
     width: 100%;
-    border-radius: inherit;
     height:300px;
     object-fit: cover;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+
 }
 
 .details-container {

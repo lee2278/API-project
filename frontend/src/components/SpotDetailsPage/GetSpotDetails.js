@@ -119,7 +119,11 @@ export default function GetSpotDetails() {
                         {previewImgArr && <img id='the-preview-img' src={previewImgArr[previewImgArr.length - 1]['url']} alt='preview of spot' />}
                     </div>
                     <div className='right-imgs'>
-                        {nonPreviewImgArr && nonPreviewImgArr.map(image => image ? (<img className='not-preview-imgs' key={image.id} src={image.url} alt='more spot photos' />) : null)}
+                        {nonPreviewImgArr && nonPreviewImgArr.map(image => image ? (
+                            <div className='individual-img-containers'key={image.id}>
+                                <img className='not-preview-imgs'  src={image.url} alt='more spot photos' />
+                            </div>
+                        ) : null)}
                     </div>
                 </div>
             </div>
@@ -202,12 +206,12 @@ export default function GetSpotDetails() {
                 </h2>
 
                 <div className='post-review-btn'>
-                {notSpotOwner && currentUserReviewsOfSpot.length === 0 &&
-                    
-                    <OpenModalButton
-                        buttonText="Post Your Review"
-                        modalComponent={<ReviewModal spotId={spotId} />}
-                />}
+                    {notSpotOwner && currentUserReviewsOfSpot.length === 0 &&
+
+                        <OpenModalButton
+                            buttonText="Post Your Review"
+                            modalComponent={<ReviewModal spotId={spotId} />}
+                        />}
                 </div>
 
 
@@ -221,10 +225,14 @@ export default function GetSpotDetails() {
                             <p>{getMonthYear(review.createdAt)}</p>
                             <p>{review?.review}</p>
 
-                            {sessionUser && review && review.userId === sessionUser.id && <OpenModalButton
+                            {sessionUser && review && review.userId === sessionUser.id && (
+                            <div className='delete-review-modal-wrapper'>
+                            <OpenModalButton
                                 buttonText="Delete Review"
                                 modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId} />}
-                            />}
+                            />
+                            </div>
+                            )}
                         </div>
 
                     ) : null
