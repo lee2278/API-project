@@ -95,6 +95,7 @@ export default function GetSpotBookings() {
     //     console.log('bookingstart', booking.startDate)
     // })
 
+    console.log('spot.price', spot.price)
 
 
     const handleEdit = () => {
