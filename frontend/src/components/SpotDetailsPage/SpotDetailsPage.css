@@ -1,11 +1,22 @@
+
+.spot-details-everything-wrapper {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+
 .images-container{
     display: grid;
     grid-template-columns: 2fr 2fr;
     gap: 1rem;
     border-radius: 15px;
     overflow: hidden;
-    
+    height: 380px;
 }
+
+
+
 .right-imgs{
     display:grid;
     grid-template-columns: 2fr 2fr;
@@ -38,16 +49,17 @@
 .short-info-box{
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
+    border: 2px solid lightgray;
+    box-shadow: 0 0 5px 1px lightgrey;
     padding: 0 1rem;
     border-radius: 15px;
-    
+    width: 350px;
 }
 
 
 .info-box-section {
-    padding: 1rem;
-    /* border: 2px solid red; */
+    padding: 1rem 0 1rem 1rem;
+    justify-self: flex-end;
 }
 
 .top-info {
@@ -60,9 +72,8 @@
     display:flex;
     align-items: center;
     gap: 0.25rem;
-
     flex: 1;
-    justify-content: center;
+    justify-content: flex-end;
 
 }
 
@@ -76,35 +87,37 @@
     flex-direction: row;
 }
 
-.date-selection-wrapper {
-    /* border: 1px solid blue; */
-    display: flex;
-    justify-content: space-between;
-}
 
 .reserve-button-container{
-    text-align: center;
-    padding: 0.5rem;
+    justify-content: center;
+    display:flex;
+    padding: 0.5rem 0;
 }
 
 #reserve-btn {
     font-size: 15px;
-    padding: 0.3rem 8rem;
+    padding: 0.6rem;
     background-color: rgb(252, 99, 88);
-    box-shadow: 3px 3px 3px gray;
     color: white;
+    border:none;
+    border-radius: 5px;
     cursor: pointer;
+    width: 100%;
 }
 
 #see-spot-reservations-btn {
     font-size: 15px;
-    padding: 0.3rem 0;
+    padding: 0.6rem 0;
     background-color: rgb(252, 99, 88);
-    box-shadow: 3px 3px 3px gray;
     color: white;
     cursor: pointer;
     width: 100%;
+    border:none;
+    border-radius: 5px;
+}
 
+#reserve-btn:hover, #see-spot-reservations-btn:hover {
+    background-color: rgb(243, 80, 68)
 }
 
 
@@ -120,4 +133,44 @@ img {
 .reserve-date-errors > p {
     color:red;
     margin: 0.2rem 0;
+}
+
+.date-selection-wrapper{
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    padding: 0.5rem 0;
+    display: flex;
+}
+
+.date-selection-wrapper > label {
+    font-size: 10px;
+    font-weight: 500;
+    width: 50%;
+    padding-left: 0.5rem;
+}
+
+#reserve-area-form{
+    padding: 0;
+}
+
+#checkin-label {
+    border-right: 1px solid lightgray;
+}
+.date-selection-wrapper > label > input {
+    border:none;
+    cursor: pointer;
+}
+
+
+.post-review-btn > button {
+    border: none;
+    padding: 0.5rem;
+    border-radius: 5px;
+    color: white;
+    background-color: gray;
+}
+
+
+.post-review-btn > button:hover {
+    background-color: rgb(87, 84, 84);
 }

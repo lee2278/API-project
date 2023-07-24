@@ -108,18 +108,19 @@ export default function GetSpotDetails() {
 
 
     return (
-        <>
-            <header>
+        <div className='spot-details-everything-wrapper'>
+            <header className='spot-details-header'>
                 <h1 id='spot-name'>{spot?.name}</h1>
                 {spot.city && <p>{`${spot?.city}, ${spot?.state}, ${spot?.country}`}</p>}
             </header>
-
-            <div className='images-container'>
-                <div className='left-img'>
-                    {previewImgArr && <img id='the-preview-img' src={previewImgArr[previewImgArr.length - 1]['url']} alt='preview of spot' />}
-                </div>
-                <div className='right-imgs'>
-                    {nonPreviewImgArr && nonPreviewImgArr.map(image => image ? (<img className='not-preview-imgs' key={image.id} src={image.url} alt='more spot photos' />) : null)}
+            <div className='outer-images-container'>
+                <div className='images-container'>
+                    <div className='left-img'>
+                        {previewImgArr && <img id='the-preview-img' src={previewImgArr[previewImgArr.length - 1]['url']} alt='preview of spot' />}
+                    </div>
+                    <div className='right-imgs'>
+                        {nonPreviewImgArr && nonPreviewImgArr.map(image => image ? (<img className='not-preview-imgs' key={image.id} src={image.url} alt='more spot photos' />) : null)}
+                    </div>
                 </div>
             </div>
             <div className='Spot-info'>
@@ -148,7 +149,7 @@ export default function GetSpotDetails() {
                                 {sessionUser && sessionUser.id === spot.ownerId
                                     ?
                                     <></>
-                                    : <form>
+                                    : <form id='reserve-area-form'>
                                         <div className='reserve-date-errors'>
                                             {errors.sessionUser && <p>{errors.sessionUser}</p>}
                                             {errors.startDate && <p>{errors.startDate}</p>}
@@ -158,12 +159,12 @@ export default function GetSpotDetails() {
                                             {errors.invalidEnd && <p>{errors.invalidEnd}</p>}
                                         </div>
                                         <div className='date-selection-wrapper'>
-                                            <label>CHECK-IN
+                                            <label id='checkin-label'>CHECK-IN
                                                 <input className='check-in-out-date-inputs'
                                                     type='date'
                                                     onChange={(e) => setStartDate(e.target.value)}
                                                     value={startDate}
-                                                    min={today}
+                                                    min={today.toISOString().split('T')[0]}
                                                 >
                                                 </input>
                                             </label>
@@ -173,7 +174,7 @@ export default function GetSpotDetails() {
                                                     type='date'
                                                     onChange={(e) => setEndDate(e.target.value)}
                                                     value={endDate}
-                                                    min={today}
+                                                    min={today.toISOString().split('T')[0]}
                                                 >
                                                 </input>
                                             </label>
@@ -183,7 +184,7 @@ export default function GetSpotDetails() {
                                 <div className='reserve-button-container'>
                                     {sessionUser && sessionUser.id === spot.ownerId
                                         ?
-                                        <button id='see-spot-reservations-btn'onClick={handleSeeReservationsButton}>See this spot's Reservations</button>
+                                        <button id='see-spot-reservations-btn' onClick={handleSeeReservationsButton}>See this spot's Reservations</button>
                                         :
                                         <button id='reserve-btn' onClick={handleReserveButton}>Reserve</button>}
                                 </div>
@@ -200,12 +201,14 @@ export default function GetSpotDetails() {
                     {`${bottomDisplay}`}
                 </h2>
 
+                <div className='post-review-btn'>
                 {notSpotOwner && currentUserReviewsOfSpot.length === 0 &&
+                    
                     <OpenModalButton
                         buttonText="Post Your Review"
                         modalComponent={<ReviewModal spotId={spotId} />}
-                    />}
-
+                />}
+                </div>
 
 
 
@@ -235,6 +238,6 @@ export default function GetSpotDetails() {
 
 
             </div>
-        </>
+        </div>
     )
 }
