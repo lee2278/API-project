@@ -89,9 +89,10 @@ export default function EditBookingModal({ booking }) {
     return (
         <>
             <h1>Edit Booking</h1>
+            <div className='div-under-edit-booking'>
             <div className='booking-errors-div'>
                 {errors.endDate && <p>{errors.endDate}</p>}
-                {errors.dateConflicts && <p>{errors.dateConflicts}</p>}
+                {errors.dateConflicts && <p id='date-conflicts-ptag'>{errors.dateConflicts}</p>}
                 {errors.oldDate && <p>{errors.oldDate}</p>}
             </div>
             <div className='edit-date-selections'>
@@ -101,7 +102,7 @@ export default function EditBookingModal({ booking }) {
                             type='date'
                             onChange={(e) => setStartDate(e.target.value)}
                             value={startDate}
-                            min={today}
+                            min={today.toISOString().split('T')[0]}
                         >
                         </input>
                     </label>
@@ -112,13 +113,15 @@ export default function EditBookingModal({ booking }) {
                             type='date'
                             onChange={(e) => setEndDate(e.target.value)}
                             value={endDate}
-                            min={today}
+                            min={today.toISOString().split('T')[0]}
                         >
                         </input>
                     </label>
                 </div>
             </div>
+            </div>
             <button onClick={handleEditBooking}>Save</button>
+            <button onClick={() => closeModal()}>Cancel</button>
         </>
     )
 }

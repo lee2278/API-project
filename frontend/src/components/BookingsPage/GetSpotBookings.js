@@ -31,6 +31,7 @@ export default function GetSpotBookings() {
     // date conversions
     const startDateObj = new Date(bookingStart)
     const endDateObj = new Date(bookingEnd)
+    const today = new Date()
 
     const getMonthDayYear = (dateString => {
         const convertedDate = new Date(dateString)
@@ -173,6 +174,7 @@ export default function GetSpotBookings() {
                                                     type='date'
                                                     onChange={(e) => setBookingStart(e.target.value)}
                                                     value={bookingStart}
+                                                    min={today.toISOString().split('T')[0]}
                                                 >
                                                 </input>
                                             </label>
@@ -183,6 +185,7 @@ export default function GetSpotBookings() {
                                                     type='date'
                                                     onChange={(e) => setBookingEnd(e.target.value)}
                                                     value={bookingEnd}
+                                                    min={today.toISOString().split('T')[0]}
                                                 >
                                                 </input>
                                             </label>
@@ -192,8 +195,16 @@ export default function GetSpotBookings() {
                             )}
                         </div>
                         <div className='confirm-cancel-btn-wrapper'>
-                            <button onClick={handleRedirect}>Cancel Booking</button>
-                            <button id='confirm-btn' onClick={handleBookingConfirmation}>Confirm Booking</button>
+                            <button id='go-back-btn'onClick={handleRedirect}>
+                                <span class="material-symbols-outlined">
+                                    cancel
+                                </span>
+                                Cancel Booking</button>
+                            <button id='confirm-btn' onClick={handleBookingConfirmation}>
+                                <span className="material-symbols-outlined">
+                                    done
+                                </span>
+                                Confirm Booking</button>
                         </div>
                     </div>
 

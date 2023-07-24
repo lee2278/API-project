@@ -46,11 +46,13 @@ export default function ManageSpots() {
                     <div className='button-section'>
                         <Link id='link-button' to={`/spots/${spot.id}/edit`}>Update</Link>
 
+                        <div className='delete-spot-modal-wrapper'>
                         <OpenModalButton
                             buttonText="Delete"
                             modalComponent={<DeleteModal spot={spot} />}
                         />
-                        <button onClick = {() => history.push(`/spots/${spot.id}/confirmed-bookings`) }>View/Manage Bookings</button>
+                        </div>
+                        <button id='view-manage-booking-btn'onClick = {() => history.push(`/spots/${spot.id}/confirmed-bookings`) }>View/Manage Bookings</button>
                     </div>
                 </li>
 
