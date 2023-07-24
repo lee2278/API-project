@@ -160,7 +160,7 @@ export const spotsReducer = (state = initialState, action) => {
         }
 
         case UPDATE_SPOT: {
-            const newState = { ...state }
+            const newState = { ...state, allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot} }
             newState.singleSpot = action.singleSpot
             return newState
         }
