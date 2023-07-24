@@ -13,7 +13,7 @@ module.exports = {
     await queryInterface.bulkInsert(
       options, [
       {
-        id: 1,
+        // id: 1,
         ownerId: 1,
         address: "123 Disney Lane",
         city: "San Francisco",
@@ -28,7 +28,7 @@ module.exports = {
         updatedAt: "2021-11-19 20:39:36"
       },
       {
-        id: 2,
+        // id: 2,
         ownerId: 1,
         address: "321 Summer Lane",
         city: "Phoenix",
@@ -43,7 +43,7 @@ module.exports = {
         updatedAt: "2022-11-01 20:39:36"
       },
       {
-        id: 3,
+        // id: 3,
         ownerId: 2,
         address: "456 Rainy Lane",
         city: "Seattle",
@@ -58,7 +58,7 @@ module.exports = {
         updatedAt: "2022-12-01 20:39:36"
       },
       {
-        id: 4,
+        // id: 4,
         ownerId: 2,
         address: "789 Spring Lane",
         city: "Columbus",
@@ -73,7 +73,7 @@ module.exports = {
         updatedAt: "2022-12-01 20:39:36"
       },
       {
-        id: 5,
+        // id: 5,
         ownerId: 3,
         address: "222 Cabin Lane",
         city: "Prescott",
@@ -88,7 +88,7 @@ module.exports = {
         updatedAt: "2022-12-01 20:39:36"
       },
       {
-        id: 6,
+        // id: 6,
         ownerId: 3,
         address: "321 Sunset Lane",
         city: "Sedona",
@@ -103,7 +103,7 @@ module.exports = {
         updatedAt: "2022-12-01 20:39:36"
       },
       {
-        id: 7,
+        // id: 7,
         ownerId: 3,
         address: "451 Coyote Dr",
         city: "Flagstaff",
@@ -118,7 +118,7 @@ module.exports = {
         updatedAt: "2022-12-01 20:39:36"
       },
       {
-        id: 8,
+        // id: 8,
         ownerId: 3,
         address: "634 Clearwater Ln",
         city: "Colorado Springs",
@@ -133,7 +133,7 @@ module.exports = {
         updatedAt: "2022-12-01 20:39:36"
       },
       {
-        id: 9,
+        // id: 9,
         ownerId: 2,
         address: "877 Bear St",
         city: "Big Bear",
@@ -148,7 +148,7 @@ module.exports = {
         updatedAt: "2022-12-01 20:39:36"
       },
       {
-        id: 10,
+        // id: 10,
         ownerId: 2,
         address: "633 Getaway St",
         city: "San Diego",
@@ -163,7 +163,7 @@ module.exports = {
         updatedAt: "2022-12-01 20:39:36"
       },
       {
-        id: 11,
+        // id: 11,
         ownerId: 2,
         address: "8876 Bungalow Lane",
         city: "San Diego",
@@ -178,7 +178,7 @@ module.exports = {
         updatedAt: "2022-12-01 20:39:36"
       },
       {
-        id: 12,
+        // id: 12,
         ownerId: 2,
         address: "789 Spring Lane",
         city: "Oceanside",
@@ -193,7 +193,7 @@ module.exports = {
         updatedAt: "2022-12-01 20:39:36"
       },
       {
-        id: 13,
+        // id: 13,
         ownerId: 1,
         address: "7852 Jersey St",
         city: "Newark",
@@ -208,7 +208,7 @@ module.exports = {
         updatedAt: "2022-12-01 20:39:36"
       },
       {
-        id: 14,
+        // id: 14,
         ownerId: 1,
         address: "9982 Blissful Lane",
         city: "Newburyport",
@@ -223,7 +223,7 @@ module.exports = {
         updatedAt: "2022-12-01 20:39:36"
       },
       {
-        id: 15,
+        // id: 15,
         ownerId: 1,
         address: "2354",
         city: "Buffalo",
@@ -238,7 +238,7 @@ module.exports = {
         updatedAt: "2022-12-01 20:39:36"
       },
       {
-        id: 16,
+        // id: 16,
         ownerId: 1,
         address: "3577 Niagara Lane",
         city: "Buffalo",
@@ -253,7 +253,7 @@ module.exports = {
         updatedAt: "2022-12-01 20:39:36"
       },
       {
-        id: 17,
+        // id: 17,
         ownerId: 2,
         address: "148 Maui Way",
         city: "Lahaina",
@@ -268,7 +268,7 @@ module.exports = {
         updatedAt: "2022-12-01 20:39:36"
       },
       {
-        id: 18,
+        // id: 18,
         ownerId: 2,
         address: "1112 Ilikai",
         city: "Waikiki",
@@ -283,7 +283,7 @@ module.exports = {
         updatedAt: "2022-12-01 20:39:36"
       },
       {
-        id: 19,
+        // id: 19,
         ownerId: 2,
         address: "789 Business St",
         city: "Chicago",
@@ -298,7 +298,7 @@ module.exports = {
         updatedAt: "2022-12-01 20:39:36"
       },
       {
-        id: 20,
+        // id: 20,
         ownerId: 2,
         address: "1232 Sunny Drive",
         city: "San Jose",
