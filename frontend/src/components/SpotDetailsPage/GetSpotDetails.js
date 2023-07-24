@@ -201,12 +201,14 @@ export default function GetSpotDetails() {
                     {`${bottomDisplay}`}
                 </h2>
 
+                <div className='post-review-btn'>
                 {notSpotOwner && currentUserReviewsOfSpot.length === 0 &&
+                    
                     <OpenModalButton
                         buttonText="Post Your Review"
                         modalComponent={<ReviewModal spotId={spotId} />}
-                    />}
-
+                />}
+                </div>
 
 
 

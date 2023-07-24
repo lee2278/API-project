@@ -269,3 +269,32 @@
 #address-label, #host-label, #date-label {
     font-weight: 500;
 }
+
+
+/* GetUserBookings.js css */
+
+.edit-booking-modal-wrapper > button {
+    background-color: rgb(122, 142, 252);
+    height: 2.3rem;
+    font-size: 15px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+.edit-booking-modal-wrapper > button:hover {
+    background-color: rgb(87, 106, 217);
+
+}
+
+.cancel-booking-modal-wrapper > button {
+    background-color: rgb(252, 99, 88);
+    height: 2.3rem;
+    font-size: 15px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+
+.cancel-booking-modal-wrapper > button:hover {
+    background-color: rgb(243, 80, 68)
+}

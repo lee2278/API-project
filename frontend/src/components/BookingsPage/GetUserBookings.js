@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import {  getUserBookingsThunk } from '../../store/bookings'
+import { getUserBookingsThunk } from '../../store/bookings'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import OpenModalButton from '../OpenModalButton';
@@ -44,48 +44,52 @@ export default function GetUserBookings() {
                     <div className='current-bookings-div'>
                         <h3>Scheduled Bookings</h3>
                         <div className='current-bookings-subdiv'>
-                        {currentBookingsList && currentBookingsList.map(booking => (
-                            <div key={booking.id} className='booking-card'>
-                                <div className='booking-card-left'>
-                                    <div className='booking-card-image-container'>
-                                        <img src={`${booking.Spot.previewImage}`} />
+                            {currentBookingsList && currentBookingsList.map(booking => (
+                                <div key={booking.id} className='booking-card'>
+                                    <div className='booking-card-left'>
+                                        <div className='booking-card-image-container'>
+                                            <img src={`${booking.Spot.previewImage}`} />
+                                        </div>
+                                    </div>
+                                    <div className='booking-card-right'>
+                                        <Link to={`/bookings/${booking.id}/${booking.Spot.id}/details`} className='booking-spot-name'>{booking?.Spot.name}</Link>
+                                        <p>{`${getMonthDayYear(booking.startDate)} - ${getMonthDayYear(booking.endDate)}`}</p>
+                                        <div className='edit-delete-booking-modal-container'>
+                                            <div className='edit-booking-modal-wrapper'>
+                                                <OpenModalButton
+                                                    buttonText='Edit Booking'
+                                                    modalComponent={<EditBookingModal booking={booking} />}
+
+                                                />
+                                            </div>
+                                            <div className='cancel-booking-modal-wrapper'>
+                                                <OpenModalButton
+                                                    buttonText='Cancel Booking'
+                                                    modalComponent={<DeleteBookingModal booking={booking} />}
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className='booking-card-right'>
-                                <Link to={`/bookings/${booking.id}/${booking.Spot.id}/details`} className='booking-spot-name'>{booking?.Spot.name}</Link>
-                                <p>{`${getMonthDayYear(booking.startDate)} - ${getMonthDayYear(booking.endDate)}`}</p>
-                                <div className='edit-delete-booking-modal-container'>
-                                <OpenModalButton
-                                    buttonText = 'Edit Booking'
-                                    modalComponent = {<EditBookingModal booking={booking}/>}
-             
-                                />
-                                <OpenModalButton
-                                    buttonText = 'Cancel Booking'
-                                    modalComponent = {<DeleteBookingModal booking={booking}/>}
-                                />
-                                </div>
-                                </div>
-                            </div>
-                        ))}
+                            ))}
                         </div>
                     </div>
                     <div className='past-bookings-div'>
                         <h3>Past Bookings</h3>
                         <div className='past-bookings-subdiv'>
-                        {pastBookingsList && pastBookingsList.map(booking => (
-                            <div key={booking.id} className='booking-card past'>
-                                <div className='booking-card-left'>
-                                    <div className='booking-card-image-container'>
-                                        <img id='past-booking-img' src={`${booking.Spot.previewImage}`} />
+                            {pastBookingsList && pastBookingsList.map(booking => (
+                                <div key={booking.id} className='booking-card past'>
+                                    <div className='booking-card-left'>
+                                        <div className='booking-card-image-container'>
+                                            <img id='past-booking-img' src={`${booking.Spot.previewImage}`} />
+                                        </div>
+                                    </div>
+                                    <div className='booking-card-right'>
+                                        <Link to={`/bookings/${booking.id}/${booking.Spot.id}/details`} className='booking-spot-name'>{booking?.Spot.name}</Link>
+                                        <p>{`${getMonthDayYear(booking.startDate)} - ${getMonthDayYear(booking.endDate)}`}</p>
                                     </div>
                                 </div>
-                                <div className='booking-card-right'>
-                                    <Link to={`/bookings/${booking.id}/${booking.Spot.id}/details`} className='booking-spot-name'>{booking?.Spot.name}</Link>
-                                    <p>{`${getMonthDayYear(booking.startDate)} - ${getMonthDayYear(booking.endDate)}`}</p>
-                                </div>
-                            </div>
-                        ))}
+                            ))}
                         </div>
                     </div>
                 </div>

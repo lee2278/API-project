@@ -56,9 +56,15 @@ span {
     margin: auto;
     background-color: rgb(252, 99, 88);
     color: white;
-    padding: 5px;
-    box-shadow: 3px 3px 3px gray;
+    padding: 0.5rem;
     cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+#submitting-btn:hover {
+    background-color: rgb(226, 103, 86);
 }
 
 .no-margin-top {

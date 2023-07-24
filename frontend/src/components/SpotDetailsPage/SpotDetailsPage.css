@@ -160,3 +160,17 @@ img {
     border:none;
     cursor: pointer;
 }
+
+
+.post-review-btn > button {
+    border: none;
+    padding: 0.5rem;
+    border-radius: 5px;
+    color: white;
+    background-color: gray;
+}
+
+
+.post-review-btn > button:hover {
+    background-color: rgb(87, 84, 84);
+}
