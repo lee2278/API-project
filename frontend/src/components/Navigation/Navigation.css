@@ -34,13 +34,20 @@
     cursor: pointer
 }
 
+.fa-bars {
+    font-size: 16px;
+}
+
+.fa-user-circle {
+    color:gray;
+}
+
 .fa-user-circle:hover {
     cursor: pointer;
 }
 
 .profile-btn {
-    margin-right: 8rem;
-  
+    position: relative;
 }
 
 #modal-content {
@@ -51,12 +58,15 @@
 }
 
 .profile-dropdown {
-    border: 2px solid black;
+    border: 2px solid lightgray;
     position: absolute;
     padding: 0.5rem;
     width: 10rem;
     background-color: white;
     text-align: center;
+    right: 0;
+    border-radius: 8px;
+    box-shadow: 0 0 5px 1px lightgray;
 
     
     
@@ -64,11 +74,25 @@
 
 #profile-menu-btn {
     font-size: 25px;
-    border-radius:15px;
-    padding: 0 10px;
+    border-radius:20px;
+    padding: 5px 10px;
     cursor: pointer;
-   
-   
+    border: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+    gap:0.5rem;
+    justify-content: space-between;
+    width: 4rem;
+}
+
+#profile-menu-btn > * {
+    /* border: 1px solid blue; */
+}
+
+
+#profile-menu-btn:hover {
+    box-shadow: 0 0 5px 1px lightgray;
+
 }
 
 .home {
@@ -84,7 +108,7 @@
 }
 
 
-#manage-spots-link {
+#manage-spots-link, #manage-bookings-link {
     text-decoration:none;
     color:black;
 }
