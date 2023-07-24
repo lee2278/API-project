@@ -96,7 +96,8 @@ const SpotForm = ({ spot, formType }) => {
         if (spotImage3 && (!(spotImage3.endsWith('.png') || spotImage3.endsWith('.jpg') || spotImage3.endsWith('.jpeg')))) newErrors.spotImage3 = 'Image URL must end in .png, .jpg, or .jpeg'
         if (spotImage4 && (!(spotImage4.endsWith('.png') || spotImage4.endsWith('.jpg') || spotImage4.endsWith('.jpeg')))) newErrors.spotImage4 = 'Image URL must end in .png, .jpg, or .jpeg'
 
-        spot = { ...spot }
+        // spot = { ...spot }
+        spot = {}
 
         if (formType === 'Create a new Spot') {
             spot.country = country
