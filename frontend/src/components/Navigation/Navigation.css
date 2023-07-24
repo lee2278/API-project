@@ -5,7 +5,7 @@
 }
 
 #root {
-    margin: 0 5rem;
+    margin: 1rem 5rem;
 }
 .hidden {
     display: none;
@@ -130,8 +130,16 @@
     background-color: rgb(252, 99, 88);
     color: white;
     cursor:pointer;
+    border:none;
+    
+}
+
+#menu-logout-btn:hover {
+    background-color: rgb(243, 80, 68);
+    box-shadow: 0 0 5px 1px lightgray;
 
 }
+
 
 #create-spot-navlink {
     text-decoration: none;
