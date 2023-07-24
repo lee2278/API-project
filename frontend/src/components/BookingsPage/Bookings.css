@@ -52,40 +52,87 @@
     display: flex;
 }
 
+
 .edit-date-selections {
     border: 1px solid lightgray;
     margin-top: 2rem;
     display: flex;
     border-radius: 15px;
-    padding:1rem;
-
+    padding:1rem ;
+    margin-bottom: 1.5rem;
 
 }
+
+#date-conflicts-ptag {
+    width: 350px;
+}
+
 .edit-date-selections-left {
     width:50%;
     border-right: 1px solid lightgray;
-    padding: 0.2rem;
+    padding-right: 0.5rem;
     display:flex;
     justify-content: center;
+
 }
 .edit-date-selections-right {
     width:50%;
-    padding: 0.2rem;
+    padding-left: 0.5rem;
     display: flex;
     justify-content: center;
 }
+
+
+.edit-date-selections-left > label, .edit-date-selections-right > label {
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.edit-date-selections-left > label > input, .edit-date-selections-right > label > input {
+    border:none;
+    cursor:pointer;
+}
+
+
 
 .confirm-cancel-btn-wrapper {
     margin-top: 5rem;
     display: flex;
     justify-content: space-around;
-
-
-
 }
 #confirm-btn {
     width: 10rem;
     padding: 0.5rem;
+    background-color: rgb(252, 99, 88);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#go-back-btn {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 8px;
+    background-color: gray;
+    color: white;
+    border:none;
+}
+
+#go-back-btn:hover {
+    background-color: rgb(87, 84, 84);
+}
+
+#confirm-btn > span, #go-back-btn > span {
+    padding: 0;
+    margin-right: 2px;
+}
+
+#confirm-btn:hover {
+    background-color: rgb(243, 80, 68)
 }
 
 #dates-header {
@@ -140,6 +187,7 @@
 }
 
 
+
 /* bookingsManagement.js css here */
 
 .current-bookings-subdiv, .past-bookings-subdiv,.upcoming-bookings-subdiv  {
@@ -186,6 +234,7 @@
 .edit-delete-booking-modal-container {
     display: flex;
     gap: 1rem;
+    
 }
 
 
@@ -195,6 +244,7 @@
     box-shadow: 0 0 5px 1px lightgrey;
     display: flex;
     border-radius: 15px;
+    margin-bottom: 5rem;
 }
 .booking-details-right, .booking-details-left {
     width: 50%;
