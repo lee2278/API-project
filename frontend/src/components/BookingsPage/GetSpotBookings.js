@@ -59,21 +59,13 @@ export default function GetSpotBookings() {
     } else nightDisplayText = 'nights'
 
     //total prices
-    let totalForStay;
-    let cleaningFee;
-    let serviceFee;
-    let taxes;
-    let finalTotal;
+    
+    const totalForStay = daysOfTrip * spot.price
+    const cleaningFee = totalForStay * 0.2
+    const serviceFee = totalForStay * 0.15
+    const taxes = totalForStay * 0.1
 
-    if (typeof spot?.price === number) {
-
-         totalForStay = daysOfTrip * spot.price
-         cleaningFee = totalForStay * 0.2
-         serviceFee = totalForStay * 0.15
-         taxes = totalForStay * 0.1
-        
-         finalTotal = totalForStay + cleaningFee + serviceFee + taxes
-    }
+    const finalTotal = totalForStay + cleaningFee + serviceFee + taxes
 
 
 
@@ -104,7 +96,7 @@ export default function GetSpotBookings() {
     //     console.log('bookingstart', booking.startDate)
     // })
 
-    console.log('spot.price', spot.price)
+    console.log('spot.price', spot?.price)
 
 
     const handleEdit = () => {
@@ -240,25 +232,25 @@ export default function GetSpotBookings() {
                             <h2>Price details</h2>
 
                             <div className='price-explanation-line'>
-                                {daysOfTrip && <p>{`$${spot.price?.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>}
-                                {/* {daysOfTrip && typeof spot.price === 'number' && <p>{`$${spot.price.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>} */}
+                                {/* {daysOfTrip && <p>{`$${spot.price?.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>} */}
+                                {daysOfTrip && typeof spot.price === 'number' && <p>{`$${spot.price.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>}
                                 <p>{`$${totalForStay?.toFixed(2)}`}</p>
                             </div>
                             <div className='price-explanation-line'>
                                 <p>Cleaning Fee</p>
-                                <p>{`$${cleaningFee?.toFixed(2)}`}</p>
+                                {cleaningFee && typeof cleaningFee === 'number' && <p>{`$${cleaningFee?.toFixed(2)}`}</p>}
                             </div>
                             <div className='price-explanation-line'>
                                 <p>Happybnb Service Fee</p>
-                                <p>{`$${serviceFee?.toFixed(2)}`}</p>
+                                {serviceFee && typeof serviceFee === 'number' && <p>{`$${serviceFee?.toFixed(2)}`}</p>}
                             </div>
                             <div className='price-explanation-line'>
                                 <p>Taxes</p>
-                                <p>{`$${taxes?.toFixed(2)}`}</p>
+                                {taxes && typeof taxes === 'number' && <p>{`$${taxes?.toFixed(2)}`}</p>}
                             </div>
                             <div className='price-explanation-line final-total'>
                                 <p>Total (USD)</p>
-                                <p>{`$${finalTotal?.toFixed(2)}`}</p>
+                                {finalTotal && typeof finalTotal === 'number' && <p>{`$${finalTotal?.toFixed(2)}`}</p>}
                             </div>
 
                         </div>
