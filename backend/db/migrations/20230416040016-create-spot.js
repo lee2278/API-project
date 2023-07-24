@@ -51,7 +51,7 @@ module.exports = {
         allowNull: false
       },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(1500),
         allowNull: false
       },
       price: {
