@@ -311,9 +311,7 @@ module.exports = {
         price: 140,
         createdAt: "2022-12-01 20:39:36",
         updatedAt: "2022-12-01 20:39:36"
-      },
-
-
+      }
     ]
     )
   },
