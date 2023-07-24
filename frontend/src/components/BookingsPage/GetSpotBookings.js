@@ -66,6 +66,9 @@ export default function GetSpotBookings() {
 
     const finalTotal = totalForStay + cleaningFee + serviceFee + taxes
 
+
+
+
     //rating area
     let ratingDisplay;
 
@@ -92,6 +95,7 @@ export default function GetSpotBookings() {
     //     console.log('bookingstart', booking.startDate)
     // })
 
+    console.log('spot.price', spot.price)
 
 
     const handleEdit = () => {
@@ -196,7 +200,7 @@ export default function GetSpotBookings() {
                         </div>
                         <div className='confirm-cancel-btn-wrapper'>
                             <button id='go-back-btn'onClick={handleRedirect}>
-                                <span class="material-symbols-outlined">
+                                <span className="material-symbols-outlined">
                                     cancel
                                 </span>
                                 Cancel Booking</button>
@@ -227,7 +231,8 @@ export default function GetSpotBookings() {
                             <h2>Price details</h2>
 
                             <div className='price-explanation-line'>
-                                {daysOfTrip && <p>{`$${spot.price?.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>}
+                                {/* {daysOfTrip && <p>{`$${spot.price?.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>} */}
+                                {daysOfTrip && typeof spot.price === 'number' && <p>{`$${spot.price.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>}
                                 <p>{`$${totalForStay?.toFixed(2)}`}</p>
                             </div>
                             <div className='price-explanation-line'>
