@@ -188,6 +188,19 @@ img {
     background-color: rgb(87, 84, 84);
 }
 
+.delete-review-modal-wrapper > button {
+    border: none;
+    padding: 0.5rem;
+    border-radius: 5px;
+    color: white;
+    background-color: gray;
+
+}
+
+.delete-review-modal-wrapper > button:hover {
+    background-color: rgb(87, 84, 84);
+}
+
 
 @media  screen and (min-width: 1024px) {
     .images-container{

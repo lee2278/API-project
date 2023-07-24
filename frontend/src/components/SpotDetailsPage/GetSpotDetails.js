@@ -225,10 +225,14 @@ export default function GetSpotDetails() {
                             <p>{getMonthYear(review.createdAt)}</p>
                             <p>{review?.review}</p>
 
-                            {sessionUser && review && review.userId === sessionUser.id && <OpenModalButton
+                            {sessionUser && review && review.userId === sessionUser.id && (
+                            <div className='delete-review-modal-wrapper'>
+                            <OpenModalButton
                                 buttonText="Delete Review"
                                 modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId} />}
-                            />}
+                            />
+                            </div>
+                            )}
                         </div>
 
                     ) : null
