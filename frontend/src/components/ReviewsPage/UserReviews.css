@@ -68,4 +68,26 @@ td{
 
 #back-to-spot-details-link {
     color: black;
+    text-decoration: none;
+}
+
+#image-above-address {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.spot-address-and-image-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+#spot-name-bold {
+    font-weight: 500;
+}
+
+#spot-td {
+    overflow-wrap: anywhere;
 }

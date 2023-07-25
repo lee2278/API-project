@@ -43,7 +43,7 @@ export default function GetUserBookings() {
                     <h2>Here are your booked trips</h2>
                     <div className='current-bookings-div'>
                         <h3>Scheduled Bookings</h3>
-                        <div className='current-bookings-subdiv'>
+                        {currentBookingsList?.length > 0 ?<div className='current-bookings-subdiv'>
                             {currentBookingsList && currentBookingsList.map(booking => (
                                 <div key={booking.id} className='booking-card'>
                                     <div className='booking-card-left'>
@@ -72,11 +72,11 @@ export default function GetUserBookings() {
                                     </div>
                                 </div>
                             ))}
-                        </div>
+                        </div> : <p>You have no scheduled bookings</p>}
                     </div>
                     <div className='past-bookings-div'>
                         <h3>Past Bookings</h3>
-                        <div className='past-bookings-subdiv'>
+                        {pastBookingsList?.length > 0 ? <div className='past-bookings-subdiv'>
                             {pastBookingsList && pastBookingsList.map(booking => (
                                 <div key={booking.id} className='booking-card past'>
                                     <div className='booking-card-left'>
@@ -90,7 +90,7 @@ export default function GetUserBookings() {
                                     </div>
                                 </div>
                             ))}
-                        </div>
+                        </div> : <p>You have no past bookings</p>}
                     </div>
                 </div>
             </div>
