@@ -28,8 +28,8 @@ export default function UpdateReviewModal({ reviewId }) {
 
     }, [review, stars])
 
-    const handleSubmit = () => {
-        dispatch(updateReviewThunk(reviewToUpdate))
+    const handleSubmit = async() => {
+        await dispatch(updateReviewThunk(reviewToUpdate))
         dispatch(getUserReviewsThunk())
         closeModal()
     }

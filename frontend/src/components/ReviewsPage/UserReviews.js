@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { getUserReviewsThunk } from '../../store/reviews';
 import DeleteReviewModal from '../SpotDetailsPage/DeleteReviewModal';
 import OpenModalButton from '../OpenModalButton';
@@ -22,6 +23,18 @@ export default function UserReviews() {
         return convertedDate.toLocaleString(undefined, optionsOfDateObj)
     })
 
+    const turnNumToStars = (num => {
+        if (num === 1) return (<><i class="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i></>)
+
+        if (num === 2) return (<><i class="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i><i class="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i></>)
+
+        if (num === 3) return (<><i class="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i><i class="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i><i class="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i></>)
+
+        if (num === 4) return (<><i class="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i><i class="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i><i class="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i><i class="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i></>)
+
+        if (num === 5) return (<><i class="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i><i class="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i><i class="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i><i class="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i><i class="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i></>)
+    })
+
     return (
         <>
             <div>
@@ -29,25 +42,33 @@ export default function UserReviews() {
                 <div>
                     <table id='review-table'>
                         <tr>
-                            <th>Rating</th>
-                            <th>Review</th>
-                            <th>Date</th>
-                            <th></th>
+                            <th id='rating-th'>Rating</th>
+                            <th id='review-th'>Review</th>
+                            <th id='date-th'>Date</th>
+                            <th id='spot-th'>Spot</th>
+                            <th id='empty-th'>Edit/ Delete</th>
                         </tr>
                         {userReviewsList && userReviewsList.map(review => (
-                            <tr>
-                                <td>{review.stars}</td>
-                                <td>{review.review}</td>
+                            <tr key={review.id}>
+                                <td>{turnNumToStars(review.stars)}</td>
+                                <td id='review-text-td'>{review.review}</td>
                                 <td>{getMonthDayYear(review.createdAt)}</td>
                                 <td>
-                                    <OpenModalButton
-                                        buttonText='Edit Review'
-                                        modalComponent={<UpdateReviewModal reviewId={review.id}/>}
-                                    />
-                                    <OpenModalButton
-                                        buttonText='Delete Review'
-                                        modalComponent={<DeleteReviewModal reviewId={review.id}/>}
-                                    />
+                                    <Link id='back-to-spot-details-link' to={`/spots/${review.Spot.id}`}> {review.Spot.name}</Link>
+                                </td>
+                                <td>
+                                    <div className='edit-user-review-modal-wrapper'>
+                                        <OpenModalButton
+                                            buttonText='Edit Review'
+                                            modalComponent={<UpdateReviewModal reviewId={review.id} />}
+                                        />
+                                    </div>
+                                    <div className='delete-user-review-modal-wrapper'>
+                                        <OpenModalButton
+                                            buttonText='Delete Review'
+                                            modalComponent={<DeleteReviewModal reviewId={review.id} />}
+                                        />
+                                    </div>
                                 </td>
                             </tr>
                         ))}
