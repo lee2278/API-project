@@ -85,9 +85,7 @@
     width: 4rem;
 }
 
-#profile-menu-btn > * {
-    /* border: 1px solid blue; */
-}
+
 
 
 #profile-menu-btn:hover {
@@ -108,7 +106,7 @@
 }
 
 
-#manage-spots-link, #manage-bookings-link {
+#manage-spots-link, #manage-bookings-link, #manage-reviews-link {
     text-decoration:none;
     color:black;
 }
