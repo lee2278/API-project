@@ -1,0 +1,93 @@
+#review-table {
+    border: 1px solid lightgray;
+    box-shadow: 0 0 5px 1px lightgrey;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 15px;
+}
+
+#review-text-td {
+    overflow-wrap:anywhere;
+    width: 15rem;
+}
+
+th{
+    text-align:left;
+    padding: 1rem 0.5rem;
+    text-decoration: underline;
+    border-bottom: 1px solid lightgray;
+}
+#rating-th {
+    width: 7rem;
+}
+#spot-th {
+    width: 12rem;
+}
+
+#date-th {
+    width: 9.5rem;
+}
+
+#empty-th {
+    width: 7.5rem;
+}
+
+
+
+td{
+    border-bottom: 1px solid lightgray;
+    padding: 0.5rem;
+}
+
+
+.edit-user-review-modal-wrapper > button, .delete-user-review-modal-wrapper > button {
+    width: 6.5rem;
+    padding: 0.5rem;
+    border:none;
+    border-radius: 8px;
+}
+
+.edit-user-review-modal-wrapper > button {
+    margin-bottom: 0.8rem;
+    background-color: gray;
+    color: white;
+}
+.edit-user-review-modal-wrapper > button:hover {
+    background-color: rgb(87, 84, 84);
+}
+
+.delete-user-review-modal-wrapper > button {
+    background-color: rgb(252, 99, 88);
+    color: white;
+}
+
+.delete-user-review-modal-wrapper > button:hover {
+    background-color: rgb(243, 80, 68);
+}
+
+
+#back-to-spot-details-link {
+    color: black;
+    text-decoration: none;
+}
+
+#image-above-address {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.spot-address-and-image-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+#spot-name-bold {
+    font-weight: 500;
+}
+
+#spot-td {
+    overflow-wrap: anywhere;
+}
