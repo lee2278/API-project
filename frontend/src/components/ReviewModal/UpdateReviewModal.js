@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from "react-redux";
 import { useModal } from '../../context/Modal'
-import { createReviewThunk,  } from '../../store/reviews'
-import { getReviewsBySpotThunk } from '../../store/reviews';
+import { getUserReviewsThunk, updateReviewThunk } from '../../store/reviews';
 import StarsRating from './StarsRating';
 import './ReviewModal.css'
-function ReviewModal({ spotId }) {
+
+export default function UpdateReviewModal({ reviewId }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
@@ -13,15 +13,12 @@ function ReviewModal({ spotId }) {
     const [stars, setStars] = useState(0)
     const [errors, setErrors] = useState({})
 
-    const newReview = {
+    const reviewToUpdate = {
+        id: reviewId,
         review,
-        stars: +stars,
-        spotId
+        stars: +stars
     }
 
-    useEffect(() => {
-        dispatch(getReviewsBySpotThunk(spotId))
-    }, [dispatch, spotId])
 
     useEffect(() => {
         const errorShown = {}
@@ -32,7 +29,8 @@ function ReviewModal({ spotId }) {
     }, [review, stars])
 
     const handleSubmit = () => {
-        dispatch(createReviewThunk(newReview))
+        dispatch(updateReviewThunk(reviewToUpdate))
+        dispatch(getUserReviewsThunk())
         closeModal()
     }
 
@@ -41,10 +39,9 @@ function ReviewModal({ spotId }) {
         setStars(parseInt(number))
     }
 
-
     return (
         <>
-            <h1>How was your stay?</h1>
+        <h1>Edit your review?</h1>
             {errors && review.length >=1 && <p className='modal-errors'>{errors.review}</p>}
            
             <textarea
@@ -63,11 +60,6 @@ function ReviewModal({ spotId }) {
             />
         
             <button id= 'review-submit-btn' onClick={handleSubmit} disabled={Object.values(errors).length > 0} >{`Submit Your Review`}</button>
-
         </>
     )
-
 }
-
-
-export default ReviewModal

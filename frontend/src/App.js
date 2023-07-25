@@ -12,7 +12,7 @@ import GetUserBookings from "./components/BookingsPage/GetUserBookings";
 import GetSpotBookings from "./components/BookingsPage/GetSpotBookings";
 import BookingsManagement from "./components/BookingsManagementPage/BookingsManagement";
 import BookingDetails from "./components/BookingsPage/BookingDetails";
-
+import UserReviews from "./components/ReviewsPage/UserReviews";
 
 function App() {
   const dispatch = useDispatch();
@@ -52,6 +52,9 @@ function App() {
         </Route>
         <Route path='/bookings/:bookingId/:spotId/details'>
           <BookingDetails/>
+        </Route>
+        <Route path='/reviews/current'>
+          <UserReviews/>
         </Route>
       </Switch>}
     </>

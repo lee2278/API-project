@@ -1,0 +1,8 @@
+#review-table {
+    border: 2px solid red;
+    width: 100%;
+}
+
+td {
+    text-align:center;
+}

@@ -57,6 +57,7 @@ function ProfileButton({ user }) {
             <li className='menu-selections'>{user.email}</li>
             <li className='menu-selections'><Link id= 'manage-spots-link' to='/spots/current'>Manage Spots</Link></li>
             <li className='menu-selections'><Link id= 'manage-bookings-link' to='/bookings/current'>Manage Bookings</Link></li>
+            <li className='menu-selections'><Link id= 'manage-reviews-link' to='/reviews/current'>Manage Reviews</Link></li>
             <li className='menu-logout-btn-container'>
               <button id= 'menu-logout-btn' onClick={logout}>Log Out</button>
             </li>
