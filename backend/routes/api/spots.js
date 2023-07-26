@@ -3,6 +3,8 @@ const router = express.Router();
 const { Spot, SpotImage, Review, Booking } = require('../../db/models');
 const { Op } = require('sequelize');
 const { requireAuth } = require('../../utils/auth')
+const { singleMulterUpload, singlePublicFileUpload } =require('../../awsS3')
+
 
 router.get('/', async (req, res) => {
     let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
@@ -271,10 +273,18 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
 
 
 
-router.post('/:spotId/images', requireAuth, async (req, res) => {
+router.post('/:spotId/images', requireAuth, singleMulterUpload("image"), async (req, res) => {
     let paramsId = parseInt(req.params.spotId)
     const { user } = req
     let particularSpot = await Spot.findByPk(paramsId)
+
+    const { preview } = req.body;
+
+    let imageurl;
+
+    if (req.file) {
+        imageurl = await singlePublicFileUpload(req.file)
+    }
 
 
     if (!particularSpot) {
@@ -289,12 +299,12 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
         })
     }
 
-    const { url, preview } = req.body;
-
+   
     const newSpotImg = await SpotImage.create({
-        url,
+        url: imageurl,
         preview,
         spotId: paramsId
+
     })
 
 

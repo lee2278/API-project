@@ -33,7 +33,6 @@ export default function GetSpotDetails() {
     }, [dispatch, reviews.length, spotId])
 
 
-
     const handleReserveButton = async (e) => {
         setErrors({})
         const newErrors = {}
@@ -104,7 +103,8 @@ export default function GetSpotDetails() {
         currentUserReviewsOfSpot = reviews.filter(review => review.userId === sessionUser.id)
     }
 
-
+    console.log('previewImgArr⭐', previewImgArr)
+    console.log('spot.SpotImages', spot.SpotImages )
 
 
     return (
@@ -116,7 +116,8 @@ export default function GetSpotDetails() {
             <div className='outer-images-container'>
                 <div className='images-container'>
                     <div className='left-img'>
-                        {previewImgArr && <img id='the-preview-img' src={previewImgArr[previewImgArr.length - 1]['url']} alt='preview of spot' />}
+                        {previewImgArr && previewImgArr[previewImgArr.length - 1]?.url &&<img id='the-preview-img' src={previewImgArr[previewImgArr.length - 1]['url']} alt='preview of spot' />}
+
                     </div>
                     <div className='right-imgs'>
                         {nonPreviewImgArr && nonPreviewImgArr.map(image => image ? (

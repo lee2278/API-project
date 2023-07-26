@@ -24,7 +24,9 @@ const SpotForm = ({ spot, formType }) => {
     const history = useHistory()
 
     let spotImagesArray = []
-    if (previewImage) spotImagesArray.push({ url: previewImage, preview: true })
+    // if (previewImage) spotImagesArray.push({ url: URL.createObjectURL(previewImage), preview: true })
+
+     if (previewImage) spotImagesArray.push({ url:previewImage, preview: true })
 
     if (spotImage1) spotImagesArray.push({ url: spotImage1, preview: false })
 
@@ -69,7 +71,6 @@ const SpotForm = ({ spot, formType }) => {
 
 
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -90,7 +91,7 @@ const SpotForm = ({ spot, formType }) => {
         if (price && isNaN(+price)) newErrors.price = "Please enter a number"
         if (price && +price && checkValidDecimalPlaces(price) === false) newErrors.price = 'Please provide values of up to two decimal places'
         if (!previewImage) newErrors.previewImage = 'Preview image is required.'
-        if (previewImage && (!(previewImage.endsWith('.png') || previewImage.endsWith('.jpg') || previewImage.endsWith('.jpeg')))) newErrors.previewImage = 'Image URL must end in .png, .jpg, or .jpeg'
+        // if (previewImage && (!(previewImage.endsWith('.png') || previewImage.endsWith('.jpg') || previewImage.endsWith('.jpeg')))) newErrors.previewImage = 'Image URL must end in .png, .jpg, or .jpeg'
         if (spotImage1 && (!(spotImage1.endsWith('.png') || spotImage1.endsWith('.jpg') || spotImage1.endsWith('.jpeg')))) newErrors.spotImage1 = 'Image URL must end in .png, .jpg, or .jpeg'
         if (spotImage2 && (!(spotImage2.endsWith('.png') || spotImage2.endsWith('.jpg') || spotImage2.endsWith('.jpeg')))) newErrors.spotImage2 = 'Image URL must end in .png, .jpg, or .jpeg'
         if (spotImage3 && (!(spotImage3.endsWith('.png') || spotImage3.endsWith('.jpg') || spotImage3.endsWith('.jpeg')))) newErrors.spotImage3 = 'Image URL must end in .png, .jpg, or .jpeg'
@@ -98,6 +99,8 @@ const SpotForm = ({ spot, formType }) => {
 
         // spot = { ...spot }
         spot = {}
+
+
 
         if (formType === 'Create a new Spot') {
             spot.country = country
@@ -145,6 +148,18 @@ const SpotForm = ({ spot, formType }) => {
 
         }
     }
+
+
+
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setPreviewImage(file);
+      };
+
+      console.log('previewImage💕', previewImage)
+
+      //previewImage is now the file
+
 
 
     return (
@@ -243,10 +258,11 @@ const SpotForm = ({ spot, formType }) => {
                         <h3>Liven up your spot with photos</h3>
                         <p>Submit a link to at least one photo to publish your spot.</p>
                         <input
-                            type='text'
-                            value={previewImage}
-                            onChange={(e) => setPreviewImage(e.target.value.trim())}
-                            placeholder='Preview Image URL'
+                            // type='text'
+                            // value={previewImage}
+                            // onChange={(e) => setPreviewImage(e.target.value.trim())}
+                            // placeholder='Preview Image URL'
+                            type='file' onChange={updateFile}
                         />
 
                         {errors.previewImage && <span className='error'>{errors.previewImage}</span>}

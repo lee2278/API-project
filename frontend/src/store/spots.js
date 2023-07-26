@@ -74,6 +74,8 @@ export const getSpotDetailsThunk = (spotId) => async (dispatch) => {
 
 export const createSpotThunk = (spot, spotImages) => async () => {
 
+    const formData = new FormData()
+
     const response = await csrfFetch('/api/spots', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -83,12 +85,22 @@ export const createSpotThunk = (spot, spotImages) => async () => {
     if (response.ok) {
         const newSpot = await response.json();
 
-        for (let i = 0; i < spotImages.length; i++) {
-            await csrfFetch(`/api/spots/${newSpot.id}/images`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(spotImages[i])
-            })
+        if (spotImages && spotImages.length !== 0) {
+            for (let i = 0; i < spotImages.length; i++) {
+                formData.append("image", spotImages[i]['url'])
+                formData.append("preview", spotImages[i]['preview'])
+
+                await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+                    method: "POST",
+                    // headers: { "Content-Type": "application/json" },
+                    // body: JSON.stringify(spotImages[i])
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    },
+                    body: formData,
+
+                })
+            }
         }
         return newSpot;
     } else {
@@ -160,7 +172,7 @@ export const spotsReducer = (state = initialState, action) => {
         }
 
         case UPDATE_SPOT: {
-            const newState = { ...state, allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot} }
+            const newState = { ...state, allSpots: { ...state.allSpots }, singleSpot: { ...state.singleSpot } }
             newState.singleSpot = action.singleSpot
             return newState
         }
