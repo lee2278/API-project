@@ -155,12 +155,16 @@ const SpotForm = ({ spot, formType }) => {
         const file = e.target.files[0];
         if (file) setPreviewImage(file);
       };
+      const updateFile1 = (e) => {
+        const file = e.target.files[0];
+        if (file) setSpotImage1(file);
+      };
 
       console.log('previewImage💕', previewImage)
 
       //previewImage is now the file
 
-
+      console.log('spotImage1⭐', spotImage1)
 
     return (
         <div className='form-wrapper'>
@@ -268,10 +272,12 @@ const SpotForm = ({ spot, formType }) => {
                         {errors.previewImage && <span className='error'>{errors.previewImage}</span>}
 
                         <input
-                            type='text'
-                            value={spotImage1}
-                            onChange={(e) => setSpotImage1(e.target.value.trim())}
-                            placeholder='Image URL'
+                            // type='text'
+                            // value={spotImage1}
+                            // onChange={(e) => setSpotImage1(e.target.value.trim())}
+                            // placeholder='Image URL'
+                            type='file' onChange={updateFile1}
+
                         />
                         {errors.spotImage1 && <span className='error'>{errors.spotImage1}</span>}
                         <input

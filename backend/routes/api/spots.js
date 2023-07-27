@@ -286,6 +286,10 @@ router.post('/:spotId/images', requireAuth, singleMulterUpload("image"), async (
         imageurl = await singlePublicFileUpload(req.file)
     }
 
+    console.log('req.file \n\n\n\n\n', req.file)
+    console.log('req.files \n\n\n\n\n', req.files)
+
+    console.log('imageurl\n\n\n\n\n\n', imageurl)
 
     if (!particularSpot) {
         return res.status(404).json({
