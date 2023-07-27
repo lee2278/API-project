@@ -24,7 +24,9 @@ const SpotForm = ({ spot, formType }) => {
     const history = useHistory()
 
     let spotImagesArray = []
-    if (previewImage) spotImagesArray.push({ url: previewImage, preview: true })
+    // if (previewImage) spotImagesArray.push({ url: URL.createObjectURL(previewImage), preview: true })
+
+     if (previewImage) spotImagesArray.push({ url:previewImage, preview: true })
 
     if (spotImage1) spotImagesArray.push({ url: spotImage1, preview: false })
 
@@ -69,7 +71,6 @@ const SpotForm = ({ spot, formType }) => {
 
 
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -90,14 +91,16 @@ const SpotForm = ({ spot, formType }) => {
         if (price && isNaN(+price)) newErrors.price = "Please enter a number"
         if (price && +price && checkValidDecimalPlaces(price) === false) newErrors.price = 'Please provide values of up to two decimal places'
         if (!previewImage) newErrors.previewImage = 'Preview image is required.'
-        if (previewImage && (!(previewImage.endsWith('.png') || previewImage.endsWith('.jpg') || previewImage.endsWith('.jpeg')))) newErrors.previewImage = 'Image URL must end in .png, .jpg, or .jpeg'
-        if (spotImage1 && (!(spotImage1.endsWith('.png') || spotImage1.endsWith('.jpg') || spotImage1.endsWith('.jpeg')))) newErrors.spotImage1 = 'Image URL must end in .png, .jpg, or .jpeg'
-        if (spotImage2 && (!(spotImage2.endsWith('.png') || spotImage2.endsWith('.jpg') || spotImage2.endsWith('.jpeg')))) newErrors.spotImage2 = 'Image URL must end in .png, .jpg, or .jpeg'
-        if (spotImage3 && (!(spotImage3.endsWith('.png') || spotImage3.endsWith('.jpg') || spotImage3.endsWith('.jpeg')))) newErrors.spotImage3 = 'Image URL must end in .png, .jpg, or .jpeg'
-        if (spotImage4 && (!(spotImage4.endsWith('.png') || spotImage4.endsWith('.jpg') || spotImage4.endsWith('.jpeg')))) newErrors.spotImage4 = 'Image URL must end in .png, .jpg, or .jpeg'
+        // if (previewImage && (!(previewImage.endsWith('.png') || previewImage.endsWith('.jpg') || previewImage.endsWith('.jpeg')))) newErrors.previewImage = 'Image URL must end in .png, .jpg, or .jpeg'
+        // if (spotImage1 && (!(spotImage1.endsWith('.png') || spotImage1.endsWith('.jpg') || spotImage1.endsWith('.jpeg')))) newErrors.spotImage1 = 'Image URL must end in .png, .jpg, or .jpeg'
+        // if (spotImage2 && (!(spotImage2.endsWith('.png') || spotImage2.endsWith('.jpg') || spotImage2.endsWith('.jpeg')))) newErrors.spotImage2 = 'Image URL must end in .png, .jpg, or .jpeg'
+        // if (spotImage3 && (!(spotImage3.endsWith('.png') || spotImage3.endsWith('.jpg') || spotImage3.endsWith('.jpeg')))) newErrors.spotImage3 = 'Image URL must end in .png, .jpg, or .jpeg'
+        // if (spotImage4 && (!(spotImage4.endsWith('.png') || spotImage4.endsWith('.jpg') || spotImage4.endsWith('.jpeg')))) newErrors.spotImage4 = 'Image URL must end in .png, .jpg, or .jpeg'
 
         // spot = { ...spot }
         spot = {}
+
+
 
         if (formType === 'Create a new Spot') {
             spot.country = country
@@ -146,6 +149,34 @@ const SpotForm = ({ spot, formType }) => {
         }
     }
 
+
+
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setPreviewImage(file);
+      };
+      const updateFile1 = (e) => {
+        const file = e.target.files[0];
+        if (file) setSpotImage1(file);
+      };
+      const updateFile2 = (e) => {
+        const file = e.target.files[0];
+        if (file) setSpotImage2(file);
+      };
+      const updateFile3 = (e) => {
+        const file = e.target.files[0];
+        if (file) setSpotImage3(file);
+      };
+      const updateFile4 = (e) => {
+        const file = e.target.files[0];
+        if (file) setSpotImage4(file);
+      };
+
+      console.log('previewImage💕', previewImage)
+
+      //previewImage is now the file
+
+      console.log('spotImage1⭐', spotImage1)
 
     return (
         <div className='form-wrapper'>
@@ -243,40 +274,46 @@ const SpotForm = ({ spot, formType }) => {
                         <h3>Liven up your spot with photos</h3>
                         <p>Submit a link to at least one photo to publish your spot.</p>
                         <input
-                            type='text'
-                            value={previewImage}
-                            onChange={(e) => setPreviewImage(e.target.value.trim())}
-                            placeholder='Preview Image URL'
+                            // type='text'
+                            // value={previewImage}
+                            // onChange={(e) => setPreviewImage(e.target.value.trim())}
+                            // placeholder='Preview Image URL'
+                            type='file' onChange={updateFile}
                         />
 
                         {errors.previewImage && <span className='error'>{errors.previewImage}</span>}
 
                         <input
-                            type='text'
-                            value={spotImage1}
-                            onChange={(e) => setSpotImage1(e.target.value.trim())}
-                            placeholder='Image URL'
+                            // type='text'
+                            // value={spotImage1}
+                            // onChange={(e) => setSpotImage1(e.target.value.trim())}
+                            // placeholder='Image URL'
+                            type='file' onChange={updateFile1}
+
                         />
                         {errors.spotImage1 && <span className='error'>{errors.spotImage1}</span>}
                         <input
-                            type='text'
-                            value={spotImage2}
-                            onChange={(e) => setSpotImage2(e.target.value.trim())}
-                            placeholder='Image URL'
+                            // type='text'
+                            // value={spotImage2}
+                            // onChange={(e) => setSpotImage2(e.target.value.trim())}
+                            // placeholder='Image URL'
+                            type='file' onChange={updateFile2}
                         />
                         {errors.spotImage2 && <span className='error'>{errors.spotImage2}</span>}
                         <input
-                            type='text'
-                            value={spotImage3}
-                            onChange={(e) => setSpotImage3(e.target.value.trim())}
-                            placeholder='Image URL'
+                            // type='text'
+                            // value={spotImage3}
+                            // onChange={(e) => setSpotImage3(e.target.value.trim())}
+                            // placeholder='Image URL'
+                            type='file' onChange={updateFile3}
                         />
                         {errors.spotImage3 && <span className='error'>{errors.spotImage3}</span>}
                         <input
-                            type='text'
-                            value={spotImage4}
-                            onChange={(e) => setSpotImage4(e.target.value.trim())}
-                            placeholder='Image URL'
+                            // type='text'
+                            // value={spotImage4}
+                            // onChange={(e) => setSpotImage4(e.target.value.trim())}
+                            // placeholder='Image URL'
+                            type='file' onChange={updateFile4}
                         />
                         {errors.spotImage4 && <span className='error'>{errors.spotImage4}</span>}
                     </label>

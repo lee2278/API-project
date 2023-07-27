@@ -137,6 +137,7 @@ export const reviewsReducer = (state = initialState, action) => {
         case UPDATE_REVIEW: {
             const newState = {...state, spot: {...state.spot}, user: {...state.user}}
             newState.user[action.review.id] = action.review
+            return newState
         }
         case REMOVE_REVIEW: {
             const newState = { ...state, spot: { ...state.spot }, user: {...state.user}}
