@@ -85,22 +85,22 @@ export const createSpotThunk = (spot, spotImages) => async () => {
     if (response.ok) {
         const newSpot = await response.json();
 
+
         if (spotImages && spotImages.length !== 0) {
             for (let i = 0; i < spotImages.length; i++) {
                 formData.append("image", spotImages[i]['url'])
                 formData.append("preview", spotImages[i]['preview'])
-
-                await csrfFetch(`/api/spots/${newSpot.id}/images`, {
-                    method: "POST",
-                    // headers: { "Content-Type": "application/json" },
-                    // body: JSON.stringify(spotImages[i])
-                    headers: {
-                        "Content-Type": "multipart/form-data"
-                    },
-                    body: formData,
-
-                })
             }
+            await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+                method: "POST",
+                // headers: { "Content-Type": "application/json" },
+                // body: JSON.stringify(spotImages[i])
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                },
+                body: formData,
+
+            })
         }
         return newSpot;
     } else {
