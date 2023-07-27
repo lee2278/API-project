@@ -3,11 +3,11 @@ const router = express.Router();
 const { Spot, SpotImage, Review, Booking } = require('../../db/models');
 const { Op } = require('sequelize');
 const { requireAuth } = require('../../utils/auth')
-const { singleMulterUpload, singlePublicFileUpload } =require('../../awsS3')
+const { singleMulterUpload, singlePublicFileUpload, multipleMulterUpload, multiplePublicFileUpload } = require('../../awsS3')
 
 
 router.get('/', async (req, res) => {
-    let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
 
     let queryObj = {}
 
@@ -22,8 +22,8 @@ router.get('/', async (req, res) => {
 
     if (Number.isNaN(page) || page > 10) page = 1;
     if (Number.isNaN(size) || size >= 20) size = 20;
-    
-    
+
+
     if (minPrice < 0) minPrice = 0
     if (maxPrice < 0) maxPrice = 0
 
@@ -34,21 +34,21 @@ router.get('/', async (req, res) => {
 
     let where = {}
 
-    if (minLat && minLat <= 90) where.lat = {[Op.gte]:minLat};
-    if (maxLat && maxLat >= -90) where.lat = {[Op.lte]:maxLat};
-    if (minLng && minLng <= 180) where.lng = {[Op.gte]:minLng};
-    if (maxLng && maxLng >= -180) where.lng = {[Op.lte]:maxLng};
-    if (minPrice) where.price = {[Op.gte]:minPrice};
-    if (maxPrice) where.price = {[Op.lte]:maxPrice};
-   
-   
+    if (minLat && minLat <= 90) where.lat = { [Op.gte]: minLat };
+    if (maxLat && maxLat >= -90) where.lat = { [Op.lte]: maxLat };
+    if (minLng && minLng <= 180) where.lng = { [Op.gte]: minLng };
+    if (maxLng && maxLng >= -180) where.lng = { [Op.lte]: maxLng };
+    if (minPrice) where.price = { [Op.gte]: minPrice };
+    if (maxPrice) where.price = { [Op.lte]: maxPrice };
+
+
 
     let errorObj = {}
 
     if (page < 1) errorObj.page = "Page must be greater than or equal to 1"
     if (size < 1) errorObj.size = "Size must be greater than or equal to 1"
     if (minLat < -90 || minLat > 90) errorObj.minLat = "Minimum latitude is invalid"
-    if (maxLat > 90 || maxLat <-90) errorObj.maxLat = "Maximum latitude is invalid"
+    if (maxLat > 90 || maxLat < -90) errorObj.maxLat = "Maximum latitude is invalid"
     if (minLng < -180 || minLng > 180) errorObj.minLng = "Minimum longitude is invalid"
     if (maxLng > 180 || maxLng < -180) errorObj.maxLng = "Maximum longitude is invalid"
     if (minPrice < 0) errorObj.minPrice = "Minimum price must be greater than or equal to 0"
@@ -107,24 +107,24 @@ router.get('/', async (req, res) => {
     }
     if (!listOfSpots.length) listOfSpots = 'No spots yet'
 
-    
+
     let result = {
         Spots: listOfSpots,
         page,
         size
-        }
+    }
     return res.status(200).json(result)
 })
 
 
 router.get('/current', requireAuth, async (req, res) => {
-    
+
 
 
     const allSpots = await Spot.findAll();
 
     let listOfSpots = [];
-    const {user} = req;
+    const { user } = req;
 
 
 
@@ -152,7 +152,7 @@ router.get('/current', requireAuth, async (req, res) => {
                 if (spotImage.preview === true) {
                     spot.previewImage = spotImage.url
                 } else if (!spot.previewImage)
-                spot.previewImage = 'No preview image yet'
+                    spot.previewImage = 'No preview image yet'
             })
         } else {
             spot.previewImage = 'No preview image yet'
@@ -160,7 +160,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
         if (spot.ownerId === user.id) {
             listOfSpots.push(spot)
-        } 
+        }
 
     }
     if (!listOfSpots.length) listOfSpots = 'No spots yet'
@@ -257,10 +257,10 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
             return res.status(500).json({
                 message: "User already has a review for this spot"
             })
-        }  
+        }
     })
 
-    
+
 
     const newReview = await Review.create({
         userId: user.id,
@@ -273,7 +273,7 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
 
 
 
-router.post('/:spotId/images', requireAuth, singleMulterUpload("image"), async (req, res) => {
+router.post('/:spotId/images', requireAuth, multipleMulterUpload("image"), async (req, res) => {
     let paramsId = parseInt(req.params.spotId)
     const { user } = req
     let particularSpot = await Spot.findByPk(paramsId)
@@ -281,12 +281,6 @@ router.post('/:spotId/images', requireAuth, singleMulterUpload("image"), async (
     const { preview } = req.body;
 
     let imageurl;
-
-    if (req.file) {
-        imageurl = await singlePublicFileUpload(req.file)
-    }
-
-
     if (!particularSpot) {
         return res.status(404).json({
             message: "Spot couldn't be found"
@@ -299,23 +293,43 @@ router.post('/:spotId/images', requireAuth, singleMulterUpload("image"), async (
         })
     }
 
-   
-    const newSpotImg = await SpotImage.create({
-        url: imageurl,
-        preview,
-        spotId: paramsId
 
-    })
-
-
-    const displaySpotImage = await SpotImage.findByPk(newSpotImg.id, {
-        attributes: {
-            exclude: ['spotId', 'createdAt', 'updatedAt']
+    if (req.files) {
+        imageurl = await multiplePublicFileUpload(req.files)
+        if (imageurl.length > 1) {
+                  for (let i = 0; i < req.files.length; i++) {
+            await SpotImage.create({
+                url: imageurl[i],
+                preview: preview[i],
+                spotId: paramsId
+            })
+        }  
+        } else {
+            await SpotImage.create({
+                url: imageurl[0],
+                preview,
+                spotId: paramsId
+            })
         }
-    })
+
+    } 
 
 
-    return res.status(200).json(displaySpotImage)
+    // const displaySpotImage = await SpotImage.findAll({
+    //     where: {
+    //         spotId: paramsId
+    //     },
+    //     attributes: {
+    //         exclude: ['spotId', 'createdAt', 'updatedAt']
+    //     }
+
+    // })
+
+
+
+    // return res.status(200).json(displaySpotImage)
+    // just need to return something anything
+    return res.status(200).json({"key": 'value'})
 
 })
 
@@ -381,9 +395,9 @@ router.put('/:spotId', requireAuth, async (req, res) => {
 
 
 router.get('/:spotId/bookings', requireAuth, async (req, res) => {
-    
+
     const paramsId = parseInt(req.params.spotId);
-    
+
     const spot = await Spot.findByPk(paramsId)
 
     const { user } = req;
@@ -396,26 +410,26 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
 
     let listOfBookings = [];
 
-  
+
     const bookings = await spot.getBookings()
-    
-    
-   
+
+
+
     for (let i = 0; i < bookings.length; i++) {
-         
+
         let booking = bookings[i].toJSON();
 
         let bookingResponse = {}
         bookingResponse.spotId = booking.spotId;
         bookingResponse.startDate = booking.startDate;
         bookingResponse.endDate = booking.endDate;
-        
-        
+
+
         let bookingUser = await bookings[i].getUser({
             attributes: ['id', 'firstName', 'lastName']
         });
-       
-        
+
+
         if (user.id !== spot.ownerId) {
             listOfBookings.push(bookingResponse)
         } else {
@@ -424,7 +438,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
         }
     }
     if (!listOfBookings.length) listOfBookings = 'No bookings yet'
-    res.json({Bookings: listOfBookings})
+    res.json({ Bookings: listOfBookings })
 
 })
 
@@ -451,9 +465,9 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     let { startDate, endDate } = req.body;
 
     let newStartDate = new Date(startDate).getTime()
-    let newEndDate = new Date (endDate).getTime()
+    let newEndDate = new Date(endDate).getTime()
 
-    
+
     let errorObj = {};
     if (newEndDate < newStartDate) {
         errorObj.endDate = "endDate cannot be on or before startDate"
@@ -469,8 +483,8 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     const allBookings = await particularSpot.getBookings();
 
     allBookings.forEach(booking => {
-        let convertedStart = new Date (booking.startDate.toDateString()).getTime();
-        let convertedEnd = new Date (booking.endDate.toDateString()).getTime();
+        let convertedStart = new Date(booking.startDate.toDateString()).getTime();
+        let convertedEnd = new Date(booking.endDate.toDateString()).getTime();
 
         if ((newStartDate >= convertedStart) && (newStartDate <= convertedEnd)) {
             errorObj.startDate = "Start date conflicts with an existing booking"
@@ -488,7 +502,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     }
 
     const newBooking = await Booking.create({
-        
+
         spotId: paramsId,
         userId: user.id,
         startDate,
@@ -514,7 +528,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 
 
 router.get('/:spotId/reviews', async (req, res) => {
-    
+
     const paramsId = parseInt(req.params.spotId);
 
     const spot = await Spot.findByPk(paramsId)
@@ -525,11 +539,11 @@ router.get('/:spotId/reviews', async (req, res) => {
         })
     }
 
-    
+
     const reviews = await spot.getReviews();
-    
+
     let listOfReviews = [];
-   
+
     for (let i = 0; i < reviews.length; i++) {
 
         let review = reviews[i].toJSON();
@@ -546,14 +560,14 @@ router.get('/:spotId/reviews', async (req, res) => {
         review.spotId = spot.id;
         review.User = user;
         if (reviewImages.length) {
-            review.ReviewImages = reviewImages 
+            review.ReviewImages = reviewImages
         } else {
             review.ReviewImages = 'No review images yet'
         }
         listOfReviews.push(review)
     }
     if (!listOfReviews.length) listOfReviews = 'No reviews yet'
-    res.json({Reviews: listOfReviews})
+    res.json({ Reviews: listOfReviews })
 
 })
 

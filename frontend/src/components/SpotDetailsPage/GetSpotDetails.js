@@ -61,6 +61,7 @@ export default function GetSpotDetails() {
     if (spot.numReviews === 1) reviewText = 'review'
     else reviewText = 'reviews'
 
+    const noImageUrl = 'https://happybnb.s3.us-west-1.amazonaws.com/1690433668490.png'
 
     let previewImgArr;
     let nonPreviewImgArr;
@@ -70,6 +71,9 @@ export default function GetSpotDetails() {
         nonPreviewImgArr = spot.SpotImages.filter(image => image.preview === false)
     }
 
+    while (nonPreviewImgArr?.length < 4) {
+        nonPreviewImgArr.push({url:noImageUrl, preview: false})
+    }
 
     const getMonthYear = (dateString => {
         const convertedDate = new Date(dateString)
