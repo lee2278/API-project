@@ -33,7 +33,6 @@ export default function GetSpotDetails() {
     }, [dispatch, reviews.length, spotId])
 
 
-
     const handleReserveButton = async (e) => {
         setErrors({})
         const newErrors = {}
@@ -62,6 +61,7 @@ export default function GetSpotDetails() {
     if (spot.numReviews === 1) reviewText = 'review'
     else reviewText = 'reviews'
 
+    const noImageUrl = 'https://happybnb.s3.us-west-1.amazonaws.com/1690433668490.png'
 
     let previewImgArr;
     let nonPreviewImgArr;
@@ -71,6 +71,9 @@ export default function GetSpotDetails() {
         nonPreviewImgArr = spot.SpotImages.filter(image => image.preview === false)
     }
 
+    while (nonPreviewImgArr?.length < 4) {
+        nonPreviewImgArr.push({url:noImageUrl, preview: false})
+    }
 
     const getMonthYear = (dateString => {
         const convertedDate = new Date(dateString)
@@ -104,7 +107,8 @@ export default function GetSpotDetails() {
         currentUserReviewsOfSpot = reviews.filter(review => review.userId === sessionUser.id)
     }
 
-
+    console.log('previewImgArr⭐', previewImgArr)
+    console.log('spot.SpotImages', spot.SpotImages )
 
 
     return (
@@ -116,7 +120,8 @@ export default function GetSpotDetails() {
             <div className='outer-images-container'>
                 <div className='images-container'>
                     <div className='left-img'>
-                        {previewImgArr && <img id='the-preview-img' src={previewImgArr[previewImgArr.length - 1]['url']} alt='preview of spot' />}
+                        {previewImgArr && previewImgArr[previewImgArr.length - 1]?.url &&<img id='the-preview-img' src={previewImgArr[previewImgArr.length - 1]['url']} alt='preview of spot' />}
+
                     </div>
                     <div className='right-imgs'>
                         {nonPreviewImgArr && nonPreviewImgArr.map(image => image ? (
