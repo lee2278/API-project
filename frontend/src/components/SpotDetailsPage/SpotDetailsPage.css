@@ -215,6 +215,10 @@ img {
 }
 
 
+#review-text-spot-details {
+    overflow-wrap:anywhere;
+}
+
 @media screen and (min-width: 1340px) {
     .images-container{
         height: 560px;

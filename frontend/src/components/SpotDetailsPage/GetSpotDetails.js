@@ -228,7 +228,7 @@ export default function GetSpotDetails() {
 
                             <h3>{review.User?.firstName}</h3>
                             <p>{getMonthYear(review.createdAt)}</p>
-                            <p>{review?.review}</p>
+                            <p id='review-text-spot-details'>{review?.review}</p>
 
                             {sessionUser && review && review.userId === sessionUser.id && (
                             <div className='delete-review-modal-wrapper'>

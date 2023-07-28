@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getSpotBookingsThunk } from '../../store/bookings';
 import { useParams } from 'react-router-dom'
+import { DeleteBookingModal2 } from '../BookingsPage/DeleteBookingModal';
+import OpenModalButton from '../OpenModalButton';
 import './BookingsManagement.css'
 
 export default function BookingsManagement() {
@@ -41,10 +43,16 @@ export default function BookingsManagement() {
                         <h3>Upcoming</h3>
                         {upcomingBookingsList?.length ? <div className='upcoming-bookings-subdiv'>
                             {upcomingBookingsList && upcomingBookingsList.map(booking => (
-                                <div key={booking.id} className='booking-card'>
+                                <div key={booking.id} className='booking-card owner'>
                                     <div>
                                         <p>{`Dates: ${getMonthDayYear(booking.startDate)} - ${getMonthDayYear(booking.endDate)}`}</p>
                                         <p>{`Booked By: ${booking.User.firstName} ${booking.User.lastName}`}</p>
+                                    </div>
+                                    <div className='cancel-booking-modal-wrapper2'>
+                                    <OpenModalButton
+                                        buttonText='Cancel this booking'
+                                        modalComponent={<DeleteBookingModal2 booking={booking}/>}
+                                    />
                                     </div>
                                 </div>
                             ))}
