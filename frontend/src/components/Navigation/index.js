@@ -8,11 +8,11 @@ function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
 
   return (
-    <ul className='navigation-ul'>
+    <div className='navigation-ul'>
       <li className='home'>
         <NavLink id='home-link' exact to="/">{
           <>
-         <img id='logo' src="https://archives.bulbagarden.net/media/upload/b/b4/0025Pikachu-Cosplay.png" alt='pikachu'/>
+         <img id='logo' src="https://happybnb.s3.us-west-1.amazonaws.com/1690504675281.png" alt='pikachu'/>
           <p>Happybnb</p>
           </>}
           </NavLink>
@@ -25,7 +25,7 @@ function Navigation({ isLoaded }){
         </li>
       )}
       </div>
-    </ul>
+    </div>
   );
 }
 

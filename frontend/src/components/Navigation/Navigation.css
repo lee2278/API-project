@@ -19,7 +19,6 @@
 .navigation-ul {
     display: flex;
     justify-content: space-between;
-    padding-bottom: 10px;
     border-bottom: 1px solid rgb(232, 221, 221);
 
     
@@ -94,7 +93,7 @@
 }
 
 .home {
-    font-size: 3rem;
+    font-size: 2.5rem;
 
 }
 
@@ -152,4 +151,29 @@
 #logo {
     width: 60px;
     height: 60px;
+}
+
+@media screen and (max-width: 575px) {
+        #home-link {
+        justify-content: center;
+    }
+}
+
+
+@media screen and (max-width: 500px) {
+    #root {
+        margin: 1rem 3rem
+    }
+}
+@media screen and (max-width: 480px) {
+    #root {
+        margin: 1rem 1rem;
+    }
+
+}
+@media screen and (max-width: 375px) {
+    #root {
+        margin: 1rem 0.5rem;
+    }
+
 }

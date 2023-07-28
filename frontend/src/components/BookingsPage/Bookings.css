@@ -298,3 +298,30 @@
 .cancel-booking-modal-wrapper > button:hover {
     background-color: rgb(243, 80, 68)
 }
+
+
+@media screen and (max-width: 585px) {
+    .edit-delete-booking-modal-container{
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .edit-booking-modal-wrapper > button, .cancel-booking-modal-wrapper > button {
+        width: 100%;
+    }
+}
+
+
+@media screen and (max-width: 400px) {
+    .booking-card{
+        flex-direction: column;
+    }
+    .booking-card-left {
+        width: 100%;
+        height: 175px;
+    }
+    .booking-card-image-container {
+        width: 100%;
+        height: 100%;
+    }
+    
+}
