@@ -1,0 +1,13 @@
+.cancel-booking-modal-wrapper2 > button {
+    background-color: rgb(252, 99, 88);
+    height: 2.3rem;
+    font-size: 15px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+
+}
+.booking-card.owner {
+    justify-content: space-between;
+    align-items: center;
+}
