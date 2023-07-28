@@ -67,6 +67,9 @@
     border-radius: 5px;
     color:white;
     background-color: rgb(122, 142, 252);
+    width: 50%;
+    text-align: center;
+
 }
 
 #link-button:hover {
@@ -81,6 +84,7 @@
     color: white;
     padding: 0.2rem;
     border-radius: 5px;
+    width: 100%;
 }
 
 #view-manage-booking-btn:hover {
@@ -96,6 +100,17 @@
     font-weight: 500;
 }
 
+.update-delete-top {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 0.5rem;
+}
+
+.delete-spot-modal-wrapper {
+    width: 50%;
+}
+
 .delete-spot-modal-wrapper > button {
     height: 2.3rem;
     font-size: 15px;
@@ -104,6 +119,7 @@
     background-color: gray;
     color: white;
     border: none;
+    width: 100%;
 }
 .delete-spot-modal-wrapper > button:hover {
 background-color: rgb(87, 84, 84);
@@ -182,10 +198,9 @@ background-color: rgb(87, 84, 84);
  @media screen and (max-width: 575px) {
     .spots-ul {
       grid-template-columns: 1fr;
-      margin: 0
     }
     #spot-container {
-        width: 375px;
+        width: 100%;
     }
     #spot-image{
         height: 280px;
@@ -193,11 +208,5 @@ background-color: rgb(87, 84, 84);
 
     .city-state, .price, .stars > p {
         font-size: 1.2rem;
-    }
-  }
-
-  @media screen and (max-width: 460px) {
-    #spot-container {
-        width: 100%;
     }
   }
