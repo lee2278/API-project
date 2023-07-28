@@ -40,6 +40,42 @@ module.exports = {
       userId: 1,
       review: 'Had a good time. Everything well provided.',
       stars: 5
+    },
+    {
+      spotId:4,
+      userId: 1,
+      review: 'Nice home decor. Amenities were clean.',
+      stars: 4
+    },
+    {
+      spotId:6,
+      userId: 1,
+      review: 'Great view of Sedona. Would book again next time I visit.',
+      stars: 5
+    },
+    {
+      spotId:6,
+      userId: 2,
+      review: 'Pricing was a little high, but the views at this location were great!',
+      stars: 4
+    },
+    {
+      spotId:12,
+      userId: 1,
+      review: 'It was ok. Right by the ocean, but way too expensive per night',
+      stars: 3
+    },
+    {
+      spotId:14,
+      userId: 2,
+      review: 'Nice place and convenient',
+      stars: 4
+    },
+    {
+      spotId:14,
+      userId: 4,
+      review: 'Stay was ok. Ran into some issues with the door lock when checking in',
+      stars: 3
     }
    ])
   },
