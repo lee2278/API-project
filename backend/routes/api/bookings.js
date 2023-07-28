@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Booking } = require('../../db/models');
+const { Booking, Spot } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth')
 
 router.get('/current', requireAuth, async (req, res) => {
@@ -145,17 +145,24 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
     const { user } = req;
     const bookingToDelete = await Booking.findByPk(paramsId)
 
+    const bookingSpot = await Spot.findByPk(bookingToDelete.spotId)
+
+    const spotOwnerId = bookingSpot.ownerId
+
     if (!bookingToDelete) {
         return res.status(404).json({
             message: "Booking couldn't be found"
         })
     }
 
-    if (user.id !== bookingToDelete.userId) {
+    if (user.id !== bookingToDelete.userId && user.id !== spotOwnerId) {
         return res.status(403).json({
             message: "Forbidden"
         })
     }
+
+  
+
 
     let convertedStart = new Date(bookingToDelete.startDate.toDateString()).getTime();
     

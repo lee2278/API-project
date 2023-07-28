@@ -46,10 +46,11 @@ span {
     align-items: center;
 }
 
+
 #url-inputs > input {
-    width:100%;
-    margin: 1rem 0
+    margin: 1rem 0;
 }
+
 
 #submitting-btn {
     width: 33%;
