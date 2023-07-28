@@ -99,9 +99,6 @@ router.put('/:bookingsId', requireAuth, async (req, res) => {
     const allBookings = allBookings2.filter(booking => booking.id !== +paramsId) 
     // let spot = bookingToEdit.getSpot()
 
-    console.log('allbookings2 all', allBookings2)
-    console.log('paramsid', paramsId)
-    console.log('allbookings filtered', allBookings)
     
     allBookings.forEach(booking => {
         let convertedStart = new Date (booking.startDate.toDateString()).getTime();

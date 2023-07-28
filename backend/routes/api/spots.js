@@ -342,6 +342,7 @@ router.put('/:spotId', requireAuth, async (req, res) => {
     const { user } = req;
 
     let paramsId = parseInt(req.params.spotId)
+
     let spotToEdit = await Spot.findByPk(paramsId)
 
     if (!spotToEdit) {
