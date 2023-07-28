@@ -61,7 +61,7 @@ export default function GetSpotDetails() {
     if (spot.numReviews === 1) reviewText = 'review'
     else reviewText = 'reviews'
 
-    const noImageUrl = 'https://happybnb.s3.us-west-1.amazonaws.com/1690433668490.png'
+    const noImageUrl = 'https://happybnb.s3.us-west-1.amazonaws.com/1690529375310.jpg'
 
     let previewImgArr;
     let nonPreviewImgArr;
@@ -124,11 +124,13 @@ export default function GetSpotDetails() {
 
                     </div>
                     <div className='right-imgs'>
+                        <div className='right-imgs-inner'>
                         {nonPreviewImgArr && nonPreviewImgArr.map(image => image ? (
                             <div className='individual-img-containers'key={image.id}>
                                 <img className='not-preview-imgs'  src={image.url} alt='more spot photos' />
                             </div>
                         ) : null)}
+                       </div> 
                     </div>
                 </div>
             </div>
