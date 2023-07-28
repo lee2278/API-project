@@ -97,8 +97,8 @@ const SpotForm = ({ spot, formType }) => {
         // if (spotImage3 && (!(spotImage3.endsWith('.png') || spotImage3.endsWith('.jpg') || spotImage3.endsWith('.jpeg')))) newErrors.spotImage3 = 'Image URL must end in .png, .jpg, or .jpeg'
         // if (spotImage4 && (!(spotImage4.endsWith('.png') || spotImage4.endsWith('.jpg') || spotImage4.endsWith('.jpeg')))) newErrors.spotImage4 = 'Image URL must end in .png, .jpg, or .jpeg'
 
-        // spot = { ...spot }
-        spot = {}
+        spot = { ...spot }
+        
 
 
 
@@ -142,6 +142,7 @@ const SpotForm = ({ spot, formType }) => {
 
                 const updated = await dispatch(updateSpotThunk(spot, spotImagesArray))
                 spot = updated
+
                 history.push(`/spots/${spot.id}`)
             }
 
@@ -172,11 +173,10 @@ const SpotForm = ({ spot, formType }) => {
         if (file) setSpotImage4(file);
       };
 
-      console.log('previewImage💕', previewImage)
 
       //previewImage is now the file
 
-      console.log('spotImage1⭐', spotImage1)
+
 
     return (
         <div className='form-wrapper'>

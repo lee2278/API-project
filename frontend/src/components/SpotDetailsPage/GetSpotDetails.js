@@ -107,8 +107,6 @@ export default function GetSpotDetails() {
         currentUserReviewsOfSpot = reviews.filter(review => review.userId === sessionUser.id)
     }
 
-    console.log('previewImgArr⭐', previewImgArr)
-    console.log('spot.SpotImages', spot.SpotImages )
 
 
     return (

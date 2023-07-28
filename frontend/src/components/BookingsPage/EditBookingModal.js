@@ -15,14 +15,9 @@ export default function EditBookingModal({ booking }) {
     const [errors, setErrors] = useState({})
 
 
-
-    console.log('start', startDate)
-    console.log('end', endDate)
-
     const spotBookingsObj = useSelector(state => state.bookings.spot)
 
     const spotBookingsList = Object.values(spotBookingsObj)
-    console.log('spotsBookingsList', spotBookingsList)
 
     
     const today = new Date()
@@ -34,9 +29,6 @@ export default function EditBookingModal({ booking }) {
     }
     
     const filteredSpotBookings = spotBookingsList.filter(spotBooking => spotBooking.startDate !== booking.startDate)
-
-    console.log(booking.startDate)
-    console.log('filtered', filteredSpotBookings)
 
 
     useEffect(() => {
