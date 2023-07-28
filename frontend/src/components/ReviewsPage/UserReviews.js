@@ -35,59 +35,67 @@ export default function UserReviews() {
         if (num === 5) return (<><i className="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i><i className="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i><i className="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i><i className="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i><i className="fa-solid fa-star" style={{ color: "rgb(63, 106, 225)" }}></i></>)
     })
 
+
     return (
         <>
             <div>
                 <h2>Your reviews</h2>
-                <div className='table-container'>
-                    {userReviewsList?.length > 0 ? <table id='review-table'>
-                        <thead>
-                            <tr>
-                                <th id='rating-th'>Rating</th>
-                                <th id='review-th'>Review</th>
-                                <th id='date-th'>Date Posted</th>
-                                <th id='spot-th'>Spot</th>
-                                <th id='empty-th'>Edit/ Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {userReviewsList && userReviewsList.map(review => (
-                                <tr key={review.id}>
-                                    <td>{turnNumToStars(review.stars)}</td>
-                                    <td id='review-text-td'>{review.review}</td>
-                                    <td>{getMonthDayYear(review.createdAt)}</td>
-                                    <td id='spot-td'>
-                                        <Link
-                                            id='back-to-spot-details-link' to={`/spots/${review.Spot.id}`}>
-                                            <div className='spot-address-and-image-wrapper'>
-                                            <img id='image-above-address'src={review.Spot.previewImage}/>
-                                            <div>
-                                                <div id='spot-name-bold'>{review.Spot.name}</div>
-                                                <div>{review.Spot.address}</div>
-                                                <div> {`${review.Spot.city}, ${review.Spot.state}`}</div>
+                {userReviewsList.length > 0 ? <div className='reviews-container'>
+                    {userReviewsList && userReviewsList.map(review => (
+                        <div className='reviews-card'>
+
+                            <div className='spot-link-wrapper'>
+                                <Link
+                                    id='back-to-spot-details-link' to={`/spots/${review.Spot?.id}`}>
+                                    <div className='spot-address-and-image-wrapper'>
+                                        <img id='image-above-address' src={review.Spot?.previewImage} />
+                                        <div className='address-holder'>
+                                            <div className='bold'>Address:</div>
+                                            <div className='address-wrapper'>
+                                            <div id='spot-name-bold'>{review.Spot?.name}</div>
+                                            <div>{review.Spot?.address}</div>
+                                            <div> {`${review.Spot?.city}, ${review.Spot?.state}`}</div>
                                             </div>
-                                            </div>
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <div className='edit-user-review-modal-wrapper'>
-                                            <OpenModalButton
-                                                buttonText='Edit Review'
-                                                modalComponent={<UpdateReviewModal reviewId={review.id} />}
-                                            />
                                         </div>
-                                        <div className='delete-user-review-modal-wrapper'>
-                                            <OpenModalButton
-                                                buttonText='Delete Review'
-                                                modalComponent={<DeleteReviewModal reviewId={review.id} />}
-                                            />
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table> : <p>You have not posted any reviews</p>}
-                </div>
+                                    </div>
+                                </Link>
+                            </div>
+
+                            <div className='reviews-info'>
+                                <div className='text-rating-area'>
+                                <div id='review-stars-container'>
+                                    <p className='bold add-spacing'>Your rating: </p>
+                                    <p>{turnNumToStars(review.stars)}</p>
+                                
+                                </div>
+                                <div id='review-text'>
+                                    <p className='bold add-spacing'>Review:</p>
+                                    <p id='actual-review-text'>{review.review}</p>
+                                </div>
+                                <div id='date-posted-div'>
+                                    <p className='bold add-spacing'>Date Posted:</p>
+                                    <p>{getMonthDayYear(review.createdAt)}</p>
+                                </div>
+                                </div>
+                                <div className='edit-delete-reviews-buttons-wrapper'>
+                                    <div className='edit-user-review-modal-wrapper'>
+                                        <OpenModalButton
+                                            buttonText='Edit Review'
+                                            modalComponent={<UpdateReviewModal reviewId={review.id} />}
+                                        />
+                                    </div>
+                                    <div className='delete-user-review-modal-wrapper'>
+                                        <OpenModalButton
+                                            buttonText='Delete Review'
+                                            modalComponent={<DeleteReviewModal reviewId={review.id} />}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>: <p>Looks like you have not made any reviews</p>}
+
             </div>
         </>
     )

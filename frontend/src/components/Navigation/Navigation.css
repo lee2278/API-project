@@ -153,18 +153,21 @@
     height: 60px;
 }
 
+@media screen and (max-width: 575px) {
+        #home-link {
+        justify-content: center;
+    }
+}
+
 
 @media screen and (max-width: 500px) {
     #root {
         margin: 1rem 3rem
     }
-    #home-link {
-        justify-content: center;
-    }
 }
 @media screen and (max-width: 480px) {
     #root {
-        margin: 1rem 2rem;
+        margin: 1rem 1rem;
     }
 
 }

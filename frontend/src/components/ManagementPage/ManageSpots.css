@@ -1,17 +1,10 @@
-.button-section {
-
-    display: flex;
-    gap: 1rem;
-}
-
-
-
-
 
 .outer-card-container {
 
     display: flex;
     flex-direction: column;
+    width: 200px;
+
 }
 
 .spots-ul {
@@ -24,15 +17,117 @@
 
 .manage-imgs {
     border-radius: 15px;
-    height: 300px;
+    height: 210px;
     object-fit: cover;
     width: 100%;
 
 }
 
 .button-section {
-
+    display: flex;
     flex: 1;
-    align-items: end;
+    justify-content: flex-end;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+@media screen and (min-width: 1160px) {
+    .outer-card-container{
+        width: 100%;
+    }
 
 }
+
+@media screen and (max-width: 1159px) {
+    .outer-card-container{
+        width: 230px;
+    }
+}
+
+@media screen and (max-width: 1096px) {
+    .outer-card-container{
+        width: 220px;
+    }
+}
+
+@media screen and (max-width: 1040px) {
+    .outer-card-container{  
+        width: 210px;
+    }
+}
+@media screen and (min-width: 1024px){
+
+    .manage-imgs {
+        height:325px;
+    }
+}
+
+
+@media screen and (max-width: 975px) {
+    .outer-card-container{
+        width: 250px;
+    }
+    .manage-imgs {
+        height: 230px;
+    }
+}
+
+
+/*  */
+@media screen and (max-width: 910px) {
+    .outer-card-container {
+        width: 225px;
+    }
+  }
+
+  @media screen and (max-width: 816px) {
+    .outer-card-container {
+        width: 200px;
+    }
+  }
+
+  @media screen and (max-width: 750px) {
+
+    .outer-card-container{
+        width: 275px;
+    }
+    .navigation-ul {
+        display: flex;
+        flex-direction: column;
+    }
+
+  } 
+
+  @media screen and (max-width: 690px) {
+    .outer-card-container {
+        width: 250px;
+    }
+  }
+
+
+  @media screen and (max-width: 625px) {
+    
+    .outer-card-container {
+        width: 225px;
+    }
+    .manage-imgs{
+        height: 200px;
+    }
+  }
+
+  
+ @media screen and (max-width: 575px) {
+    .spots-ul {
+      grid-template-columns: 1fr;
+    }
+    .outer-card-container {
+        width: 100%;
+    }
+    .manage-imgs{
+        height: 280px;
+    }
+
+    .city-state, .price, .stars > p {
+        font-size: 1.2rem;
+    }
+  }
