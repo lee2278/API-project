@@ -14,7 +14,6 @@
     border-radius: 15px;
     overflow: hidden;
     height: 380px;
-    /* border:10px solid black; */
 }
 
 .left-img {
@@ -23,23 +22,36 @@
     width: 50%;
 }
 
-.right-imgs{
+/* .right-imgs{
     display:grid;
     grid-template-columns: 2fr 2fr;
     grid-template-rows: 2fr 2fr; 
     height: 100%;
     width: 50%;
     gap: 0.5rem;
+} */
+
+.right-imgs {
+    height: 100%;
+    display: flex;
+    width: 50%;
+}
+.right-imgs-inner {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0.5rem;
+
 }
 
 .individual-img-containers {
-    /* border: 2px solid blue; */
-    width:100%;
-    height: 100%;
+    height: 184px;
+    width: 100%;
 }
 
 .not-preview-imgs {
-
+    width: 100%;
     height: 100%;
     object-fit: cover;
 }
@@ -67,6 +79,7 @@
     padding: 0 1rem;
     border-radius: 15px;
     width: 350px;
+
 }
 
 
@@ -202,20 +215,51 @@ img {
 }
 
 
-@media  screen and (min-width: 1024px) {
+@media screen and (min-width: 1340px) {
     .images-container{
-       height: 560px;
+        height: 560px;
+    }
+    .individual-img-containers {
+        height: 275px;
     }
 }
 
 
-@media screen and (min-width: 1840px) {
-    .images-container{
-        max-height: 560px;
+@media screen and (max-width: 800px) {
+    .images-container {
+        flex-direction: column;
+        height: fit-content;
     }
-    .not-preview-imgs {
+    .left-img {
+        width: 100%;
+    }
+    .right-imgs {
+        width: 100%;
+    }
+    .short-info-box {
+        width: 325px;
+    }
+}
 
-        height: 274px;
-        object-fit: cover;
+@media screen and (max-width: 715px ) {
+    .middle-section{
+        grid-template-columns: 1fr;
+    }
+    .info-box-section {
+        justify-self: center;
+        padding: 0 0 1rem 0;
+        width: 100%;
+    }
+    .short-info-box {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 490px) {
+    .right-imgs-inner {
+        grid-template-columns: 1fr;
+    }
+    .individual-img-containers{
+        height: 100%;
     }
 }

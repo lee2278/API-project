@@ -12,7 +12,7 @@ function Navigation({ isLoaded }){
       <li className='home'>
         <NavLink id='home-link' exact to="/">{
           <>
-         <img id='logo' src="https://happybnb.s3.us-west-1.amazonaws.com/1690504675281.png" alt='pikachu'/>
+         <img id='logo' src="https://happybnb.s3.us-west-1.amazonaws.com/1690525771935.png" alt='pikachu'/>
           <p>Happybnb</p>
           </>}
           </NavLink>
