@@ -151,7 +151,6 @@ const SpotForm = ({ spot, formType }) => {
     }
 
 
-
     const updateFile = (e) => {
         const file = e.target.files[0];
         if (file) setPreviewImage(file);
@@ -274,49 +273,66 @@ const SpotForm = ({ spot, formType }) => {
                         <h3>Liven up your spot with photos</h3>
                         <p>Submit a link to at least one photo to publish your spot.</p>
 
-                            <input
-                                // type='text'
-                                // value={previewImage}
-                                // onChange={(e) => setPreviewImage(e.target.value.trim())}
-                                // placeholder='Preview Image URL'
-                                type='file' onChange={updateFile}
-                            />
+                        <input
+                            // type='text'
+                            // value={previewImage}
+                            // onChange={(e) => setPreviewImage(e.target.value.trim())}
+                            // placeholder='Preview Image URL'
+                            type='file' onChange={updateFile}
+                        />
 
-                            {errors.previewImage && <span className='error'>{errors.previewImage}</span>}
+                        {errors.previewImage && <span className='error'>{errors.previewImage}</span>}
 
-                            <input
-                                // type='text'
-                                // value={spotImage1}
-                                // onChange={(e) => setSpotImage1(e.target.value.trim())}
-                                // placeholder='Image URL'
-                                type='file' onChange={updateFile1}
+                        <input
+                            // type='text'
+                            // value={spotImage1}
+                            // onChange={(e) => setSpotImage1(e.target.value.trim())}
+                            // placeholder='Image URL'
+                            type='file' onChange={updateFile1}
 
-                            />
-                            <input
-                                // type='text'
-                                // value={spotImage2}
-                                // onChange={(e) => setSpotImage2(e.target.value.trim())}
-                                // placeholder='Image URL'
-                                type='file' onChange={updateFile2}
-                            />
-                            <input
-                                // type='text'
-                                // value={spotImage3}
-                                // onChange={(e) => setSpotImage3(e.target.value.trim())}
-                                // placeholder='Image URL'
-                                type='file' onChange={updateFile3}
-                            />
-                            <input
-                                // type='text'
-                                // value={spotImage4}
-                                // onChange={(e) => setSpotImage4(e.target.value.trim())}
-                                // placeholder='Image URL'
-                                type='file' onChange={updateFile4}
-                            />
-                    
+                        />
+                        <input
+                            // type='text'
+                            // value={spotImage2}
+                            // onChange={(e) => setSpotImage2(e.target.value.trim())}
+                            // placeholder='Image URL'
+                            type='file' onChange={updateFile2}
+                        />
+                        <input
+                            // type='text'
+                            // value={spotImage3}
+                            // onChange={(e) => setSpotImage3(e.target.value.trim())}
+                            // placeholder='Image URL'
+                            type='file' onChange={updateFile3}
+                        />
+                        <input
+                            // type='text'
+                            // value={spotImage4}
+                            // onChange={(e) => setSpotImage4(e.target.value.trim())}
+                            // placeholder='Image URL'
+                            type='file' onChange={updateFile4}
+                        />
+
 
                     </label>
                 }
+
+                {formType === 'Update your Spot' ?
+                    <>
+                        {spot.SpotImages?.length && spot.SpotImages.map((pic, i) =>
+                            <div className='uploaded-image-container'>
+                                <img src={pic.url} />
+                                <div className='upload-buttons-section'>
+                                    {pic.preview === true ? <p>Main Preview Image</p> : <p>{`Additional Image ${i}`}</p>}
+                                    <button>Remove Image</button>
+                                </div>
+                            </div>
+
+                        )}
+
+                    </>
+
+                    : <div></div>}
 
                 <button id='submitting-btn'>{submitButtonText}</button>
 
