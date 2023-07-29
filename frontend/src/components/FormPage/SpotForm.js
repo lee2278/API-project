@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { createSpotThunk, getSpotDetailsThunk, removeSpotImage, updateSpotThunk } from '../../store/spots'
+import { deleteSpotImageThunk } from '../../store/spots';
 
-import { createSpotThunk, updateSpotThunk } from '../../store/spots'
 import './FormPage.css'
 
 const SpotForm = ({ spot, formType }) => {
@@ -50,6 +51,7 @@ const SpotForm = ({ spot, formType }) => {
         }
         return false;
     })
+
 
 
     let submitButtonText;
@@ -173,9 +175,16 @@ const SpotForm = ({ spot, formType }) => {
     };
 
 
+
     //previewImage is now the file
 
+    const removeImage = async(imageId) => {
+        await dispatch(deleteSpotImageThunk(imageId))
+        dispatch(getSpotDetailsThunk(spot.id))
+    }
 
+
+    console.log('preview', previewImage)
 
     return (
         <div className='form-wrapper'>
@@ -319,16 +328,30 @@ const SpotForm = ({ spot, formType }) => {
 
                 {formType === 'Update your Spot' ?
                     <>
-                        {spot.SpotImages?.length && spot.SpotImages.map((pic, i) =>
+                        {spot.SpotImages && typeof spot.SpotImages !== 'string' ? (
+                            spot.SpotImages.map((pic, i) =>
                             <div className='uploaded-image-container'>
                                 <img src={pic.url} />
                                 <div className='upload-buttons-section'>
                                     {pic.preview === true ? <p>Main Preview Image</p> : <p>{`Additional Image ${i}`}</p>}
-                                    <button>Remove Image</button>
+                                    <button
+                                    type='button'
+                                    onClick = {() =>removeImage(pic.id)}
+                                    >Remove Image</button>
                                 </div>
                             </div>
+                            )       
+                        ) : (
+                        <div>
+                            <input type='file' onChange={updateFile}/>
+                            <input type='file' onChange={updateFile1}/>
+                            <input type='file' onChange={updateFile2}/>
+                            <input type='file' onChange={updateFile3}/>
+                            <input type='file' onChange={updateFile4}/>
+                            
+                        
 
-                        )}
+                        </div>)}
 
                     </>
 

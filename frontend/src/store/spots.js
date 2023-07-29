@@ -1,3 +1,4 @@
+import { StaticRouter } from "react-router-dom/cjs/react-router-dom.min"
 import { csrfFetch } from "./csrf"
 
 //ACTION TYPE CONSTANTS
@@ -5,7 +6,7 @@ const LOAD_SPOTS = 'spots/LOAD_SPOTS'
 const LOAD_SPOT_DETAILS = 'spots/LOAD_SPOT_DETAILS'
 const UPDATE_SPOT = 'spots/UPDATE_SPOT'
 const REMOVE_SPOT = 'spots/REMOVE_SPOT'
-
+// const REMOVE_SPOT_IMAGE = 'spots/REMOVE_SPOT_IMAGE'
 
 //ACTION CREATORS
 export const loadSpots = (spots) => ({
@@ -28,7 +29,10 @@ export const removeSpot = (spotId) => ({
     spotId
 })
 
-
+// export const removeSpotImage = (imageId) => ({
+//     type: REMOVE_SPOT_IMAGE,
+//     imageId
+// }) 
 
 //THUNKS
 export const getSpotsThunk = () => async (dispatch) => {
@@ -110,6 +114,9 @@ export const createSpotThunk = (spot, spotImages) => async () => {
 }
 
 export const updateSpotThunk = (spot, spotImages) => async (dispatch) => {
+
+    const formData = new FormData()
+
     const response = await csrfFetch(`/api/spots/${spot.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -120,14 +127,28 @@ export const updateSpotThunk = (spot, spotImages) => async (dispatch) => {
         const updatedSpot = await response.json()
 
 
-
-        for (let i = 0; i < spotImages.length; i++) {
+        // for (let i = 0; i < spotImages.length; i++) {
+        //     await csrfFetch(`/api/spots/${updatedSpot.id}/images`, {
+        //         method: "POST",
+        //         headers: { "Content-Type": "application/json" },
+        //         body: JSON.stringify(spotImages[i])
+        //     })
+        // }
+        if (spotImages && spotImages.length !== 0) {
+            for (let i = 0; i < spotImages.length; i++) {
+                formData.append("image", spotImages[i]['url'])
+                formData.append("preview", spotImages[i]['preview'])
+            }
             await csrfFetch(`/api/spots/${updatedSpot.id}/images`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(spotImages[i])
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                },
+                body: formData,
+
             })
         }
+
         dispatch(editSpot(updatedSpot))
         return updatedSpot
     } else {
@@ -135,6 +156,19 @@ export const updateSpotThunk = (spot, spotImages) => async (dispatch) => {
         return errors
     }
 }
+
+export const deleteSpotImageThunk = (imageId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spot-images/${imageId}`, {
+        method: 'DELETE'
+    })
+    // if (response.ok) {
+    //     dispatch(removeSpotImage(imageId))
+    // } else {
+    //     const errors = await response.json()
+    //     return errors;
+    // }
+}
+
 
 
 export const deleteSpotThunk = (spotId) => async (dispatch) => {
@@ -181,7 +215,11 @@ export const spotsReducer = (state = initialState, action) => {
             delete newState.allSpots[action.spotId]
             return newState
         }
-
+        // case REMOVE_SPOT_IMAGE: {
+        //     const newState = { ...state, allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot}}
+        //     delete newState.singleSpot.SpotImages.find(image => image.id === action.imageId)
+        //     return newState
+        // }
 
         default:
             return state
