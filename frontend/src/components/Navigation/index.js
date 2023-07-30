@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import SearchBar from './SearchBar';
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
@@ -26,6 +27,10 @@ function Navigation({ isLoaded }) {
           </a>
         </div>
       </li>
+
+      <div className='search-bar-component-container'>
+        <SearchBar/>
+      </div>
       <div className='group-right'>
         {sessionUser && (<li><NavLink id='create-spot-navlink' exact to='/spots/new'>Create a New Spot</NavLink></li>)}
         {isLoaded && (
