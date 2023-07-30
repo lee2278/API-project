@@ -17,8 +17,10 @@ function Navigation({ isLoaded }) {
             <p>Happybnb</p>
           </>}
         </NavLink>
-        <div className='my-links-section'>Site created by: Carmen Lee
+
+        <div className='my-links-section'>
           
+          <div>Created by: Carmen Lee</div>
           <a id='github-atag' href="https://github.com/lee2278" target="_blank">
             <i className="fa-brands fa-github"></i>
           </a>
@@ -26,6 +28,7 @@ function Navigation({ isLoaded }) {
             <i className="fa-brands fa-linkedin"></i>
           </a>
         </div>
+        
       </li>
 
       <div className='search-bar-component-container'>

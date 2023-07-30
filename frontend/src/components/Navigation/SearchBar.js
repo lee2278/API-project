@@ -7,6 +7,19 @@ export default function SearchBar() {
 
     const [searchInput, setSearchInput] = useState('')
 
+    const handleSearch = (search) => {
+        history.push(`/search/${search}`)
+        setSearchInput('')
+    }
+
+    const handleEnterKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault()
+            history.push(`/search/${searchInput}`)
+            setSearchInput('')
+        }
+    }
+
 
     return (
         <div>
@@ -17,11 +30,12 @@ export default function SearchBar() {
                         placeholder='Search'
                         value={searchInput}
                         onChange={(e) => setSearchInput(e.target.value)}
+                        onKeyPress={handleEnterKeyPress}
                     >
 
                     </input>
                     <span id='search-icon' className="material-symbols-outlined"
-                    >
+                        onClick={() => handleSearch(searchInput)}>
                         search
                     </span>
                 </div>

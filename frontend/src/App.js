@@ -13,6 +13,8 @@ import GetSpotBookings from "./components/BookingsPage/GetSpotBookings";
 import BookingsManagement from "./components/BookingsManagementPage/BookingsManagement";
 import BookingDetails from "./components/BookingsPage/BookingDetails";
 import UserReviews from "./components/ReviewsPage/UserReviews";
+import ShowSearches from "./components/LandingPage/ShowSearchs";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -55,6 +57,9 @@ function App() {
         </Route>
         <Route path='/reviews/current'>
           <UserReviews/>
+        </Route>
+        <Route path='/search/:search'>
+          <ShowSearches/>
         </Route>
       </Switch>}
     </>
