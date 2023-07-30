@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { createSpotThunk, getSpotDetailsThunk, removeSpotImage, updateSpotThunk } from '../../store/spots'
+import { deleteSpotImageThunk } from '../../store/spots';
 
-import { createSpotThunk, updateSpotThunk } from '../../store/spots'
 import './FormPage.css'
 
 const SpotForm = ({ spot, formType }) => {
@@ -19,6 +20,8 @@ const SpotForm = ({ spot, formType }) => {
     const [spotImage3, setSpotImage3] = useState('')
     const [spotImage4, setSpotImage4] = useState('')
     const [errors, setErrors] = useState({})
+    const [isEmpty, setIsEmpty] = useState(false)
+
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -52,6 +55,7 @@ const SpotForm = ({ spot, formType }) => {
     })
 
 
+
     let submitButtonText;
     if (formType === 'Update your Spot') submitButtonText = 'Update your Spot'
     if (formType === 'Create a new Spot') submitButtonText = 'Create Spot'
@@ -67,8 +71,13 @@ const SpotForm = ({ spot, formType }) => {
         setPrice(spot.price)
 
 
+
     }, [spot])
 
+
+    useEffect(() => {
+        if (typeof spot.SpotImages === 'string') setIsEmpty(true)
+    }, [spot.SpotImages])
 
 
     const handleSubmit = async (e) => {
@@ -96,8 +105,7 @@ const SpotForm = ({ spot, formType }) => {
         // if (spotImage2 && (!(spotImage2.endsWith('.png') || spotImage2.endsWith('.jpg') || spotImage2.endsWith('.jpeg')))) newErrors.spotImage2 = 'Image URL must end in .png, .jpg, or .jpeg'
         // if (spotImage3 && (!(spotImage3.endsWith('.png') || spotImage3.endsWith('.jpg') || spotImage3.endsWith('.jpeg')))) newErrors.spotImage3 = 'Image URL must end in .png, .jpg, or .jpeg'
         // if (spotImage4 && (!(spotImage4.endsWith('.png') || spotImage4.endsWith('.jpg') || spotImage4.endsWith('.jpeg')))) newErrors.spotImage4 = 'Image URL must end in .png, .jpg, or .jpeg'
-
-        spot = { ...spot }
+        if (isEmpty === true && !previewImage) newErrors.noImage = 'Preview image is required'
 
 
 
@@ -133,13 +141,14 @@ const SpotForm = ({ spot, formType }) => {
             spot.name = name
             spot.price = price
 
-            delete newErrors.previewImage
+
 
             if (Object.values(newErrors).length > 0) {
                 setErrors(newErrors)
                 return null
             } else {
 
+                delete newErrors.previewImage
                 const updated = await dispatch(updateSpotThunk(spot, spotImagesArray))
                 spot = updated
 
@@ -149,7 +158,6 @@ const SpotForm = ({ spot, formType }) => {
 
         }
     }
-
 
 
     const updateFile = (e) => {
@@ -174,7 +182,13 @@ const SpotForm = ({ spot, formType }) => {
     };
 
 
+
     //previewImage is now the file
+
+    const removeImage = async (imageId) => {
+        await dispatch(deleteSpotImageThunk(imageId))
+        dispatch(getSpotDetailsThunk(spot.id))
+    }
 
 
 
@@ -266,7 +280,7 @@ const SpotForm = ({ spot, formType }) => {
                             placeholder='Price per night (USD)'
                         />
                     </div>
-                    {errors.price && <span className='error'>{errors.price}</span>}
+                    {errors.price && <p className='error no-left-padding'>{errors.price}</p>}
                 </label>
 
                 {formType === 'Create a new Spot' &&
@@ -274,49 +288,139 @@ const SpotForm = ({ spot, formType }) => {
                         <h3>Liven up your spot with photos</h3>
                         <p>Submit a link to at least one photo to publish your spot.</p>
 
-                            <input
-                                // type='text'
-                                // value={previewImage}
-                                // onChange={(e) => setPreviewImage(e.target.value.trim())}
-                                // placeholder='Preview Image URL'
-                                type='file' onChange={updateFile}
-                            />
+                        <input
+                            // type='text'
+                            // value={previewImage}
+                            // onChange={(e) => setPreviewImage(e.target.value.trim())}
+                            // placeholder='Preview Image URL'
+                            type='file' onChange={updateFile}
+                        />
 
-                            {errors.previewImage && <span className='error'>{errors.previewImage}</span>}
+                        {errors.previewImage && <span className='error'>{errors.previewImage}</span>}
 
-                            <input
-                                // type='text'
-                                // value={spotImage1}
-                                // onChange={(e) => setSpotImage1(e.target.value.trim())}
-                                // placeholder='Image URL'
-                                type='file' onChange={updateFile1}
+                        <input
+                            // type='text'
+                            // value={spotImage1}
+                            // onChange={(e) => setSpotImage1(e.target.value.trim())}
+                            // placeholder='Image URL'
+                            type='file' onChange={updateFile1}
 
-                            />
-                            <input
-                                // type='text'
-                                // value={spotImage2}
-                                // onChange={(e) => setSpotImage2(e.target.value.trim())}
-                                // placeholder='Image URL'
-                                type='file' onChange={updateFile2}
-                            />
-                            <input
-                                // type='text'
-                                // value={spotImage3}
-                                // onChange={(e) => setSpotImage3(e.target.value.trim())}
-                                // placeholder='Image URL'
-                                type='file' onChange={updateFile3}
-                            />
-                            <input
-                                // type='text'
-                                // value={spotImage4}
-                                // onChange={(e) => setSpotImage4(e.target.value.trim())}
-                                // placeholder='Image URL'
-                                type='file' onChange={updateFile4}
-                            />
-                    
+                        />
+                        <input
+                            // type='text'
+                            // value={spotImage2}
+                            // onChange={(e) => setSpotImage2(e.target.value.trim())}
+                            // placeholder='Image URL'
+                            type='file' onChange={updateFile2}
+                        />
+                        <input
+                            // type='text'
+                            // value={spotImage3}
+                            // onChange={(e) => setSpotImage3(e.target.value.trim())}
+                            // placeholder='Image URL'
+                            type='file' onChange={updateFile3}
+                        />
+                        <input
+                            // type='text'
+                            // value={spotImage4}
+                            // onChange={(e) => setSpotImage4(e.target.value.trim())}
+                            // placeholder='Image URL'
+                            type='file' onChange={updateFile4}
+                        />
+
 
                     </label>
                 }
+
+                {formType === 'Update your Spot' ?
+                    <>
+                        {spot.SpotImages && typeof spot.SpotImages !== 'string' ?
+
+                            <>
+
+                                {spot?.SpotImages[0] ? <div className='uploaded-image-container'>
+                                    <img src={spot.SpotImages[0].url} />
+                                    <div className='upload-buttons-section'>
+                                        <p>Main Preview Image</p>
+                                        <button
+                                            type='button'
+                                            onClick={() => removeImage(spot.SpotImages[0].id)}
+                                        >Remove Image
+                                        </button>
+                                    </div>
+                                </div> : <input type='file' onChange={updateFile} />}
+
+                                {spot?.SpotImages[1] ? <div className='uploaded-image-container'>
+                                    <img src={spot.SpotImages[1].url} />
+                                    <div className='upload-buttons-section'>
+                                        <p>Additional Image 1</p>
+                                        <button
+                                            type='button'
+                                            onClick={() => removeImage(spot.SpotImages[1].id)}
+                                        >Remove Image
+                                        </button>
+                                    </div>
+                                </div> : <input type='file' onChange={updateFile1} />}
+
+                                {spot?.SpotImages[2] ? <div className='uploaded-image-container'>
+                                    <img src={spot.SpotImages[2].url} />
+                                    <div className='upload-buttons-section'>
+                                        <p>Additional Image 2</p>
+                                        <button
+                                            type='button'
+                                            onClick={() => removeImage(spot.SpotImages[2].id)}
+                                        >Remove Image
+                                        </button>
+                                    </div>
+                                </div> : <input type='file' onChange={updateFile2} />}
+
+                                {spot?.SpotImages[3] ? <div className='uploaded-image-container'>
+                                    <img src={spot.SpotImages[3].url} />
+                                    <div className='upload-buttons-section'>
+                                        <p>Additional Image 3</p>
+                                        <button
+                                            type='button'
+                                            onClick={() => removeImage(spot.SpotImages[3].id)}
+                                        >Remove Image
+                                        </button>
+                                    </div>
+                                </div> : <input type='file' onChange={updateFile3} />}
+
+                                {spot?.SpotImages[4] ? <div className='uploaded-image-container'>
+                                    <img src={spot.SpotImages[4].url} />
+                                    <div className='upload-buttons-section'>
+                                        <p>Additional Image 4</p>
+                                        <button
+                                            type='button'
+                                            onClick={() => removeImage(spot.SpotImages[4].id)}
+                                        >Remove Image
+                                        </button>
+                                    </div>
+                                </div> : <input type='file' onChange={updateFile4} />}
+                            </>
+                            :
+                            <>
+                                <h3>Change or delete your photos</h3>
+                                {/* {errors.previewImage && <div className='error no-left-padding'>{errors.previewImage}</div>} */}
+
+                                {errors.noImage && <div className='error no-left-padding'>{errors.noImage}</div>}
+
+                                <div className='all-file-upload-div'>
+
+                                    <label className='bold500'>Preview Image:
+                                        <input type='file' onChange={updateFile} />
+                                    </label>
+                                    <input type='file' onChange={updateFile1} />
+                                    <input type='file' onChange={updateFile2} />
+                                    <input type='file' onChange={updateFile3} />
+                                    <input type='file' onChange={updateFile4} />
+                                </div>
+
+                            </>}
+
+                    </>
+
+                    : <div></div>}
 
                 <button id='submitting-btn'>{submitButtonText}</button>
 

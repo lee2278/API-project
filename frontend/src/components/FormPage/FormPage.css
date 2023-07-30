@@ -74,3 +74,44 @@ span {
 .no-margin-bottom {
     margin-bottom: 0;
 }
+
+.uploaded-image-container {
+    border: 1px solid lightgray;
+    display: flex;
+    height: 150px;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 15px;
+    box-shadow: 0 0 5px 1px lightgrey;
+
+}
+
+.uploaded-image-container > img {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid lightgray;
+    border-radius: 15px;
+}
+
+.upload-buttons-section {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.all-file-upload-div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 12rem;
+}
+
+.no-left-padding {
+    padding-left: 0;
+}
+
+
+.bold500 {
+    font-weight: 500;
+}
