@@ -5,5 +5,14 @@
 
 #btn-for-signup:not([disabled]){
     background-color: rgb(252, 99, 88);
-    color:white
+    color:white;
+    border-radius: 5px;
+    padding: 0.3rem;
+    border: none;
+}
+
+
+#btn-for-signup:not([disabled]):hover {
+    background-color: rgb(243, 80, 68);
+
 }

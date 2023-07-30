@@ -25,5 +25,12 @@ button:not([disabled]) {
 
 #btn-for-login:not([disabled]) {
     background-color: rgb(252, 99, 88);
+    padding: 0.3rem;
+    border: none;
+    border-radius: 5px;
     color:white
+}
+
+#btn-for-login:not([disabled]):hover {
+    background-color: rgb(243, 80, 68);
 }
