@@ -203,6 +203,13 @@
   outline: none;
 }
 
+@media screen and (max-width: 900px) {
+  #root {
+    width: fit-content
+  }
+}
+
+
 @media screen and (max-width: 575px) {
   #home-link, .my-links-section {
     justify-content: center;
