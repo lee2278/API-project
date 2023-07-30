@@ -77,7 +77,10 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 - Users can edit their bookings
 - Users can delete their bookings
 
+### Search
+- Users can search for spots
+- Users can view searches
+  
 
 
 
-[def]: './happybnb-frontpage.jpg'
