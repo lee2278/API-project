@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { deleteBookingThunk, getUserBookingsThunk, getSpotBookingsThunk } from "../../store/bookings"
 import { useModal } from '../../context/Modal'
-
+import './Bookings.css'
 
 export default function DeleteBookingModal({booking}) {
     const dispatch = useDispatch()
@@ -19,7 +19,7 @@ export default function DeleteBookingModal({booking}) {
         <>
             <h1>Confirm Booking Cancellation</h1>
             <p>Are you sure you want to cancel this booking?</p>
-            <button onClick={handleDeleteBooking}>{`Yes, cancel booking`}</button>
+            <button id='a'onClick={handleDeleteBooking}>{`Yes, cancel booking`}</button>
             <button onClick={closeModal}>{`No, keep this booking`}</button>
         </>
     )
