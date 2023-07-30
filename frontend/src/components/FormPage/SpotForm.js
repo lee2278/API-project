@@ -142,15 +142,16 @@ const SpotForm = ({ spot, formType }) => {
             spot.price = price
 
 
+            delete newErrors.previewImage
 
             if (Object.values(newErrors).length > 0) {
                 setErrors(newErrors)
                 return null
             } else {
 
-                delete newErrors.previewImage
                 const updated = await dispatch(updateSpotThunk(spot, spotImagesArray))
                 spot = updated
+                
 
                 history.push(`/spots/${spot.id}`)
             }
@@ -180,7 +181,6 @@ const SpotForm = ({ spot, formType }) => {
         const file = e.target.files[0];
         if (file) setSpotImage4(file);
     };
-
 
 
     //previewImage is now the file
@@ -353,6 +353,7 @@ const SpotForm = ({ spot, formType }) => {
                                     <div className='upload-buttons-section'>
                                         <p>Main Preview Image</p>
                                         <button
+                                            className='remove-image-btn'
                                             type='button'
                                             onClick={() => removeImage(spot.SpotImages[0].id)}
                                         >Remove Image
@@ -365,6 +366,7 @@ const SpotForm = ({ spot, formType }) => {
                                     <div className='upload-buttons-section'>
                                         <p>Additional Image 1</p>
                                         <button
+                                            className='remove-image-btn'
                                             type='button'
                                             onClick={() => removeImage(spot.SpotImages[1].id)}
                                         >Remove Image
@@ -377,6 +379,7 @@ const SpotForm = ({ spot, formType }) => {
                                     <div className='upload-buttons-section'>
                                         <p>Additional Image 2</p>
                                         <button
+                                            className='remove-image-btn'
                                             type='button'
                                             onClick={() => removeImage(spot.SpotImages[2].id)}
                                         >Remove Image
@@ -389,6 +392,7 @@ const SpotForm = ({ spot, formType }) => {
                                     <div className='upload-buttons-section'>
                                         <p>Additional Image 3</p>
                                         <button
+                                            className='remove-image-btn'
                                             type='button'
                                             onClick={() => removeImage(spot.SpotImages[3].id)}
                                         >Remove Image
@@ -401,6 +405,7 @@ const SpotForm = ({ spot, formType }) => {
                                     <div className='upload-buttons-section'>
                                         <p>Additional Image 4</p>
                                         <button
+                                            className='remove-image-btn'
                                             type='button'
                                             onClick={() => removeImage(spot.SpotImages[4].id)}
                                         >Remove Image
@@ -412,7 +417,7 @@ const SpotForm = ({ spot, formType }) => {
                             <>
                                 <h3>Change or delete your photos</h3>
                                 {/* {errors.previewImage && <div className='error no-left-padding'>{errors.previewImage}</div>} */}
-                                
+
                                 {errors.noImage && <div className='error no-left-padding'>{errors.noImage}</div>}
 
                                 <div className='all-file-upload-div'>
