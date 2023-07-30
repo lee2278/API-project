@@ -106,3 +106,12 @@ span {
     gap: 1rem;
     width: 12rem;
 }
+
+.no-left-padding {
+    padding-left: 0;
+}
+
+
+.bold500 {
+    font-weight: 500;
+}
