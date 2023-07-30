@@ -47,9 +47,6 @@ span {
 }
 
 
-#url-inputs > input {
-    margin: 1rem 0;
-}
 
 
 #submitting-btn {
@@ -114,4 +111,8 @@ span {
 
 .bold500 {
     font-weight: 500;
+}
+
+.all-file-upload-div > label > input {
+    width: 11.5rem;
 }
