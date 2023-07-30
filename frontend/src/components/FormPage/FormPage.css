@@ -116,3 +116,15 @@ span {
 .all-file-upload-div > label > input {
     width: 11.5rem;
 }
+
+.remove-image-btn {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: none;
+    background-color: gray;
+    color: white;
+}
+
+.remove-image-btn:hover {
+    background-color: rgb(87, 84, 84);
+}
