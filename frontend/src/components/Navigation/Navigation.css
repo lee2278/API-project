@@ -105,6 +105,18 @@
 }
 
 
+
+.my-links-section {
+    font-size: 18px;
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+#github-atag, #linkedin-atag {
+    color: black;
+}
+
 #manage-spots-link, #manage-bookings-link, #manage-reviews-link {
     text-decoration:none;
     color:black;
@@ -141,6 +153,7 @@
 #create-spot-navlink {
     text-decoration: none;
     font-size: 18px;
+    color: black;
 
 }
 

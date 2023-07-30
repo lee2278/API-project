@@ -11,3 +11,10 @@
     justify-content: space-between;
     align-items: center;
 }
+
+
+.cancel-booking-modal-wrapper2 > button:hover {
+    background-color: rgb(243, 80, 68);
+}
+
+
