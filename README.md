@@ -81,6 +81,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 - Users can search for spots
 - Users can view searches
   
-
+## Api Endpoints
+[Click here to see list of endpoints](./backend/README.md)
 
 
