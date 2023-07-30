@@ -284,52 +284,62 @@ const SpotForm = ({ spot, formType }) => {
                 </label>
 
                 {formType === 'Create a new Spot' &&
-                    <label id='url-inputs'>
+                    <div>
                         <h3>Liven up your spot with photos</h3>
                         <p>Submit a link to at least one photo to publish your spot.</p>
 
-                        <input
-                            // type='text'
-                            // value={previewImage}
-                            // onChange={(e) => setPreviewImage(e.target.value.trim())}
-                            // placeholder='Preview Image URL'
-                            type='file' onChange={updateFile}
-                        />
+                        <div className='all-file-upload-div'>
+                            <label className='bold500'>Preview Image:
+                                <input
+                                    // type='text'
+                                    // value={previewImage}
+                                    // onChange={(e) => setPreviewImage(e.target.value.trim())}
+                                    // placeholder='Preview Image URL'
+                                    type='file' onChange={updateFile}
+                                />
+                            </label>
+                            {errors.previewImage && <span className='error'>{errors.previewImage}</span>}
+                            <label className='bold500'>Optional Image 1:
+                                <input
+                                    // type='text'
+                                    // value={spotImage1}
+                                    // onChange={(e) => setSpotImage1(e.target.value.trim())}
+                                    // placeholder='Image URL'
+                                    type='file' onChange={updateFile1}
 
-                        {errors.previewImage && <span className='error'>{errors.previewImage}</span>}
+                                />
+                            </label>
+                            <label className='bold500'>Optional Image 2:
+                                <input
+                                    // type='text'
+                                    // value={spotImage2}
+                                    // onChange={(e) => setSpotImage2(e.target.value.trim())}
+                                    // placeholder='Image URL'
+                                    type='file' onChange={updateFile2}
+                                />
+                            </label>
+                            <label className='bold500'>Optional Image 3:
+                                <input
+                                    // type='text'
+                                    // value={spotImage3}
+                                    // onChange={(e) => setSpotImage3(e.target.value.trim())}
+                                    // placeholder='Image URL'
+                                    type='file' onChange={updateFile3}
+                                />
+                            </label>
+                            <label className='bold500'>Optional Image 4:
+                                <input
+                                    // type='text'
+                                    // value={spotImage4}
+                                    // onChange={(e) => setSpotImage4(e.target.value.trim())}
+                                    // placeholder='Image URL'
+                                    type='file' onChange={updateFile4}
+                                />
+                            </label>
+                        </div>
 
-                        <input
-                            // type='text'
-                            // value={spotImage1}
-                            // onChange={(e) => setSpotImage1(e.target.value.trim())}
-                            // placeholder='Image URL'
-                            type='file' onChange={updateFile1}
 
-                        />
-                        <input
-                            // type='text'
-                            // value={spotImage2}
-                            // onChange={(e) => setSpotImage2(e.target.value.trim())}
-                            // placeholder='Image URL'
-                            type='file' onChange={updateFile2}
-                        />
-                        <input
-                            // type='text'
-                            // value={spotImage3}
-                            // onChange={(e) => setSpotImage3(e.target.value.trim())}
-                            // placeholder='Image URL'
-                            type='file' onChange={updateFile3}
-                        />
-                        <input
-                            // type='text'
-                            // value={spotImage4}
-                            // onChange={(e) => setSpotImage4(e.target.value.trim())}
-                            // placeholder='Image URL'
-                            type='file' onChange={updateFile4}
-                        />
-
-
-                    </label>
+                    </div>
                 }
 
                 {formType === 'Update your Spot' ?
@@ -402,7 +412,7 @@ const SpotForm = ({ spot, formType }) => {
                             <>
                                 <h3>Change or delete your photos</h3>
                                 {/* {errors.previewImage && <div className='error no-left-padding'>{errors.previewImage}</div>} */}
-
+                                
                                 {errors.noImage && <div className='error no-left-padding'>{errors.noImage}</div>}
 
                                 <div className='all-file-upload-div'>
@@ -410,14 +420,21 @@ const SpotForm = ({ spot, formType }) => {
                                     <label className='bold500'>Preview Image:
                                         <input type='file' onChange={updateFile} />
                                     </label>
-                                    <input type='file' onChange={updateFile1} />
-                                    <input type='file' onChange={updateFile2} />
-                                    <input type='file' onChange={updateFile3} />
-                                    <input type='file' onChange={updateFile4} />
+                                    <label className='bold500'>Optional Image 1:
+                                        <input type='file' onChange={updateFile1} />
+                                    </label>
+                                    <label className='bold500'>Optional Image 2:
+                                        <input type='file' onChange={updateFile2} />
+                                    </label>
+                                    <label className='bold500'>Optional Image 3:
+                                        <input type='file' onChange={updateFile3} />
+                                    </label>
+                                    <label className='bold500'>Optional Image 4:
+                                        <input type='file' onChange={updateFile4} />
+                                    </label>
                                 </div>
 
                             </>}
-
                     </>
 
                     : <div></div>}
