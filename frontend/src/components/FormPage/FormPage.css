@@ -99,3 +99,19 @@ span {
     flex-direction: column;
     width: 50%;
 }
+
+.all-file-upload-div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 12rem;
+}
+
+.no-left-padding {
+    padding-left: 0;
+}
+
+
+.bold500 {
+    font-weight: 500;
+}
