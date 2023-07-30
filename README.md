@@ -4,7 +4,8 @@ This is a full-stack clone of Airbnb. With this application, users can book plac
 
 Check out my site Happybnb [here](https://abnb-clone-6yft.onrender.com/)
 
-![image](https://github.com/lee2278/API-project/assets/53248578/637a9073-fb30-488b-9c0e-0f9deabb3bd2)
+![image](https://github.com/lee2278/API-project/assets/53248578/6899ed6a-8c12-4ae7-a475-a2cdedb949b8)
+
 
 ## List of Technologies Used:
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
