@@ -60,22 +60,22 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 ## Core Features
 
 ### Spots
--Users can create spots to host 
--Users and non-users can view all spots that are hosted
--Users can edit the spot they host
--Users can remove a spot that they've put up to host
+- Users can create spots to host 
+- Users and non-users can view all spots that are hosted
+- Users can edit the spot they host
+- Users can remove a spot that they've put up to host
 
 ### Reviews
--Users can create reviews
--Users can see all reviews of a spot
--Users can edit their own reviews
--Users can delete their review
+- Users can create reviews
+- Users can see all reviews of a spot
+- Users can edit their own reviews
+- Users can delete their review
 
 ### Bookings
--Users can create bookings
--Users can view their bookings
--Users can edit their bookings
--Users can delete their bookings
+- Users can create bookings
+- Users can view their bookings
+- Users can edit their bookings
+- Users can delete their bookings
 
 
 
