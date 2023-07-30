@@ -175,11 +175,14 @@ const SpotForm = ({ spot, formType }) => {
     };
 
 
+    const [removeIndex, setRemoveIndex] = useState('')
+    console.log('removeIndex❤️', removeIndex)
 
     //previewImage is now the file
 
-    const removeImage = async(imageId) => {
+    const removeImage = async (imageId, i) => {
         await dispatch(deleteSpotImageThunk(imageId))
+        setRemoveIndex(i)
         dispatch(getSpotDetailsThunk(spot.id))
     }
 
@@ -328,7 +331,87 @@ const SpotForm = ({ spot, formType }) => {
 
                 {formType === 'Update your Spot' ?
                     <>
-                        {spot.SpotImages && typeof spot.SpotImages !== 'string' ? (
+                        {spot.SpotImages && typeof spot.SpotImages !== 'string' ?
+
+                            <>
+                                {spot?.SpotImages[0] ? <div className='uploaded-image-container'>
+                                    <img src={spot.SpotImages[0].url} />
+                                    <div className='upload-buttons-section'>
+                                        <p>Main Preview Image</p>
+                                        <button
+                                            type='button'
+                                            onClick={() => removeImage(spot.SpotImages[0].id)}
+                                        >Remove Image
+                                        </button>
+                                    </div>
+                                </div> : <input type='file' onChange={updateFile}/>}
+
+                                {spot?.SpotImages[1] ? <div className='uploaded-image-container'>
+                                    <img src={spot.SpotImages[1].url} />
+                                    <div className='upload-buttons-section'>
+                                        <p>Additional Image 1</p>
+                                        <button
+                                            type='button'
+                                            onClick={() => removeImage(spot.SpotImages[1].id)}
+                                        >Remove Image
+                                        </button>
+                                    </div>
+                                </div> : <input type='file' onChange={updateFile1}/>}
+
+                                {spot?.SpotImages[2] ? <div className='uploaded-image-container'>
+                                    <img src={spot.SpotImages[2].url} />
+                                    <div className='upload-buttons-section'>
+                                        <p>Additional Image 2</p>
+                                        <button
+                                            type='button'
+                                            onClick={() => removeImage(spot.SpotImages[2].id)}
+                                        >Remove Image
+                                        </button>
+                                    </div>
+                                </div> : <input type='file' onChange={updateFile2}/>}
+
+                                {spot?.SpotImages[3] ? <div className='uploaded-image-container'>
+                                    <img src={spot.SpotImages[3].url} />
+                                    <div className='upload-buttons-section'>
+                                        <p>Additional Image 3</p>
+                                        <button
+                                            type='button'
+                                            onClick={() => removeImage(spot.SpotImages[3].id)}
+                                        >Remove Image
+                                        </button>
+                                    </div>
+                                </div> : <input type='file' onChange={updateFile3}/>}
+
+                                {spot?.SpotImages[4] ? <div className='uploaded-image-container'>
+                                    <img src={spot.SpotImages[4].url} />
+                                    <div className='upload-buttons-section'>
+                                        <p>Additional Image 4</p>
+                                        <button
+                                            type='button'
+                                            onClick={() => removeImage(spot.SpotImages[4].id)}
+                                        >Remove Image
+                                        </button>
+                                    </div>
+                                </div> : <input type='file' onChange={updateFile4}/>}
+                            </>
+                            :
+                            <>
+                            <h3>Change or delete your photos</h3>
+
+                            <div className='all-file-upload-div'>
+                            <input type='file' onChange={updateFile}/>
+                            <input type='file' onChange={updateFile1}/>
+                            <input type='file' onChange={updateFile2}/>
+                            <input type='file' onChange={updateFile3}/>
+                            <input type='file' onChange={updateFile4}/>
+                            </div>
+                           
+                            </>}
+
+
+
+                        {/* {spot.SpotImages && typeof spot.SpotImages !== 'string' ? (
+                            
                             spot.SpotImages.map((pic, i) =>
                             <div className='uploaded-image-container'>
                                 <img src={pic.url} />
@@ -336,11 +419,15 @@ const SpotForm = ({ spot, formType }) => {
                                     {pic.preview === true ? <p>Main Preview Image</p> : <p>{`Additional Image ${i}`}</p>}
                                     <button
                                     type='button'
-                                    onClick = {() =>removeImage(pic.id)}
-                                    >Remove Image</button>
+                                    onClick = {() =>removeImage(pic.id, i)}
+                                    >
+                                    Remove Image
+                                    </button>
+
                                 </div>
                             </div>
-                            )       
+                            ) 
+                                
                         ) : (
                         <div>
                             <input type='file' onChange={updateFile}/>
@@ -348,10 +435,7 @@ const SpotForm = ({ spot, formType }) => {
                             <input type='file' onChange={updateFile2}/>
                             <input type='file' onChange={updateFile3}/>
                             <input type='file' onChange={updateFile4}/>
-                            
-                        
-
-                        </div>)}
+                        </div>)} */}
 
                     </>
 
