@@ -14,11 +14,14 @@ import BookingsManagement from "./components/BookingsManagementPage/BookingsMana
 import BookingDetails from "./components/BookingsPage/BookingDetails";
 import UserReviews from "./components/ReviewsPage/UserReviews";
 import ShowSearches from "./components/LandingPage/ShowSearchs";
-
+import ReactGA from "react-ga4";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+
+  ReactGA.initialize(" G-QTX15W0XJ6");
+
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
