@@ -8,7 +8,10 @@ export default function SearchBar() {
     const [searchInput, setSearchInput] = useState('')
 
     const handleSearch = (search) => {
-        history.push(`/search/${search}`)
+        if (search) {
+            history.push(`/search/${search}`)
+        }
+        else return;
         setSearchInput('')
     }
 
