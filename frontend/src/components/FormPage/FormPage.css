@@ -129,3 +129,28 @@ span {
 .remove-image-btn:hover {
     background-color: rgb(87, 84, 84);
 }
+
+@media screen and (min-width:1250px) {
+    .uploaded-image-container {
+        height: 200px;
+    }
+}
+
+@media screen and (min-width:1500px) {
+    .uploaded-image-container {
+        height: 300px;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    .uploaded-image-container{
+        height: 375px;
+    }
+}
+
+
+@media screen and (max-width: 715px) {
+    #spot-form {
+        width:90%;
+    }
+}
