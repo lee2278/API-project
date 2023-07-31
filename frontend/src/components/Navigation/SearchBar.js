@@ -8,8 +8,11 @@ export default function SearchBar() {
     const [searchInput, setSearchInput] = useState('')
 
     const handleSearch = (search) => {
-        history.push(`/search/${search}`)
-        setSearchInput('')
+        if (search) {
+            history.push(`/search/${search}`)
+            setSearchInput('')
+        }
+        else return;
     }
 
     const handleEnterKeyPress = (e) => {
@@ -17,9 +20,9 @@ export default function SearchBar() {
             e.preventDefault()
             if (searchInput) {
                 history.push(`/search/${searchInput}`)
+                setSearchInput('')
             }
             else return
-            setSearchInput('')
         }
     }
 
