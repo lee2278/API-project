@@ -104,6 +104,20 @@
 }
 
 
+
+
+@media screen and (min-width: 1700px) {
+    #image-above-address {
+        height: 400px;
+    }
+}
+
+@media screen and (min-width: 2100px) {
+    #image-above-address {
+        height: 500px;
+    }
+}
+
 @media screen and (max-width: 800px) {
     .reviews-card {
         flex-direction: column;
