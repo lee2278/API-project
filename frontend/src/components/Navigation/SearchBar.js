@@ -15,7 +15,10 @@ export default function SearchBar() {
     const handleEnterKeyPress = (e) => {
         if (e.key === 'Enter') {
             e.preventDefault()
-            history.push(`/search/${searchInput}`)
+            if (searchInput) {
+                history.push(`/search/${searchInput}`)
+            }
+            else history.push('/')
             setSearchInput('')
         }
     }
@@ -28,7 +31,7 @@ export default function SearchBar() {
                     <input id='search-input'
                         type='text'
                         placeholder='Search'
-                        value={searchInput}
+                        value={searchInput.trimStart()}
                         onChange={(e) => setSearchInput(e.target.value)}
                         onKeyPress={handleEnterKeyPress}
                     >
