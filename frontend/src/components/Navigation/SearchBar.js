@@ -18,7 +18,7 @@ export default function SearchBar() {
             if (searchInput) {
                 history.push(`/search/${searchInput}`)
             }
-            else history.push('/')
+            else return
             setSearchInput('')
         }
     }
