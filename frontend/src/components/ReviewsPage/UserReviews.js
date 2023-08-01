@@ -48,7 +48,7 @@ export default function UserReviews() {
                                 <Link
                                     id='back-to-spot-details-link' to={`/spots/${review.Spot?.id}`}>
                                     <div className='spot-address-and-image-wrapper'>
-                                        <img id='image-above-address' src={review.Spot?.previewImage} />
+                                        <img id='image-above-address' src={review.Spot?.previewImage} alt='' />
                                         <div className='address-holder'>
                                             <div className='bold'>Address:</div>
                                             <div className='address-wrapper'>
