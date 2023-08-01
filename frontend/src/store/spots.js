@@ -1,4 +1,4 @@
-import { StaticRouter } from "react-router-dom/cjs/react-router-dom.min"
+
 import { csrfFetch } from "./csrf"
 
 //ACTION TYPE CONSTANTS
@@ -158,7 +158,7 @@ export const updateSpotThunk = (spot, spotImages) => async (dispatch) => {
 }
 
 export const deleteSpotImageThunk = (imageId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/spot-images/${imageId}`, {
+    await csrfFetch(`/api/spot-images/${imageId}`, {
         method: 'DELETE'
     })
     // if (response.ok) {
