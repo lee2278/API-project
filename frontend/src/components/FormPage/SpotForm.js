@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { createSpotThunk, getSpotDetailsThunk, removeSpotImage, updateSpotThunk } from '../../store/spots'
+import { createSpotThunk, getSpotDetailsThunk, updateSpotThunk } from '../../store/spots'
 import { deleteSpotImageThunk } from '../../store/spots';
 
 import './FormPage.css'

@@ -116,6 +116,8 @@
 .menu-selections {
   border-bottom: 1px solid gray;
   padding: 0.2rem 0;
+  overflow-wrap:anywhere;
+
 }
 
 .menu-logout-btn-container {
@@ -203,17 +205,30 @@
   outline: none;
 }
 
+@media screen and (max-width: 750px) {
+  .profile-dropdown {
+    width: 8rem;
+  }
+}
+
+
 @media screen and (max-width: 575px) {
   #home-link, .my-links-section {
     justify-content: center;
   }
-
+  .profile-dropdown {
+    width: 7.2rem;
+  }
 }
 
 @media screen and (max-width: 500px) {
   #root {
     margin: 1rem 3rem;
   }
+  .profile-dropdown {
+    width: 5rem;
+  }
+
 }
 @media screen and (max-width: 480px) {
   #root {
