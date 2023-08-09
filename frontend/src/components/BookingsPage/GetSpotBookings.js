@@ -231,7 +231,7 @@ export default function GetSpotBookings() {
 
                             <div className='price-explanation-line'>
                                 {/* {daysOfTrip && <p>{`$${spot.price?.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>} */}
-                                {daysOfTrip && typeof spot.price === 'number' && <p>{`$${spot.price.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>}
+                                {daysOfTrip && <p>{`$${parseInt(spot.price).toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>}
                                 <p>{`$${totalForStay?.toFixed(2)}`}</p>
                             </div>
                             <div className='price-explanation-line'>
