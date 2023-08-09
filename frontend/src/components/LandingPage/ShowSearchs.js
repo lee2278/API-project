@@ -10,8 +10,7 @@ export default function ShowSearches() {
     const { search } = useParams()
 
     const searchLower = search.toLowerCase()
-    console.log('search', search)
-    console.log('split', searchLower.split(' '))
+
 
     const splitSearch = searchLower.split(' ')
 
@@ -39,7 +38,7 @@ export default function ShowSearches() {
        
     } 
     
-    console.log('matched', matchedSpotsArray)
+
 
 
 
