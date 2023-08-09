@@ -100,11 +100,15 @@ export default function BookingDetails() {
                     <div className='booking-details-right'>
                         <h2>Price details</h2>
                         <div className='price-explanation-line'>
-                            {daysOfTrip && <p>{`$${+spot.price?.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>}
+                            {console.log('type', typeof spot.price)}
+                            {console.log('spot.price before', spot.price)}
+                            {console.log('daysOfTrip before', daysOfTrip)}
 
-                            {console.log(typeof spot.price)}
-                            {console.log('spot.price', spot.price)}
-                            {console.log('daysOfTrip', daysOfTrip)}
+                            {daysOfTrip && <p>{`$${parseInt(spot.price)?.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>}
+
+                            {console.log('type after', typeof spot.price)}
+                            {console.log('spot.price after', spot.price)}
+                            {console.log('daysOfTrip after', daysOfTrip)}
 
                             {/* {daysOfTrip && <p>{`$${spot?.price?.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>}
                             {console.log('spot.price after', spot.price)}
