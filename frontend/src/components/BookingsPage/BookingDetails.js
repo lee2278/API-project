@@ -104,6 +104,13 @@ export default function BookingDetails() {
 
                             {console.log(typeof spot.price)}
                             {console.log('spot.price', spot.price)}
+                            {console.log('daysOfTrip', daysOfTrip)}
+
+                            {daysOfTrip && <p>{`$${spot?.price?.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>}
+                            {console.log('spot.price after', spot.price)}
+                            {console.log('daysOfTrip after', daysOfTrip)}
+
+
                             <p>{`$${totalForStay?.toFixed(2)}`}</p>
                         </div>
                         <div className='price-explanation-line'>
