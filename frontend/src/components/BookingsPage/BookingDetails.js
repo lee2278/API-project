@@ -100,24 +100,24 @@ export default function BookingDetails() {
                     <div className='booking-details-right'>
                         <h2>Price details</h2>
                         <div className='price-explanation-line'>
-                            {daysOfTrip && <p>{`$${spot.price?.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>}
+                            {daysOfTrip && typeof spot.price === 'number' && <p>{`$${spot.price?.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>}
                             <p>{`$${totalForStay?.toFixed(2)}`}</p>
                         </div>
                         <div className='price-explanation-line'>
                             <p>Cleaning Fee</p>
-                            <p>{`$${cleaningFee?.toFixed(2)}`}</p>
+                            {cleaningFee && typeof cleaningFee === 'number' && <p>{`$${cleaningFee?.toFixed(2)}`}</p>}
                         </div>
                         <div className='price-explanation-line'>
                             <p>Happybnb Service Fee</p>
-                            <p>{`$${serviceFee?.toFixed(2)}`}</p>
+                            {serviceFee && typeof serviceFee === 'number' && <p>{`$${serviceFee?.toFixed(2)}`}</p>}
                         </div>
                         <div className='price-explanation-line'>
                             <p>Taxes</p>
-                            <p>{`$${taxes?.toFixed(2)}`}</p>
+                            {taxes && typeof taxes === 'number' && <p>{`$${taxes?.toFixed(2)}`}</p>}
                         </div>
                         <div className='price-explanation-line final-total'>
                             <p>Total (USD)</p>
-                            <p>{`$${finalTotal?.toFixed(2)}`}</p>
+                            {finalTotal && typeof finalTotal === 'number' && <p>{`$${finalTotal?.toFixed(2)}`}</p>}
                         </div>
                     </div>
 
