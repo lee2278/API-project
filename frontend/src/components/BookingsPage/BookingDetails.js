@@ -103,6 +103,7 @@ export default function BookingDetails() {
                             {daysOfTrip && (typeof spot.price === 'float' || typeof spot.price === 'number') && <p>{`$${spot.price?.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>}
 
                             {console.log(typeof spot.price)}
+                            {console.log('spot.price', spot.price)}
                             <p>{`$${totalForStay?.toFixed(2)}`}</p>
                         </div>
                         <div className='price-explanation-line'>
