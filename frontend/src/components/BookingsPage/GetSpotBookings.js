@@ -92,11 +92,6 @@ export default function GetSpotBookings() {
     }
 
 
-    // spotBookingsList.forEach(booking => {
-    //     console.log('bookingstart', booking.startDate)
-    // })
-
-
     const handleEdit = () => {
         setEditClicked(true)
     }
@@ -158,10 +153,6 @@ export default function GetSpotBookings() {
                                     <button id='edit-date-btn' onClick={handleEdit}>Edit</button>
                                     {editClicked && <button id='hide-edit-date-btn' onClick={() => setEditClicked(false)}>Hide</button>}
                                 </div>
-                                {/* <OpenModalButton
-                                buttonText = 'Edit'
-                                modalComponent={<EditDatesModal />}
-                                /> */}
                             </div>
                         </div>
 
@@ -230,7 +221,6 @@ export default function GetSpotBookings() {
                             <h2>Price details</h2>
 
                             <div className='price-explanation-line'>
-                                {/* {daysOfTrip && <p>{`$${spot.price?.toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>} */}
                                 {daysOfTrip && <p>{`$${parseInt(spot.price).toFixed(2)} x ${daysOfTrip} ${nightDisplayText}`}</p>}
                                 <p>{`$${totalForStay?.toFixed(2)}`}</p>
                             </div>

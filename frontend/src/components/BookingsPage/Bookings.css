@@ -1,12 +1,9 @@
 .bookings-page-wrapper{
-    /* border:2px solid red; */
     display: flex;
     justify-content: center;
 }
 
 .bookings-page-subcontainer {
-    /* margin:auto; */
-    /* border:2px solid blue; */
     display: flex;
     gap: 2rem;
     padding: 1rem;
@@ -15,7 +12,6 @@
 
 .bookings-left {
     width: 48%;
-    /* border: 1px solid black; */
     display:flex;
     flex-direction: column;
 }
@@ -31,7 +27,6 @@
 .date-and-edit-wrapper {
     display:flex;
     justify-content: space-between;
-    /* border:2px solid green; */
     align-items: center;
 }
 
@@ -42,11 +37,6 @@
     font-weight: bold;
     border: none;
 }
-
-/* #edit-date-btn:hover {
-    font-size: 15px;
-    text-decoration: underline;
-} */
 
 .edit-hide-wrapper {
     display: flex;
@@ -171,7 +161,6 @@
 /* price area */
 
 .price-explanation-line{
-    /* border: 1px solid green; */
     display: flex;
     justify-content: space-between;
 }

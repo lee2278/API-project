@@ -158,19 +158,16 @@
 .search-bar-component-container {
   display: flex;
   margin: auto;
-  /* border: 2px solid black; */
   width: 73%;
 }
 
 .search-bar-component-container > * {
   justify-content: center;
   display: flex;
-  /* border: 5px solid green; */
   width: 100%;
 }
 
 #search-form {
-  /* border: 2px solid blue; */
   display: flex;
   width: 100%;
 }

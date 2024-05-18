@@ -7,8 +7,6 @@
 
 
 .images-container{
-    /* display: grid; */
-    /* grid-template-columns: 2fr 2fr; */
     display: flex;
     gap: 0.5rem;
     border-radius: 15px;
@@ -18,18 +16,8 @@
 
 .left-img {
     height: 100%;
-    /* border: 2px solid green; */
     width: 50%;
 }
-
-/* .right-imgs{
-    display:grid;
-    grid-template-columns: 2fr 2fr;
-    grid-template-rows: 2fr 2fr; 
-    height: 100%;
-    width: 50%;
-    gap: 0.5rem;
-} */
 
 .right-imgs {
     height: 100%;
@@ -109,7 +97,6 @@
 }
 
 .check-in-out-date-inputs {
-    /* border: 1px solid green; */
     flex-direction: row;
 }
 

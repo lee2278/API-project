@@ -314,21 +314,6 @@ router.post('/:spotId/images', requireAuth, multipleMulterUpload("image"), async
 
     } 
 
-
-    // const displaySpotImage = await SpotImage.findAll({
-    //     where: {
-    //         spotId: paramsId
-    //     },
-    //     attributes: {
-    //         exclude: ['spotId', 'createdAt', 'updatedAt']
-    //     }
-
-    // })
-
-
-
-    // return res.status(200).json(displaySpotImage)
-    // just need to return something anything
     return res.status(200).json({"key": 'value'})
 
 })

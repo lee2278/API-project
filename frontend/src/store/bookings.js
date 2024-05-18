@@ -127,16 +127,9 @@ export const bookingsReducer = (state = initialState, action) => {
             newState.spot = action.bookings
             return newState
         }
-        //maybe not needed
-        // case CREATE_BOOKING: {
-        //     const newState = {...state, user: {...state.user}, spot: {...state.spot}}
-        //     newState.singleBooking = action.singleBooking
-        //     return newState
-        // }
         case UPDATE_BOOKING: {
             const newState = {...state, user: {...state.user}, spot: {...state.spot}}
             newState.spot[action.singleBooking.id] = action.singleBooking
-            // newState.user[action.singleBooking.id] = action.singleBooking
             return newState
         }
         case REMOVE_BOOKING: {

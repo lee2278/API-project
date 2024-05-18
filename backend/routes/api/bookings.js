@@ -97,7 +97,6 @@ router.put('/:bookingsId', requireAuth, async (req, res) => {
     
     const allBookings2 = await Booking.findAll();
     const allBookings = allBookings2.filter(booking => booking.id !== +paramsId) 
-    // let spot = bookingToEdit.getSpot()
 
     
     allBookings.forEach(booking => {
@@ -125,15 +124,8 @@ router.put('/:bookingsId', requireAuth, async (req, res) => {
         startDate,
         endDate
     })
-
-
-    // bookingToEdit.spotId = spot.id
-    // bookingToEdit.userId = user.id;
-    // bookingToEdit.startDate = startDate;
-    // bookingToEdit.endDate = endDate;
     
     await bookingToEdit.save();
-    // return res.status(200).json(bookingToEdit)
     return res.status(200).json(editedBooking)
 
 })
