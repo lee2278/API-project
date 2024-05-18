@@ -17,8 +17,6 @@ export default function GetUserBookings() {
 
     const currentBookingsList = bookingsList?.filter(booking => new Date(booking.startDate).getTime() > today)
 
-    // console.log('current', currentBookingsList)
-
     const pastBookingsList = bookingsList?.filter(booking => new Date(booking.startDate).getTime() < today)
 
 

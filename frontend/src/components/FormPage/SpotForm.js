@@ -27,7 +27,6 @@ const SpotForm = ({ spot, formType }) => {
     const history = useHistory()
 
     let spotImagesArray = []
-    // if (previewImage) spotImagesArray.push({ url: URL.createObjectURL(previewImage), preview: true })
 
     if (previewImage) spotImagesArray.push({ url: previewImage, preview: true })
 
@@ -100,11 +99,6 @@ const SpotForm = ({ spot, formType }) => {
         if (price && isNaN(+price)) newErrors.price = "Please enter a number"
         if (price && +price && checkValidDecimalPlaces(price) === false) newErrors.price = 'Please provide values of up to two decimal places'
         if (!previewImage) newErrors.previewImage = 'Preview image is required.'
-        // if (previewImage && (!(previewImage.endsWith('.png') || previewImage.endsWith('.jpg') || previewImage.endsWith('.jpeg')))) newErrors.previewImage = 'Image URL must end in .png, .jpg, or .jpeg'
-        // if (spotImage1 && (!(spotImage1.endsWith('.png') || spotImage1.endsWith('.jpg') || spotImage1.endsWith('.jpeg')))) newErrors.spotImage1 = 'Image URL must end in .png, .jpg, or .jpeg'
-        // if (spotImage2 && (!(spotImage2.endsWith('.png') || spotImage2.endsWith('.jpg') || spotImage2.endsWith('.jpeg')))) newErrors.spotImage2 = 'Image URL must end in .png, .jpg, or .jpeg'
-        // if (spotImage3 && (!(spotImage3.endsWith('.png') || spotImage3.endsWith('.jpg') || spotImage3.endsWith('.jpeg')))) newErrors.spotImage3 = 'Image URL must end in .png, .jpg, or .jpeg'
-        // if (spotImage4 && (!(spotImage4.endsWith('.png') || spotImage4.endsWith('.jpg') || spotImage4.endsWith('.jpeg')))) newErrors.spotImage4 = 'Image URL must end in .png, .jpg, or .jpeg'
         if (isEmpty === true && !previewImage) newErrors.noImage = 'Preview image is required'
 
 
@@ -291,48 +285,28 @@ const SpotForm = ({ spot, formType }) => {
                         <div className='all-file-upload-div'>
                             <label className='bold500'>Preview Image:
                                 <input
-                                    // type='text'
-                                    // value={previewImage}
-                                    // onChange={(e) => setPreviewImage(e.target.value.trim())}
-                                    // placeholder='Preview Image URL'
                                     type='file' onChange={updateFile}
                                 />
                             </label>
                             {errors.previewImage && <span className='error'>{errors.previewImage}</span>}
                             <label className='bold500'>Optional Image 1:
                                 <input
-                                    // type='text'
-                                    // value={spotImage1}
-                                    // onChange={(e) => setSpotImage1(e.target.value.trim())}
-                                    // placeholder='Image URL'
                                     type='file' onChange={updateFile1}
 
                                 />
                             </label>
                             <label className='bold500'>Optional Image 2:
                                 <input
-                                    // type='text'
-                                    // value={spotImage2}
-                                    // onChange={(e) => setSpotImage2(e.target.value.trim())}
-                                    // placeholder='Image URL'
                                     type='file' onChange={updateFile2}
                                 />
                             </label>
                             <label className='bold500'>Optional Image 3:
                                 <input
-                                    // type='text'
-                                    // value={spotImage3}
-                                    // onChange={(e) => setSpotImage3(e.target.value.trim())}
-                                    // placeholder='Image URL'
                                     type='file' onChange={updateFile3}
                                 />
                             </label>
                             <label className='bold500'>Optional Image 4:
                                 <input
-                                    // type='text'
-                                    // value={spotImage4}
-                                    // onChange={(e) => setSpotImage4(e.target.value.trim())}
-                                    // placeholder='Image URL'
                                     type='file' onChange={updateFile4}
                                 />
                             </label>
@@ -416,7 +390,7 @@ const SpotForm = ({ spot, formType }) => {
                             :
                             <>
                                 <h3>Change or delete your photos</h3>
-                                {/* {errors.previewImage && <div className='error no-left-padding'>{errors.previewImage}</div>} */}
+
 
                                 {errors.noImage && <div className='error no-left-padding'>{errors.noImage}</div>}
 

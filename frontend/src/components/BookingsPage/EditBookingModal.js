@@ -33,7 +33,6 @@ export default function EditBookingModal({ booking }) {
 
     useEffect(() => {
         dispatch(getSpotBookingsThunk(booking.Spot.id))
-        // dispatch(getUserBookingsThunk())
     }, [dispatch])
 
 
